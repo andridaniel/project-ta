@@ -25,23 +25,23 @@
                   <th>No Induk Guru</th>
                   <th>Nama Guru</th>
                   <th>Email</th>
-                  <th>Password</th>
-                  <th>Role</th>
-                  <th style="width: 40px">Aksi</th>
+                  <th>Tempat Lahir</th>
+                  <th>Tgl Lahir</th>
+                  <th >Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>1.</td>
-                  <td>Update software</td>
                   <td> 12345678</td>
-                  <td><span class="badge bg-danger">55%</span></td>
-                  <td><span>Password</span></td>
-                  <td><span>Role</span></td>
+                  <td> suprapto</td>
+                  <td>suprapto@gmail</td>
+                  <td>Jakarta</td>
+                  <td>10/10/2000</td>
                   <td>
-                    <a href="" class="badge bg-danger">Hapus</a>
-                    <a href="{{ route('updateakunguru') }}" class="badge bg-warning">Update</a>
-                    <a href="{{ route('detailakunguru') }}" class="badge bg-info">Detail</a>
+                    <a href="" class="badge bg-danger"> <i class="nav-icon fas fa-trash px-1"></i>Hapus</a>
+                    <a href="{{ route('updateakunguru') }}" class="badge bg-warning"><i class="nav-icon fas fa-edit px-1"></i>Update</a>
+                    <a href="{{ route('detailakunguru') }}" class="badge bg-info"><i class="nav-icon fas fa-info px-1"></i>Detail</a>
                   </td>
                 </tr>
               </tbody>

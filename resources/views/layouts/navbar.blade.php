@@ -39,7 +39,7 @@
         </li>
 
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
                 <span class="badge badge-danger navbar-badge">3</span>
@@ -133,6 +133,6 @@
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
-    </ul>
+    </ul> --}}
 </nav>
 <!-- /.navbar -->

@@ -3,6 +3,19 @@
         @csrf
 
         <!-- Name -->
+
+        <div class="mb-4">
+            <label for="role" class="block text-sm font-medium text-gray-700">Pilih Peran:</label>
+            <select id="role" name="role" class="block w-full mt-1 p-2 border rounded-md">
+                <option value="siswa" {{ old('role') === 'user' ? 'selected' : '' }}>Siswa</option>
+                <option value="guru" {{ old('role') === 'guru' ? 'selected' : '' }}>Guru</option>
+                <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+            </select>
+            @error('role')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />

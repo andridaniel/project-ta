@@ -6,7 +6,7 @@
     <div class="card card-primary">
 
         <div class="text-bold p-3">
-            <a class="kembali" href="{{ route('tempatmagang') }}"> &lt; Kembali</a>
+            <a class="kembali" href="{{ route('tempattraining') }}"> &lt; Kembali</a>
         </div>
 
         <div>
@@ -48,12 +48,12 @@
 
             <div class="form-group">
               <label for="infolowongan">Informasi Lowongan</label>
-              <input type="text" class="form-control" id="infolowongan" placeholder="Masukan Informasi Detail Mengenai Lowongan">
+              <textarea name="infolowongan" id="infolowongan" cols="30" rows="5" class="form-control"></textarea>
             </div>
 
             <div class="form-group">
               <label for="prosedurpendaftaran">Prosedur Pendaftaran</label>
-              <input type="text" class="form-control" id="prosedurpendaftaran" placeholder="Masukan Prosedur Pendaftaran Hotel Disini">
+              <textarea name="prosedurpendaftaran" id="prosedurpendaftaran" cols="30" rows="5" class="form-control"></textarea>
             </div>
 
 

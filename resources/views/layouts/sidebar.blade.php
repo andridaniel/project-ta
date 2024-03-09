@@ -21,6 +21,16 @@
             @endauth
           </p>
         </div>
+        <div class="info">
+          <p class="d-block text-capitalize text-bold ">
+            (
+              @auth
+              {{ auth()->user()->role}}
+              @endauth
+            )
+          </p>
+        </div>
+
       </div>
 
       <!-- SidebarSearch Form -->
@@ -52,7 +62,7 @@
               </li>
 
               <li class="nav-item  mt-2 ">
-                <a href="{{route('tempatmagang')}}" class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'tempatmagang' ? 'activesidebar' : '' }}">
+                <a href="{{route('tempattraining')}}" class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'tempattraining' ? 'activesidebar' : '' }}">
                   <i class="nav-icon fas fa-building"></i>
                   <p>
                     Tempat Magang
@@ -61,11 +71,23 @@
                 </a>
               </li>
 
+              
+                  <li class="nav-item mt-2">
+                      <a href="{{ route('userregister') }}" class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'userregister' ? 'activesidebar' : '' }}                                         ">
+                          <i class="nav-icon fas fa-user"></i>
+                          <p>
+                              Register
+                              <span class="badge badge-info right"></span>
+                          </p>
+                      </a>
+                  </li>
+  
+
               <li class="nav-item  mt-2 ">
                 <a href="{{route('akunadmin')}}" class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'akunadmin' ? 'activesidebar' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
-                    Akun Admin
+                    Data Admin
                     <span class="badge badge-info right"></span>
                   </p>
                 </a>
@@ -76,7 +98,7 @@
                 <a href="{{route('akunguru')}}" class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'akunguru' ? 'activesidebar' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
-                    Akun Guru
+                    Data Guru
                     <span class="badge badge-info right"></span>
                   </p>
                 </a>
@@ -87,13 +109,13 @@
                 <a href="{{route('akunsiswa')}}" class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'akunsiswa' ? 'activesidebar' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
-                    Akun Siswa
+                    Data Siswa
                     <span class="badge badge-info right"></span>
                   </p>
                 </a>
               </li>
 
-              <li class="nav-item mt-2">
+              {{-- <li class="nav-item mt-2">
                 <a href="pages/calendar.html" class="custom-border hover-element nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
@@ -155,7 +177,7 @@
               </p>
             </a>
           </li>
-
+ --}}
 
           @auth
           <li class="nav-item mt-2">

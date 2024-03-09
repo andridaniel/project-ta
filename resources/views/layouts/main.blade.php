@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Smk Trisma Jaya</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -17,29 +17,26 @@
     <link rel="stylesheet"
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
-    <link rel="stylesheet"
-        href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel=" stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet"
-        href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 
-     {{-- highcharts --}}
+    {{-- highcharts --}}
     <script src="{{ asset('libraries/code/highcharts.js') }}"></script>
 
     <style>
-        
         .custom-border {
-        border: 2px solid rgba(105, 17, 116, 1);
-        border-radius: 5px;
-        /* Add any other custom styles */
+            border: 2px solid rgba(105, 17, 116, 1);
+            border-radius: 5px;
+            /* Add any other custom styles */
         }
 
         .activesidebar {
@@ -49,12 +46,19 @@
         }
 
         .bgcolor {
-            background-color: rgba(105, 17, 116, 1); /* Change border color on hover to your desired color */
+            background-color: rgba(105, 17, 116, 1);
+            /* Change border color on hover to your desired color */
+        }
+
+        .hotel-info {
+            width: 200px;
         }
 
         .hotel-info ul {
-            list-style-type: none; /* Menghapus dekorasi dari elemen <ul> */
-            padding: 0%; /* Menghilangkan padding pada elemen <ul> */
+            list-style-type: none;
+            /* Menghapus dekorasi dari elemen <ul> */
+            padding: 2%;
+            /* Menghilangkan padding pada elemen <ul> */
         }
 
         .hover-element:hover {
@@ -63,7 +67,7 @@
             text-decoration: none;
         }
 
-        .textcolor{
+        .textcolor {
             color: rgba(105, 17, 116, 1);
         }
 
@@ -73,10 +77,21 @@
             color: black;
         }
 
-   
+        .card {
+            width: 200px;
+            /* Ganti dengan lebar yang diinginkan */
+            height: 350px;
+            /* Ganti dengan tinggi yang diinginkan */
+            overflow: hidden;
+        }
 
+        .card img {
+            width: 200px;
+            height: 150px;
+
+        }
     </style>
- 
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -84,7 +99,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+                height="60" width="60">
         </div>
 
         @include('layouts.navbar')
@@ -112,7 +128,6 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -129,14 +144,11 @@
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script
-        src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
-    </script>
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->
-    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}">
-    </script>
+    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->

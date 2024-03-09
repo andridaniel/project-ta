@@ -18,42 +18,6 @@
           
               
           <div class="card-body">
-            <div class="form-group">
-              <label for="namaadmin">Nama Lengkap Admin</label>
-              <input type="text" class="form-control" id="namaadmin" placeholder="Masukan Nama Lengkap">
-            </div>
-
-            <div class="form-group">
-              <label for="nomor-induk-admin">No Induk Admin</label>
-              <input type="number" class="form-control" id="nomor-induk-admin" placeholder="Masukan Nomor Induk Guru">
-            </div>
-
-            <div class="form-group">
-                <label for="email-admin">Email</label>
-                <input type="email" class="form-control" id="email-admin" placeholder="Masukan Email">
-            </div>
-
-            <div class="form-group">
-                <label for="password-admin">Password</label>
-                <input type="password" class="form-control" id="password-admin" placeholder="Masukan Password">
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="jeniskelamin-siswa">Role</label>
-                    </div>
-                    <div class="col-md-12">
-                      <select name="role-admin" id="role-admin" class="form-control">
-                        <option value="" disabled selected>--Pilih role--</option>
-                        <option value="admin">Admin</option>
-                        <option value="guru-pembimbing">Guru Pembimbing</option>
-                        <option value="siswa">Siswa</option>
-                      </select>
-                    </div>
-                </div>
-            
-              </div>
 
             <div class="form-row">
                 <div class="form-group col-md-8">

@@ -34,11 +34,6 @@
             </div>
 
             <div class="form-group">
-                <label for="password-siswa">Password</label>
-                <p>1234567</p>
-            </div>
-
-            <div class="form-group">
                 <label for="role-siswa">Role</label>
                 <p>Siswa</p>
             </div>

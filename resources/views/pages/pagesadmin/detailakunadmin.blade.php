@@ -24,23 +24,8 @@
             </div>
 
             <div class="form-group">
-              <label for="nomor-induk-admin">No Induk Admin</label>
-              <p>12345678</p>
-            </div>
-
-            <div class="form-group">
                 <label for="email-admin">Email</label>
                 <p>andri@andri</p>
-            </div>
-
-            <div class="form-group">
-                <label for="password-admin">Password</label>
-                <p>12345678</p>
-            </div>
-
-            <div class="form-group">
-                <label for="role-admin">Role</label>
-                <p>Admin</p>
             </div>
 
             <div class="form-group">

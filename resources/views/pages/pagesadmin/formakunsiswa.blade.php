@@ -18,42 +18,12 @@
           
               
           <div class="card-body">
-            <div class="form-group">
-              <label for="namasiswa">Nama Lengkap Siswa</label>
-              <input type="text" class="form-control" id="namasiswa" placeholder="Masukan Nama Lengkap">
-            </div>
 
             <div class="form-group">
               <label for="nis">No Induk Siswa</label>
               <input type="number" class="form-control" id="nis" placeholder="Masukan Nomor Induk Siswa">
             </div>
 
-            <div class="form-group">
-                <label for="email-siswa">Email</label>
-                <input type="email" class="form-control" id="email-siswa" placeholder="Masukan Email">
-            </div>
-
-            <div class="form-group">
-                <label for="password-siswa">Password</label>
-                <input type="password" class="form-control" id="password-siswa" placeholder="Masukan Password">
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="jeniskelamin-siswa">Role</label>
-                    </div>
-                    <div class="col-md-12">
-                      <select name="jeniskelamin-siswa" id="jeniskelamin-siswa" class="form-control">
-                        <option value="" disabled selected>--Pilih role--</option>
-                        <option value="admin">Admin</option>
-                        <option value="guru-pembimbing">Guru Pembimbing</option>
-                        <option value="siswa">Siswa</option>
-                      </select>
-                    </div>
-                </div>
-            
-              </div>
 
             <div class="form-row">
                 <div class="form-group col-md-8">

@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TempatMagangController;
-use App\Http\Controllers\FormTempatMagangController;
-use App\Http\Controllers\DetailTempatMagangController;
-use App\Http\Controllers\DataDiriTempatMagangController;
+use App\Http\Controllers\TempatTrainingController;
+use App\Http\Controllers\FormTempatTrainingController;
+use App\Http\Controllers\DetailTempatTrainingController;
+use App\Http\Controllers\DataDiriTempatTrainingController;
 use App\Http\Controllers\UpdateTempatMagangController;
 use App\Http\Controllers\AkunGuruController;
 use App\Http\Controllers\AkunSiswaController;
@@ -19,6 +19,9 @@ use App\Http\Controllers\UpdateAkunAdminController;
 use App\Http\Controllers\DetailAkunGuruController;
 use App\Http\Controllers\DetailAkunSiswaController;
 use App\Http\Controllers\DetailAkunAdminController;
+use App\Http\Controllers\UserRegisterController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 
 
 
@@ -39,11 +42,16 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// routes/web.php
+
+Route::middleware(['block_register'])->get('/register', 'Auth\RegisteredUserController@create')->name('register');
+
 Route::get('/', function () {
     return redirect()->route('login'); // Mengarahkan ke rute login
-}); 
+});
 
 
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 
 
 
@@ -52,17 +60,27 @@ Route::post('/logout', function () {
     return redirect('/login'); // Redirect to login page or any other desired page
 })->name('logout')->middleware('auth');
 
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     //tempatmagang
-    Route::get('/tempatmagang', [TempatMagangController::class, 'index'])->name('tempatmagang');
-    Route::get('/formtempatmagang', [FormTempatMagangController::class, 'index'])->name('formtempatmagang');
-    Route::get('/detailtempatmagang', [DetailTempatMagangController::class, 'index'])->name('detailtempatmagang');
-    Route::get('/datadiritempatmagang', [DataDiriTempatMagangController::class, 'index'])->name('datadiritempatmagang');
+    Route::get('/tempattraining', [TempatTrainingController::class, 'index'])->name('tempattraining');
+
+    Route::get('/formtempattraining', [FormTempatTrainingController::class, 'index'])->name('formtempattraining');
+    Route::post('/formtempattraining', [FormTempatTrainingController::class, 'store'])->name('formtempatraining.store');
+    Route::get('/detailtempattraining', [DetailTempatTrainingController::class, 'index'])->name('detailtempattraining');
+    Route::get('/datadiritempattraining', [DataDiriTempatTrainingController::class, 'index'])->name('datadiritempattraining');
     Route::get('/updatetempatmagang', [UpdateTempatMagangController::class, 'index'])->name('updatetempatmagang');
+
+
+    Route::delete('/delete/{id}', [TempatTrainingController::class, 'delete'])->name('delete');
 
     //admin
     Route::get('pagesadmin/akunguru', [AkunGuruController::class, 'index'])->name('akunguru');
@@ -77,7 +95,22 @@ Route::middleware('auth')->group(function () {
     Route::get('pagesadmin/detailakunguru', [DetailAkunGuruController::class, 'index'])->name('detailakunguru');
     Route::get('pagesadmin/detailakunsiswa', [DetailAkunSiswaController::class, 'index'])->name('detailakunsiswa');
     Route::get('pagesadmin/detailakunadmin', [DetailAkunAdminController::class, 'index'])->name('detailakunadmin');
-    
+
+    // Display registration form
+    Route::get('/userregister', [UserRegisterController::class, 'showRegistrationForm'])->name('userregister');
+
+    // Handle user registration
+    Route::post('/userregister', [UserRegisterController::class, 'registerUser']);
+
+
+
+
+
 });
+
+
+
+
+
 
 require __DIR__.'/auth.php';

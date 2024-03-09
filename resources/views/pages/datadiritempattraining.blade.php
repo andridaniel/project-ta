@@ -6,7 +6,7 @@
     <div class="card card-primary">
 
         <div class="text-bold p-3">
-            <a class="kembali" href="{{ route('tempatmagang') }}"> &lt; Kembali</a>
+            <a class="kembali" href="{{ route('tempattraining') }}"> &lt; Kembali</a>
         </div>
 
         <div>

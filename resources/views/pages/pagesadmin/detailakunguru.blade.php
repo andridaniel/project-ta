@@ -34,11 +34,6 @@
             </div>
 
             <div class="form-group">
-                <label for="password-guru">Password</label>
-                <p>12345678</p>
-            </div>
-
-            <div class="form-group">
                 <label for="role-guru">Role</label>
                 <p>guru-pembimbing</p>
             </div>
