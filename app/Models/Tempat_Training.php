@@ -23,6 +23,7 @@ class Tempat_Training extends Model
         'alamat_hotel',
         'telepon_hotel',
         'email_hotel',
+        'bintang_hotel',
         'lowongan_training',
         'jumlah_lowongan_training',
         'ketentuan_tambahan_training', // corrected property name

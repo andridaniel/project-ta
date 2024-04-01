@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('user_id');
+        Schema::create('guru_pembimbings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
-            $table->string('jenis_kelamin');
-            $table->string('agama');
+            $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
+            $table->enum('agama',['hindu','islam','katolik','kristen','buddha','konghucu']);
             $table->string('alamat');
-            $table->string('no_telepon');
+            $table->string('wali_kelas');
+            $table->string('gambar_profile')->nullable();
+
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('guru_pembimbings');
     }
 };

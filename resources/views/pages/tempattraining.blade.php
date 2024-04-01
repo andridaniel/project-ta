@@ -21,13 +21,18 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <!-- Small boxes (Stat box) -->
             <div class="row ">
                 @foreach ($data_tempat_training as $tempatTraining)
                     <div class="col-lg-3 col-md-6">
                         <!-- small box -->
                         <div class="col-md-12 bg-white custom-border">
-                            <div class="inner card mx-auto mt-2">
+                            <div class="inner cardgambar mx-auto mt-2">
 
                                 <div class="hotel-info">
                                     <div class="img mx-auto">
@@ -36,13 +41,15 @@
                                     <ul>
                                         <li class="text-bold">{{ $tempatTraining->nama_hotel }}</li>
                                         <li class="text-bold">{{ $tempatTraining->alamat_hotel }}</li>
-                                        <li class="text-bold">Bintang <span class="badge bgcolor text-white">5</span></li>
+                                        <li class="text-bold">Bintang <span
+                                                class="badge bgcolor text-white">{{ $tempatTraining->bintang_hotel }}</span>
+                                        </li>
                                         <li class="text-bold">Posisi <span>{{ $tempatTraining->lowongan_training }}</span>
                                         </li>
                                     </ul>
                                     <div class="form-row mx-auto ">
                                         <div class="form-group">
-                                            <a href="{{ route('updatetempatmagang') }}"
+                                            <a href="{{ route('edit', ['id' => $tempatTraining->id]) }}"
                                                 class="btn custom-border hover-element textcolor">Update</a>
                                         </div>
 
@@ -63,8 +70,8 @@
 
 
                             </div>
-                            <a href="{{ route('detailtempattraining') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ route('show', ['id' => $tempatTraining->id]) }}" class="small-box-footer">More info
+                                <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endforeach

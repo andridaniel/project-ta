@@ -6,22 +6,15 @@ use App\Http\Controllers\TempatTrainingController;
 use App\Http\Controllers\FormTempatTrainingController;
 use App\Http\Controllers\DetailTempatTrainingController;
 use App\Http\Controllers\DataDiriTempatTrainingController;
-use App\Http\Controllers\UpdateTempatMagangController;
-use App\Http\Controllers\AkunGuruController;
-use App\Http\Controllers\AkunSiswaController;
-use App\Http\Controllers\AkunAdminController;
-use App\Http\Controllers\FormAkunGuruController;
-use App\Http\Controllers\FormAkunSiswaController;
-use App\Http\Controllers\FormAkunAdminController;
-use App\Http\Controllers\UpdateAkunGuruController;
-use App\Http\Controllers\UpdateAkunSiswaController;
-use App\Http\Controllers\UpdateAkunAdminController;
-use App\Http\Controllers\DetailAkunGuruController;
-use App\Http\Controllers\DetailAkunSiswaController;
-use App\Http\Controllers\DetailAkunAdminController;
+use App\Http\Controllers\UpdateTempatTrainingController;
 use App\Http\Controllers\UserRegisterController;
+use App\Http\Controllers\ProfilePenggunaController;
+//admin
 use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Http\controllers\DataPenggunaController;
+use App\Http\controllers\DataGuruPembimbingController;
+use App\Http\controllers\DataSiswaController;
+use App\Http\controllers\DataAdminController;
 
 
 
@@ -70,37 +63,63 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    //tempatmagang
+    //data TempatTrainigController
     Route::get('/tempattraining', [TempatTrainingController::class, 'index'])->name('tempattraining');
-
+    Route::delete('/delete/{id}', [TempatTrainingController::class, 'delete'])->name('delete');
     Route::get('/formtempattraining', [FormTempatTrainingController::class, 'index'])->name('formtempattraining');
     Route::post('/formtempattraining', [FormTempatTrainingController::class, 'store'])->name('formtempatraining.store');
-    Route::get('/detailtempattraining', [DetailTempatTrainingController::class, 'index'])->name('detailtempattraining');
+    Route::get('/detailtempattraining/{id}', [DetailTempatTrainingController::class, 'show'])->name('show');
     Route::get('/datadiritempattraining', [DataDiriTempatTrainingController::class, 'index'])->name('datadiritempattraining');
-    Route::get('/updatetempatmagang', [UpdateTempatMagangController::class, 'index'])->name('updatetempatmagang');
+    Route::get('/updatetempattraining', [UpdateTempatTrainingController::class, 'index'])->name('updatetempattraining');
 
 
-    Route::delete('/delete/{id}', [TempatTrainingController::class, 'delete'])->name('delete');
+
 
     //admin
-    Route::get('pagesadmin/akunguru', [AkunGuruController::class, 'index'])->name('akunguru');
-    Route::get('pagesadmin/akunsiswa', [AkunSiswaController::class, 'index'])->name('akunsiswa');
-    Route::get('pagesadmin/akunadmin', [AkunAdminController::class, 'index'])->name('akunadmin');
-    Route::get('pagesadmin/formakunguru', [FormAkunGuruController::class, 'index'])->name('formakunguru');
-    Route::get('pagesadmin/formakunsiswa', [FormAkunSiswaController::class, 'index'])->name('formakunsiswa');
-    Route::get('pagesadmin/formakunadmin', [FormAkunAdminController::class, 'index'])->name('formakunadmin');
-    Route::get('pagesadmin/updateakunguru', [UpdateAkunGuruController::class, 'index'])->name('updateakunguru');
-    Route::get('pagesadmin/updateakunsiswa', [UpdateAkunSiswaController::class, 'index'])->name('updateakunsiswa');
-    Route::get('pagesadmin/updateakunadmin', [UpdateAkunAdminController::class, 'index'])->name('updateakunadmin');
-    Route::get('pagesadmin/detailakunguru', [DetailAkunGuruController::class, 'index'])->name('detailakunguru');
-    Route::get('pagesadmin/detailakunsiswa', [DetailAkunSiswaController::class, 'index'])->name('detailakunsiswa');
-    Route::get('pagesadmin/detailakunadmin', [DetailAkunAdminController::class, 'index'])->name('detailakunadmin');
+    Route::get('pagesadmin/data_pengguna', [DataPenggunaController::class, 'index'])->name('data_pengguna');
 
-    // Display registration form
-    Route::get('/userregister', [UserRegisterController::class, 'showRegistrationForm'])->name('userregister');
+    //profilepenggunacontroller
+    Route::get('/profilepengguna', [ProfilePenggunaController::class, 'index'])->name('profilepengguna');
 
-    // Handle user registration
-    Route::post('/userregister', [UserRegisterController::class, 'registerUser']);
+     // Data User UserRegisterController
+     Route::get('/userregister', [UserRegisterController::class, 'showRegistrationForm'])->name('userregister');
+     Route::post('/userregister/create', [UserRegisterController::class, 'registerUser'])->name('userregister.create');
+
+
+    //Data UpdateTempatTrainingController
+    Route::get('/edit{id}', [UpdateTempatTrainingController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [UpdateTempatTrainingController::class, 'update'])->name('update');
+
+
+    //Data Siswa DataSiswaController
+    Route::delete('/delete_siswa/{id}', [DataSiswaController::class, 'delete'])->name('delete_siswa');
+    Route::get('pagesadmin/data_siswa', [DataSiswaController::class, 'index'])->name('data_siswa');
+    Route::get('pagesadmin/tambah_data_siswa/{user}', [DataSiswaController::class, 'TambahDataSiswa'])->name('tambah_data_siswa');
+    Route::post('/tambah_data_siswa/{user}', [DataSiswaController::class, 'store'])->name('tambah_data_siswa.store');
+    Route::get('pagesadmin/detail_siswa/{id}', [DataSiswaController::class, 'show'])->name('detail_siswa');
+    Route::get('/edit_siswa/{id}', [DataSiswaController::class, 'edit'])->name('edit_siswa');
+    Route::put('/update_siswa/{id}', [DataSiswaController::class, 'update'])->name('update_siswa');
+
+
+    //Data guru GuruPembimbingController
+    Route::get('pagesadmin/data_guru_pembimbing', [DataGuruPembimbingController::class, 'index'])->name('data_guru_pembimbing');
+    Route::get('pagesadmin/tambah_data_guru_pembimbing/{user}', [DataGuruPembimbingController::class, 'TambahDataGuruPembimbing'])->name('tambah_data_guru_pembimbing');
+    Route::post('/tambah_data_guru_pembimbing/{user}', [DataGuruPembimbingController::class, 'store'])->name('tambah_data_guru_pembimbing.store');
+    Route::delete('/delete_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'delete'])->name('delete_guru_pembimbing');
+    Route::get('pagesadmin/detail_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'show'])->name('detail_guru_pembimbing');
+    Route::get('/edit_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'edit'])->name('edit_guru_pembimbing');
+    Route::put('/update_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'update'])->name('update_guru_pembimbing');
+
+
+    //Data admin AdminController
+    Route::get('pagesadmin/detail_admin/{id}', [DataAdminController::class, 'show'])->name('detail_admin');
+    Route::get('pagesadmin/tambah_data_admin/{user}', [DataAdminController::class, 'TambahDataAdmin'])->name('tambah_data_admin');
+    Route::post('/tambah_data_admin/{user}', [DataAdminController::class, 'store'])->name('tambah_data_admin.store');
+    Route::delete('/delete_admin/{id}', [DataAdminController::class, 'delete'])->name('delete_admin');
+    Route::get('pagesadmin/data_admin', [DataAdminController::class, 'index'])->name('data_admin');
+    Route::get('/edit_admin/{id}', [DataAdminController::class, 'edit'])->name('edit_admin');
+    Route::put('/update_admin/{id}', [DataAdminController::class, 'update'])->name('update_admin');
+
 
 
 

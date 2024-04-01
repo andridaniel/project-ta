@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Guru_Pembimbing extends Model
+{
+    use HasFactory;
+
+    protected $table = 'guru_pembimbings';
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected $fillable = [
+        'user_id',
+        'tempat_lahir',
+        'tgl_lahir',
+        'jenis_kelamin',
+        'agama',
+        'alamat',
+        'wali_kelas',
+        'gambar_profile',
+    ];
+}

@@ -39,6 +39,7 @@
             /* Add any other custom styles */
         }
 
+
         .activesidebar {
             background-color: rgba(105, 17, 116, 1);
             color: #ffffff;
@@ -77,7 +78,16 @@
             color: black;
         }
 
-        .card {
+        .textdecoration {
+            text-decoration: none;
+            color: black;
+        }
+
+        .padding_custome {
+            padding-left: 200px;
+        }
+
+        .cardgambar {
             width: 200px;
             /* Ganti dengan lebar yang diinginkan */
             height: 350px;
@@ -85,7 +95,7 @@
             overflow: hidden;
         }
 
-        .card img {
+        .cardgambar img {
             width: 200px;
             height: 150px;
 
@@ -98,10 +108,10 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        {{-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
                 height="60" width="60">
-        </div>
+        </div> --}}
 
         @include('layouts.navbar')
         @include('layouts.sidebar')

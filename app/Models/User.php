@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role',
+        'role_id',
         'name',
         'email',
+        'no_hp',
         'password',
     ];
 
@@ -43,5 +44,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function Role()
+    {
+        return $this->hasOne(Role::class,'id','role_id');
+    }
+
+    public function Admin(){
+        return $this->hasOne(Admin::class, "user_id", "id");
+    }
+
+    public function Guru_Pembimbing(){
+        return $this->hasOne(Guru_Pembimbing::class, "user_id", "id");
+    }
+
+    public function Siswa(){
+        return $this->hasOne(Siswa::class, "user_id", "id");
+    }
+
 }

@@ -19,15 +19,15 @@ class RoleSeeder extends Seeder
 
         // Tambahkan data baru
         Role::create([
-            'nama_role' => 'admin',
+            'nama' => 'admin',
         ]);
 
         Role::create([
-            'nama_role' => 'guru_pembimbing',
+            'nama' => 'guru pembimbing',
         ]);
 
         Role::create([
-            'nama_role' => "siswa"
+            'nama' => "siswa"
         ]);
         // Tambahkan data lainnya
     }

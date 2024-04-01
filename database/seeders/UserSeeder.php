@@ -19,14 +19,12 @@ class UserSeeder extends Seeder
 
         // Add new user data
         User::create([
-            'role' => 'admin',
-            'name' => 'Admin User',
+            'role_id' => '1',
+            'name' => 'admin',
             'email' => 'admin@example.com',
+            'no_hp' => "08123567789",
             'password' => Hash::make('password'),
         ]);
 
-
-        // Use the factory to create more user data
-        UserFactory::new()->count(10)->create();
     }
 }

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama')->unique();
-            $table->timestamps();
+        Schema::table('tempat_training', function (Blueprint $table) {
+            $table->integer('bintang_hotel')->nullable()->after('email_hotel');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('role');
+        Schema::table('tempat_training', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Pilihan_Tempat_Training extends Model
 {
-
-    protected $fillable = ['nama'];
-    protected $table = "role";
+    use HasFactory;
 }
