@@ -3,19 +3,7 @@
 @section('konten')
     <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
-    <div class="content-header ">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Tempat Magang</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <input type="button" onclick="window.location='{{ route('formtempattraining') }}'"
-                        class="btn bgcolor text-white float-right" value="Tambah Data">
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
+
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -26,59 +14,116 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <!-- Small boxes (Stat box) -->
             <div class="row ">
-                @foreach ($data_tempat_training as $tempatTraining)
-                    <div class="col-lg-3 col-md-6">
-                        <!-- small box -->
-                        <div class="col-md-12 bg-white custom-border">
-                            <div class="inner cardgambar mx-auto mt-2">
 
-                                <div class="hotel-info">
-                                    <div class="img mx-auto">
-                                        <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}" alt="gambar training">
-                                    </div>
-                                    <ul>
-                                        <li class="text-bold">{{ $tempatTraining->nama_hotel }}</li>
-                                        <li class="text-bold">{{ $tempatTraining->alamat_hotel }}</li>
-                                        <li class="text-bold">Bintang <span
-                                                class="badge bgcolor text-white">{{ $tempatTraining->bintang_hotel }}</span>
-                                        </li>
-                                        <li class="text-bold">Posisi <span>{{ $tempatTraining->lowongan_training }}</span>
-                                        </li>
-                                    </ul>
-                                    <div class="form-row mx-auto ">
-                                        <div class="form-group">
-                                            <a href="{{ route('edit', ['id' => $tempatTraining->id]) }}"
-                                                class="btn custom-border hover-element textcolor">Update</a>
+                <div class="card card-success">
+                    <div class="card-body">
+                        <div class="content-header card-header ">
+                            <div class="container-fluid">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <h1 class="m-0">Pilihan Tempat Training</h1>
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.container-fluid -->
+                        </div>
+
+                        <div class="row mt-2">
+                            @foreach ($data_tempat_training as $tempatTraining)
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}" class="card-img-top"
+                                            alt="gambar training">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><strong>{{ $tempatTraining->nama_hotel }}</strong></h5>
+                                            <p class="card-text">
+                                                <strong>Alamat:</strong> {{ $tempatTraining->alamat_hotel }} <br>
+                                                <strong>Bintang:</strong> {{ $tempatTraining->bintang_hotel }} <br>
+                                                <strong>Posisi:</strong> {{ $tempatTraining->lowongan_training }}
+                                            </p>
+
+                                            <div class="mt-3">
+                                                <a href="{{ route('show', ['id' => $tempatTraining->id]) }}"
+                                                    class="btn bgcolor text-white btn-block">More Information</a>
+                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <form action="{{ route('delete', ['id' => $tempatTraining->id]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn mx-2 custom-border hover-element textcolor"
-                                                    type="submit">
-                                                    <i class="nav-icon fas fa-trash-alt mr-3"></i>Delete</button>
-                                            </form>
-
-                                        </div>
-
                                     </div>
                                 </div>
-
-
-                            </div>
-                            <a href="{{ route('show', ['id' => $tempatTraining->id]) }}" class="small-box-footer">More info
-                                <i class="fas fa-arrow-circle-right"></i></a>
+                            @endforeach
                         </div>
+
                     </div>
-                @endforeach
-                <!-- ./col -->
+                </div>
             </div>
-            <!-- /.row -->
-            <!-- /.row (main row) -->
+
+            <!-- Small boxes (Stat box) -->
+            <div class="row ">
+
+                <div class="card card-success">
+                    <div class="card-body">
+                        <div class="content-header card-header ">
+                            <div class="container-fluid">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <h1 class="m-0">Tempat Magang</h1>
+                                    </div><!-- /.col -->
+                                    <div class="col-sm-6">
+                                        <input type="button" onclick="window.location='{{ route('formtempattraining') }}'"
+                                            class="btn bgcolor text-white float-right" value="+ Tambah Data">
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.container-fluid -->
+                        </div>
+
+                        <div class="row mt-2">
+                            @foreach ($data_tempat_training as $tempatTraining)
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}" class="card-img-top"
+                                            alt="gambar training">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><strong>{{ $tempatTraining->nama_hotel }}</strong></h5>
+                                            <p class="card-text">
+                                                <strong>Alamat:</strong> {{ $tempatTraining->alamat_hotel }} <br>
+                                                <strong>Bintang:</strong> {{ $tempatTraining->bintang_hotel }} <br>
+                                                <strong>Posisi:</strong> {{ $tempatTraining->lowongan_training }} <br>
+                                                <strong>Sisa Lowongan:</strong>
+                                                {{ $tempatTraining->jumlah_lowongan_training }}
+                                            </p>
+
+                                            <div class=" form-row d-flex  align-items-center mx-auto">
+                                                <div class="">
+                                                    <a href="{{ route('edit', ['id' => $tempatTraining->id]) }}"
+                                                        class="btn btn-warning text-white ">Update</a>
+                                                </div>
+                                                <div class="mx-2">
+                                                    <form action="{{ route('delete', ['id' => $tempatTraining->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger text-white"
+                                                            type="submit">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3">
+                                                <a href="{{ route('show', ['id' => $tempatTraining->id]) }}"
+                                                    class="btn bgcolor text-white btn-block">More Information</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

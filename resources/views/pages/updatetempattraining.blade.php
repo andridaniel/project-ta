@@ -64,13 +64,22 @@
                     <div class="form-group">
                         <label for="bintang_hotel">Bintang Hotel</label>
                         <select name="bintang_hotel" id="bintang_hotel" class="form-control" required>
-                            <option value="{{ old('bintang_hotel', $update_tempat_training->bintang_hotel) }}">
                             <option value="" disabled selected>--Pilih Bintang--</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option value="1"
+                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '1' ? 'selected' : '' }}>
+                                1 </option>
+                            <option value="2"
+                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '2' ? 'selected' : '' }}>
+                                2 </option>
+                            <option value="3"
+                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '3' ? 'selected' : '' }}>
+                                3 </option>
+                            <option value="4"
+                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '4' ? 'selected' : '' }}>
+                                4 </option>
+                            <option value="5"
+                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '5' ? 'selected' : '' }}>
+                                5 </option>
                         </select>
                         @error('bintang_hotel')
                             <div>

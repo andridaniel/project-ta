@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Siswa;
+use App\Models\Guru_Pembimbing;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -20,16 +21,18 @@ class DataSiswaController extends Controller
 
     public function TambahDataSiswa(User $user)
     {
+        $guru_pembimbing = User::where('role_id', 2)->get();
         if(!$user){
             return redirect()->route('userregister')->with('error','data gagal ditambahkan.');
 
         }
-        return view('pages.pagesadmin.tambah_data_siswa', compact('user'));
+        return view('pages.pagesadmin.tambah_data_siswa', compact('user', 'guru_pembimbing'));
     }
 
     public function store(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
+            'guru_pembimbing_id' => 'required',
             'nisn' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
@@ -61,6 +64,9 @@ class DataSiswaController extends Controller
 
         // Menyimpan gambar
         $validated_input['gambar_profile'] = $fileName;
+
+         // Menyimpan guru_pembimbing_id
+        $validated_input['guru_pembimbing_id'] = $request->guru_pembimbing_id; // Menggunakan nilai dari form
 
         // Menyimpan data
         $user->Siswa()->create($validated_input);
@@ -107,12 +113,14 @@ class DataSiswaController extends Controller
 
     public function edit($id)
     {
-        $update_siswa = Siswa::with(['User', 'User.Role'])->find($id);
+        $update_siswa = Siswa::with(['User', 'User.Role', 'hasGuruPembimbing', 'hasGuruPembimbing.User'])->find($id);
+        $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->get();
+
         if (!$update_siswa) {
             return redirect()->back()->with('error', 'Record not found');
         }
 
-        return view('pages.pagesadmin.update_siswa', compact('update_siswa'));
+        return view('pages.pagesadmin.update_siswa', compact('update_siswa', 'guru_pembimbing'));
     }
 
 
@@ -122,6 +130,7 @@ class DataSiswaController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
+            'guru_pembimbing_id' => 'required',
             'nisn' => 'required|string|max:25',
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -147,6 +156,7 @@ class DataSiswaController extends Controller
         }
 
         // Update the admin's data
+        $update_siswa->guru_pembimbing_id = $request->guru_pembimbing_id;
         $update_siswa->tempat_lahir = $request->tempat_lahir;
         $update_siswa->tgl_lahir = $request->tgl_lahir;
         $update_siswa->jenis_kelamin = $request->jenis_kelamin;
@@ -155,6 +165,7 @@ class DataSiswaController extends Controller
         $update_siswa->kelas = $request->kelas;
         $update_siswa->nama_orangtua = $request->nama_orangtua;
         $update_siswa->no_hp_orangtua = $request->no_hp_orangtua;
+        $update_siswa->gambar_profile = $request->gambar_profile;
 
 
 
@@ -170,9 +181,21 @@ class DataSiswaController extends Controller
         // Save the user's changes
         $update_siswa->User->save();
 
-        // Handle updating the image if provided
-        if ($request->hasFile('gambar_profile')) {
-            // Your image update logic here
+       // Handle updating the image if provided
+       if ($request->hasFile('gambar_profile'))
+       {
+            $gambar = $request->file('gambar_profile');
+            $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+            $path = 'dist/img/' . $fileName;
+
+            // Simpan gambar baru
+            file_put_contents($path, file_get_contents($gambar));
+
+            // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
+            $update_siswa->gambar_profile = $fileName;
+
+            // Simpan perubahan ke dalam database
+            $update_siswa->save();
         }
 
         // Redirect back to the admin edit page with a success message

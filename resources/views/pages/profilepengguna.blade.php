@@ -18,15 +18,26 @@
 
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <img src="dist/img/user2-160x160.jpg" width="150" alt="gambar profile"
+                        <img src="{{ asset('dist/img/' . $gambar_profile) }}" width="150" alt="gambar profile"
                             class="img-circle border"><br>
                     </div>
 
 
                     <div class="form-group">
                         <label for="exampleInputFile">Upload Foto Profile</label>
-                        <input type="file" class="form-control" id="exampleInputFile" name="gambar">
-                        @error('gambar')
+                        <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
+                        @error('gambar_profile')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nisn">Nisn</label>
+                        <input type="number" class="form-control" id="nisn" name="nisn" required
+                            value="{{ $nisn }}">
+                        @error('nisn')
                             <div>
                                 {{ $message }}
                             </div>
@@ -47,9 +58,10 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-8">
-                            <label for="Tempat_lahir">Tempat Lahir</label>
-                            <input type="text" class="form-control" id="Tempat_lahir" name="Tempat_lahir" value="">
-                            @error('Tempat_lahir')
+                            <label for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                value="{{ $tempat_lahir }}">
+                            @error('tempat_lahir')
                                 <div>
                                     {{ $message }}
                                 </div>
@@ -57,7 +69,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tgl_lahir">Tgl Lahir</label>
-                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir"value="">
+                            <input type="date" class="form-control" id="tgl_lahir"
+                                name="tgl_lahir"value="{{ $tgl_lahir }}">
                             @error('tgl_lahir')
                                 <div>
                                     {{ $message }}
@@ -68,17 +81,41 @@
 
 
                     <div class="form-group">
-                        <label for="jenis_klamin">Jenis Klamin</label>
-                        <select name="jenis_klamin" id="jenis_klamin" class="form-control">
-                            <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
+                            <option value="" disabled selected>--Pilih Jenis Kelamin--</option>
+                            <option value="Laki-laki"
+                                {{ old('jenis_kelamin', $jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
+                                Laki-laki</option>
+                            <option value="Perempuan"
+                                {{ old('jenis_kelamin', $jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+                                Perempuan</option>
                         </select>
+                        @error('jenis_kelamin')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
+
 
                     <div class="form-group">
                         <label for="agama">Agama</label>
-                        <input type="text" class="form-control" id="agama" name="agama" required value="">
+                        <select name="agama" id="agama" class="form-control" required>
+                            <option value="" disabled selected>--Pilih Agama--</option>
+                            <option value="hindu" {{ old('agama', $agama) == 'hindu' ? 'selected' : '' }}>
+                                Hindu</option>
+                            <option value="islam" {{ old('agama', $agama) == 'islam' ? 'selected' : '' }}>
+                                Islam</option>
+                            <option value="katolik" {{ old('agama', $agama) == 'katolik' ? 'selected' : '' }}>Katolik
+                            </option>
+                            <option value="kristen" {{ old('agama', $agama) == 'kristen' ? 'selected' : '' }}>Kristen
+                            </option>
+                            <option value="buddha" {{ old('agama', $agama) == 'buddha' ? 'selected' : '' }}>
+                                Buddha</option>
+                            <option value="konghucu" {{ old('agama', $agama) == 'konghucu' ? 'selected' : '' }}>
+                                Konghucu</option>
+                        </select>
                         @error('agama')
                             <div>
                                 {{ $message }}
@@ -87,10 +124,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat_rumah">Alamat Rumah</label>
-                        <input type="text" class="form-control" id="alamat_rumah" name="alamat_rumah" required
-                            value="">
-                        @error('alamat_rumah')
+                        <label for="alamat">Alamat Rumah</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat" required
+                            value="{{ $alamat }}">
+                        @error('alamat')
                             <div>
                                 {{ $message }}
                             </div>
@@ -125,23 +162,18 @@
                     {{-- //profile untuk guru --}}
 
                     @if (auth()->user()->role_id == '2')
-                        {{-- <div class="form-group">
-                            <label for="mata_pelajaran">Mata Pelajaran Yang diajarkan</label>
-                            <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran"
-                                value="">
-                            @error('nama_hotel')
-                                <div>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div> --}}
-
                         <div class="form-group">
                             <label for="wali_kelas">Wali Kelas</label>
-                            <select name="wali_kelas" id="wali_kelas" class="form-control">
-                                <option value="" disabled selected>Pilih Kelas</option>
-                                <option value="Xll-1"> Xll-1</option>
-                                <option value="Xll-2"> Xll-2</option>
+                            <select name="wali_kelas" id="wali_kelas" class="form-control" required>
+                                <option value="" disabled selected>--Pilih Kelas--</option>
+                                <option value="XII-A" {{ old('wali_kelas', $wali_kelas) == 'XII-A' ? 'selected' : '' }}>
+                                    XII-A</option>
+                                <option value="XII-B" {{ old('wali_kelas', $wali_kelas) == 'XII-B' ? 'selected' : '' }}>
+                                    XII-B</option>
+                                <option value="XII-C" {{ old('wali_kelas', $wali_kelas) == 'XII-C' ? 'selected' : '' }}>
+                                    XII-C</option>
+                                <option value="XII-D" {{ old('wali_kelas', $wali_kelas) == 'XII-D' ? 'selected' : '' }}>
+                                    XII-D</option>
                             </select>
                             @error('wali_kelas')
                                 <div>
@@ -158,7 +190,7 @@
                         <div class="form-group">
                             <label for="nama_orangtua">Nama Orang Tua/Wali</label>
                             <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua"
-                                value="">
+                                value="{{ $nama_orangtua }}">
                             @error('nama_hotel')
                                 <div>
                                     {{ $message }}
@@ -167,10 +199,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="no_telepon_orangtua">No Telepon Orang Tua/Wali</label>
-                            <input type="text" class="form-control" id="no_telepon_orangtua" name="no_telepon_orangtua"
-                                value="">
-                            @error('nama_hotel')
+                            <label for="no_hp_orangtua">No. HP Orangtua</label>
+                            <input type="number" class="form-control" id="no_hp_orangtua" name="no_hp_orangtua"
+                                value="{{ old('no_hp_orangtua', $no_hp_orangtua) }}" required>
+                            @error('no_hp_orangtua')
                                 <div>
                                     {{ $message }}
                                 </div>
@@ -179,11 +211,16 @@
 
                         <div class="form-group">
                             <label for="kelas">Kelas</label>
-                            <select name="kelas" id="kelas" class="form-control">
-                                <option value="" disabled selected>Pilih Kelas</option>
-                                <option value="Xll-1"> Xll-1</option>
-                                <option value="Xll-2"> Xll-2</option>
-
+                            <select name="kelas" id="kelas" class="form-control" required>
+                                <option value="" disabled selected>--Pilih Kelas--</option>
+                                <option value="XII-A" {{ old('kelas', $kelas) == 'XII-A' ? 'selected' : '' }}>
+                                    XII-A</option>
+                                <option value="XII-B" {{ old('kelas', $kelas) == 'XII-B' ? 'selected' : '' }}>
+                                    XII-B</option>
+                                <option value="XII-C" {{ old('kelas', $kelas) == 'XII-C' ? 'selected' : '' }}>
+                                    XII-C</option>
+                                <option value="XII-D" {{ old('kelas', $kelas) == 'XII-D' ? 'selected' : '' }}>
+                                    XII-D</option>
                             </select>
                             @error('kelas')
                                 <div>

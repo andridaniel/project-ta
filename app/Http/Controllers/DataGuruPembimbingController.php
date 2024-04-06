@@ -143,6 +143,8 @@ class DataGuruPembimbingController extends Controller
         $update_guru_pembimbing->agama = $request->agama;
         $update_guru_pembimbing->alamat = $request->alamat;
         $update_guru_pembimbing->wali_kelas = $request->wali_kelas;
+        $update_guru_pembimbing->gambar_profile = $request->gambar_profile;
+
 
         // Save the admin's changes
         $update_guru_pembimbing->save();
@@ -157,7 +159,18 @@ class DataGuruPembimbingController extends Controller
 
         // Handle updating the image if provided
         if ($request->hasFile('gambar_profile')) {
-            // Your image update logic here
+            $gambar = $request->file('gambar_profile');
+            $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+            $path = 'dist/img/' . $fileName;
+
+            // Simpan gambar baru
+            file_put_contents($path, file_get_contents($gambar));
+
+            // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
+            $update_guru_pembimbing->gambar_profile = $fileName;
+
+            // Simpan perubahan ke dalam database
+            $update_guru_pembimbing->save();
         }
 
         // Redirect back to the admin edit page with a success message

@@ -11,7 +11,7 @@
         <div class="card card-primary">
             <div class="form-group">
                 <div>
-                    <h3 class="text-bold px-2">Menambhakan Data pengguna</h3>
+                    <h3 class="text-bold px-2 mt-2">Menambhakan Data pengguna</h3>
                 </div>
             </div>
             <!-- form start -->
@@ -80,7 +80,7 @@
 
                     <div class="form-row card-footer">
                         <div class="form-group col-md-6">
-                            <button type="submit" class="btn custom-border hover-element btn-block">Tambah</button>
+                            <button type="submit" class="btn custom-border hover-element btn-block">Selanjutnya</button>
                         </div>
                         <div class="form-group col-md-6">
                             <a href="{{ route('dashboard') }}" class="btn custom-border hover-element btn-block">Batal</a>

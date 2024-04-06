@@ -62,7 +62,7 @@ class DataAdminController extends Controller
     // Menyimpan data
     $user->Admin()->create($validated_input);
 
-    return redirect()->route('data_admin')->with('success', 'Product created successfully!');
+    return redirect()->route('data_admin')->with('success', 'Data Admin Berhasil Ditambahkan!');
     }
 
 
@@ -144,6 +144,7 @@ class DataAdminController extends Controller
         $update_admin->jenis_kelamin = $request->jenis_kelamin;
         $update_admin->agama = $request->agama;
         $update_admin->alamat = $request->alamat;
+        $update_admin->gambar_profile = $request->gambar_profile;
 
         // Save the admin's changes
         $update_admin->save();
@@ -158,12 +159,25 @@ class DataAdminController extends Controller
 
         // Handle updating the image if provided
         if ($request->hasFile('gambar_profile')) {
-            // Your image update logic here
+            $gambar = $request->file('gambar_profile');
+            $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+            $path = 'dist/img/' . $fileName;
+
+            // Simpan gambar baru
+            file_put_contents($path, file_get_contents($gambar));
+
+            // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
+            $update_admin->gambar_profile = $fileName;
+
+            // Simpan perubahan ke dalam database
+            $update_admin->save();
         }
 
         // Redirect back to the admin edit page with a success message
-        return redirect()->route('data_admin', $id)->with('success', 'Admin record updated successfully.');
+        return redirect()->route('data_admin', $id)->with('success', 'Data Admin Berhasil Di Update');
     }
+
+
 
 
 

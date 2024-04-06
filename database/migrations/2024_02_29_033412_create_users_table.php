@@ -16,7 +16,6 @@ return new class extends Migration
                 $table->id();
                 $table->foreignIdFor(Role::class);
                 $table->string('name');
-
                 $table->string('email')->unique();
                 $table->string('no_hp');
                 $table->timestamp('email_verified_at')->nullable();

@@ -22,7 +22,7 @@ class FormTempatTrainingController extends Controller
 
     public function store(Request $request)
     {
-
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'nama_hotel' => 'required',
             'alamat_hotel' => 'required',
@@ -32,18 +32,12 @@ class FormTempatTrainingController extends Controller
             'lowongan_training' => 'required',
             'jumlah_lowongan_training' => 'required|numeric',
             'ketentuan_tambahan_training' => 'required',
-            // 'gambar' => 'image',
             'gambar' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-
-
-        if($validator->fails()){
-            // dd($validator);
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
-
-
 
         //upload gambar
         $gambar = $request->file('gambar');
@@ -52,8 +46,6 @@ class FormTempatTrainingController extends Controller
 
         file_put_contents($path, file_get_contents($gambar));
 
-
-
         $validated_input = $validator->validated();
 
         // Menyimpan user_id
@@ -61,10 +53,20 @@ class FormTempatTrainingController extends Controller
 
         $validated_input['gambar'] = $fileName;
 
+        // Check apakah email sudah ada atau belum
+        $existingEmail = Tempat_Training::where('email_hotel', $validated_input['email_hotel'])->first();
+        if ($existingEmail) {
+            // Email sudah ada, berikan pesan kesalahan
+            return redirect()->back()->withErrors(['email_hotel' => 'Email already exists.']);
+        }
+
+        // Email belum ada, lanjutkan proses penyimpanan data
         Tempat_Training::create($validated_input);
 
-        return redirect()->back();
+        // Arahkan pengguna ke halaman tempattraining.blade.php
+        return redirect()->route('tempattraining')->with('success', 'Data tempat training berhasil ditambahkan.');
     }
+
 
 
 

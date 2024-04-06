@@ -20,7 +20,7 @@ class TempatTrainingController extends Controller
         DB::table('tempat_training')->where('id', $id)->delete();
 
         // Redirect kembali ke halaman tabel produk setelah penghapusan.
-        return redirect()->route('tempattraining')->with('success', 'Product deleted successfully!');
+        return redirect()->route('tempattraining')->with('success', 'Data Berhasil di hapus');
     }
 
 

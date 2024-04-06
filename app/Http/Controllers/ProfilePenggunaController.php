@@ -12,33 +12,108 @@ use Illuminate\Http\Request;
 class ProfilePenggunaController extends Controller
 {
     public function index(){
-        $data_pengguna = User::all();
-        return view('pages.profilepengguna', compact('data_pengguna'));
-    }
+        // Mendapatkan pengguna yang sedang diautentikasi
+        $user = auth()->user();
 
-    public function show($id)
-    {
-        // Mencari data pengguna berdasarkan ID
-        $user = User::find($id);
+         // Mendefinisikan variabel yang akan digunakan
+         $alamat = $nisn = $tempat_lahir = $tgl_lahir = $agama = $jenis_kelamin = $wali_kelas = $kelas = $nama_orangtua = $no_hp_orangtua = $gambar_profile = null;
 
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not found');
-        }
+        // Mendapatkan data alamat sesuai peran pengguna
+        if ($user->isAdmin()) {
+            $alamat = $user->admin->alamat;
+            $agama = $user->admin->agama;
+            $jenis_kelamin = $user->admin->jenis_kelamin;
+            $gambar_profile = $user->admin->gambar_profile;
+        } elseif ($user->isSiswa()) {
+            $alamat = $user->siswa->alamat;
+            $nisn = $user->siswa->nisn;
+            $tempat_lahir = $user->siswa->tempat_lahir;
+            $tgl_lahir = $user->siswa->tgl_lahir;
+            $jenis_kelamin = $user->siswa->jenis_kelamin;
+            $agama = $user->siswa->agama;
+            $kelas = $user->siswa->kelas;
+            $nama_orangtua = $user->siswa->nama_orangtua;
+            $no_hp_orangtua = $user->siswa->no_hp_orangtua;
+            $gambar_profile = $user->siswa->gambar_profile;
 
-        // Memeriksa peran pengguna
-        if ($user->role === 'siswa') {
-            // Jika peran pengguna adalah siswa, ambil data profil dari tabel siswa
-            $profile = Siswa::where('user_id', $id)->first();
-        } elseif ($user->role === 'guru_pembimbing') {
-            // Jika peran pengguna adalah guru pembimbing, ambil data profil dari tabel guru_pembimbing
-            $profile = GuruPembimbing::where('user_id', $id)->first();
+        } elseif ($user->isGuruPembimbing()) {
+            $alamat = $user->guru_pembimbing->alamat;
+            $tempat_lahir = $user->guru_pembimbing->tempat_lahir;
+            $tgl_lahir = $user->guru_pembimbing->tgl_lahir;
+            $jenis_kelamin = $user->guru_pembimbing->jenis_kelamin;
+            $agama = $user->guru_pembimbing->agama;
+            $wali_kelas = $user->guru_pembimbing->wali_kelas;
+            $gambar_profile = $user->guru_pembimbing->gambar_profile;
         } else {
-            // Jika peran pengguna tidak sesuai, kembalikan dengan pesan kesalahan
-            return redirect()->back()->with('error', 'Invalid role');
+            // Jika pengguna tidak memiliki peran yang sesuai, mungkin Anda ingin menangani kasus ini dengan cara tertentu.
+            abort(403, 'Unauthorized access');
         }
 
-        // Mengirim data profil ke tampilan untuk ditampilkan
-        return view('pages.profilepengguna', compact('profile'));
+        // Sekarang, Anda memiliki data alamat yang sesuai dengan peran pengguna.
+
+    return view('pages.profilepengguna', compact('alamat','nisn','tempat_lahir','tgl_lahir', 'agama', 'jenis_kelamin','wali_kelas','kelas','nama_orangtua','no_hp_orangtua', 'gambar_profile'));
     }
+
+
+    public function gambarSidebar()
+    {
+        // Mendapatkan pengguna yang sedang diautentikasi
+        $user = auth()->user();
+
+        // Mendapatkan gambar profil sesuai peran pengguna
+        $gambar_profile = null;
+
+        if ($user->isAdmin()) {
+            $gambar_profile = $user->admin->gambar_profile;
+        } elseif ($user->isSiswa()) {
+            $gambar_profile = $user->siswa->gambar_profile;
+        } elseif ($user->isGuruPembimbing()) {
+            $gambar_profile = $user->guru_pembimbing->gambar_profile;
+        } else {
+            // Jika pengguna tidak memiliki peran yang sesuai, tampilkan pesan error
+            abort(403, 'Unauthorized access');
+        }
+
+        // Sekarang, Anda memiliki data gambar_profile yang sesuai dengan peran pengguna.
+
+        // Meneruskan variabel gambar_profile ke tampilan 'layouts.sidebar'
+        return view('layouts.sidebar', compact('gambar_profile'));
+    }
+
+
+
+    //untuk data diri tempat training
+    public function dataDiri(){
+        // Mendapatkan pengguna yang sedang diautentikasi
+        $user = auth()->user();
+
+        // Mendefinisikan variabel yang akan digunakan
+        $alamat = $nisn = $tempat_lahir = $tgl_lahir = $agama = $jenis_kelamin = $kelas = $nama_orangtua = $no_hp_orangtua = $gambar_profile = null;
+
+        // Mendapatkan data siswa
+        if ($user->isSiswa()) {
+            $alamat = $user->siswa->alamat;
+            $nisn = $user->siswa->nisn;
+            $tempat_lahir = $user->siswa->tempat_lahir;
+            $tgl_lahir = $user->siswa->tgl_lahir;
+            $jenis_kelamin = $user->siswa->jenis_kelamin;
+            $agama = $user->siswa->agama;
+            $kelas = $user->siswa->kelas;
+            $nama_orangtua = $user->siswa->nama_orangtua;
+            $no_hp_orangtua = $user->siswa->no_hp_orangtua;
+            $gambar_profile = $user->siswa->gambar_profile;
+        } else {
+            // Jika pengguna tidak memiliki peran siswa, mungkin Anda ingin menangani kasus ini dengan cara tertentu.
+            abort(403, 'Unauthorized access');
+        }
+
+        // Sekarang, Anda memiliki data siswa dari pengguna yang memiliki peran siswa.
+
+        return view('pages.datadiritempattraining', compact('alamat', 'nisn', 'tempat_lahir', 'tgl_lahir', 'agama', 'jenis_kelamin', 'kelas', 'nama_orangtua', 'no_hp_orangtua', 'gambar_profile'));
+    }
+
+
+
+
 
 }

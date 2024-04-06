@@ -20,6 +20,7 @@
                     </div>
 
                     <div class="form-group">
+                        <p>Guru Pembimbing : <span>{{ $data_siswa->guru_pembimbing_id }}</span></p>
                         <p>NIS : <span>{{ $data_siswa->nisn }}</span></p>
                         <p>Nama Lengkap: <span>{{ $data_siswa->user->name }}</span></p>
                         <p>No Telepon : <span>{{ $data_siswa->user->no_hp }}</span></p>

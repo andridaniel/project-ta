@@ -17,8 +17,13 @@ class Siswa extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function hasGuruPembimbing(){
+        return $this->belongsTo(Guru_Pembimbing::class, 'guru_pembimbing_id');
+    }
+
     protected $fillable = [
         'user_id',
+        'guru_pembimbing_id',
         'nisn',
         'tempat_lahir',
         'tgl_lahir',
@@ -30,4 +35,5 @@ class Siswa extends Model
         'no_hp_orangtua',
         'gambar_profile',
     ];
+
 }

@@ -14,6 +14,7 @@
             <!-- form start -->
             <form>
                 <div class="card-body">
+
                     <div class="form-group">
                         <img src="{{ asset('dist/img/' . $data_tempat_training->gambar) }}" alt="gambar hotel" width="400">
                     </div>
@@ -38,6 +39,7 @@
                         <label for="emailhotel">Ketentuan Tambahan</label>
                         <p>{{ $data_tempat_training->ketentuan_tambahan_training }}</p>
                     </div>
+
 
                     <div class="form-group">
                         <a href="{{ route('datadiritempattraining') }}"

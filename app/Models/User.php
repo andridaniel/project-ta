@@ -61,4 +61,22 @@ class User extends Authenticatable
         return $this->hasOne(Siswa::class, "user_id", "id");
     }
 
+    // Metode untuk memeriksa apakah pengguna adalah admin
+    public function isAdmin()
+    {
+        return $this->Admin()->exists();
+    }
+
+    // Metode untuk memeriksa apakah pengguna adalah siswa
+    public function isSiswa()
+    {
+        return $this->Siswa()->exists();
+    }
+
+    // Metode untuk memeriksa apakah pengguna adalah guru pembimbing
+    public function isGuruPembimbing()
+    {
+        return $this->Guru_Pembimbing()->exists();
+    }
+
 }
