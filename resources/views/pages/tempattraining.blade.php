@@ -14,7 +14,7 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <div class="row ">
+            <div class="row">
 
                 <div class="card card-success">
                     <div class="card-body">
@@ -57,17 +57,17 @@
             </div>
 
             <!-- Small boxes (Stat box) -->
-            <div class="row ">
+            <div class="row">
 
                 <div class="card card-success">
                     <div class="card-body">
                         <div class="content-header card-header ">
                             <div class="container-fluid">
-                                <div class="row mb-2">
-                                    <div class="col-sm-6">
-                                        <h1 class="m-0">Tempat Magang</h1>
+                                <div class="form-group mb-2">
+                                    <div class="form-row float-left">
+                                        <h1 class="float-left">Tempat Magang</h1>
                                     </div><!-- /.col -->
-                                    <div class="col-sm-6">
+                                    <div class="form-row float-right">
                                         <input type="button" onclick="window.location='{{ route('formtempattraining') }}'"
                                             class="btn bgcolor text-white float-right" value="+ Tambah Data">
                                     </div><!-- /.col -->

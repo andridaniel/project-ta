@@ -144,7 +144,6 @@ class DataAdminController extends Controller
         $update_admin->jenis_kelamin = $request->jenis_kelamin;
         $update_admin->agama = $request->agama;
         $update_admin->alamat = $request->alamat;
-        $update_admin->gambar_profile = $request->gambar_profile;
 
         // Save the admin's changes
         $update_admin->save();

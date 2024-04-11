@@ -40,9 +40,13 @@
                         <p>{{ $data_tempat_training->ketentuan_tambahan_training }}</p>
                     </div>
 
+                    <div class="form-group" style="display: none;">
+                        <label for="emailhotel">Ingat Hapus</label>
+                        <p>{{ $data_tempat_training->id }}</p>
+                    </div>
 
                     <div class="form-group">
-                        <a href="{{ route('datadiritempattraining') }}"
+                        <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
                             class="btn custom-border hover-element btn-block">Daftar</a>
                     </div>
                 </div>

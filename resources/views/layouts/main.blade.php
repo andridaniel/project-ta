@@ -88,17 +88,18 @@
         }
 
         .cardgambar {
-            width: 200px;
+            width: 200;
             /* Ganti dengan lebar yang diinginkan */
-            height: 350px;
+            height: 100;
             /* Ganti dengan tinggi yang diinginkan */
             overflow: hidden;
         }
 
-        .cardgambar img {
-            width: 200px;
-            height: 150px;
+        @media (min-width: 375px) {
 
+            .warnasidebar {
+                background-color: whitesmoke;
+            }
         }
     </style>
 

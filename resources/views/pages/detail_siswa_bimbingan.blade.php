@@ -13,35 +13,30 @@
             </div>
 
             <!-- form start -->
-            <form action="{{ route('update_siswa', $update_siswa->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
 
                     <div class="text-center mb-4">
-                        <img src="{{ asset('dist/img/' . $update_siswa->gambar_profile) }}" width="150"
+                        <img src="{{ asset('dist/img/' . $siswa_bimbingan->gambar_profile) }}" width="150"
                             alt="gambar profile" class="img-circle border"><br>
                     </div>
 
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="guru_pembimbing_id">Guru Pembimbing:</label>
+                                <label for="guru_pembimbing_id"> Guru Pembimbing:</label>
                             </div>
                             <div class="col-md-12">
-
                                 <select id="guru_pembimbing_id" name="guru_pembimbing_id" class="form-control">
-                                    {{-- <option value="" disabled selected>--Pilih--</option> --}}
+                                    <option value="" disabled selected>--Pilih--</option>
                                     @foreach ($guru_pembimbing as $guru)
-                                        <option value="{{ $guru->id }}"
-                                            {{ $update_siswa->guru_pembimbing_id == $guru->id ? 'selected' : '' }}>
-                                            {{ $guru->User->name }}
+                                        <option value="{{ $guru->id }}">{{ $guru->name }}
                                         </option>
                                     @endforeach
+
                                 </select>
-
-
-
                             </div>
                             @error('guru_pembimbing_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -52,7 +47,7 @@
                         <div class="form-group">
                             <label for="nisn">Nisn</label>
                             <input type="text" class="form-control" id="nisn" name="nisn"
-                                value="{{ old('nisn', $update_siswa->nisn) }}" required>
+                                value="{{ old('nisn', $siswa_bimbingan->nisn) }}" required>
                             @error('nisn')
                                 <div>
                                     {{ $message }}
@@ -65,7 +60,7 @@
                         <div class="form-group">
                             <label for="name">Nama Lengkap</label>
                             <input type="text" class="form-control" id="name" name="name"
-                                value="{{ old('name', $update_siswa->User->name) }}" required>
+                                value="{{ old('name', $siswa_bimbingan->user->name) }}" required>
                             @error('name')
                                 <div>
                                     {{ $message }}
@@ -76,7 +71,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                value="{{ old('email', $update_siswa->User->email) }}" required>
+                                value="{{ old('email', $siswa_bimbingan->user->email) }}" required>
                             @error('email')
                                 <div>
                                     {{ $message }}
@@ -87,7 +82,7 @@
                         <div class="form-group">
                             <label for="no_hp">Nomor HP</label>
                             <input type="number" class="form-control" id="no_hp" name="no_hp"
-                                value="{{ old('no_hp', $update_siswa->User->no_hp) }}" required>
+                                value="{{ old('no_hp', $siswa_bimbingan->user->no_hp) }}" required>
                             @error('no_hp')
                                 <div>
                                     {{ $message }}
@@ -99,7 +94,7 @@
                             <div class="form-group col-md-8">
                                 <label for="tempat_lahir">Tempat Lahir</label>
                                 <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
-                                    value="{{ old('tempat_lahir', $update_siswa->tempat_lahir) }}" required>
+                                    value="{{ old('tempat_lahir', $siswa_bimbingan->tempat_lahir) }}" required>
                                 @error('tempat_lahir')
                                     <div>
                                         {{ $message }}
@@ -109,7 +104,7 @@
                             <div class="form-group col-md-4">
                                 <label for="tgl_lahir">Tgl Lahir</label>
                                 <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir"
-                                    value="{{ old('tgl_lahir', $update_siswa->tgl_lahir) }}" required>
+                                    value="{{ old('tgl_lahir', $siswa_bimbingan->tgl_lahir) }}" required>
                                 @error('tgl_lahir')
                                     <div>
                                         {{ $message }}
@@ -123,10 +118,10 @@
                             <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
                                 <option value="" disabled selected>--Pilih Jenis Kelamin--</option>
                                 <option value="Laki-laki"
-                                    {{ old('jenis_kelamin', $update_siswa->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
+                                    {{ old('jenis_kelamin', $siswa_bimbingan->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
                                     Laki-laki</option>
                                 <option value="Perempuan"
-                                    {{ old('jenis_kelamin', $update_siswa->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+                                    {{ old('jenis_kelamin', $siswa_bimbingan->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
                                     Perempuan</option>
                             </select>
                             @error('jenis_kelamin')
@@ -141,22 +136,22 @@
                             <select name="agama" id="agama" class="form-control" required>
                                 <option value="" disabled selected>--Pilih Agama--</option>
                                 <option value="hindu"
-                                    {{ old('agama', $update_siswa->agama) == 'hindu' ? 'selected' : '' }}>
+                                    {{ old('agama', $siswa_bimbingan->agama) == 'hindu' ? 'selected' : '' }}>
                                     Hindu</option>
                                 <option value="islam"
-                                    {{ old('agama', $update_siswa->agama) == 'islam' ? 'selected' : '' }}>
+                                    {{ old('agama', $siswa_bimbingan->agama) == 'islam' ? 'selected' : '' }}>
                                     Islam</option>
                                 <option value="katolik"
-                                    {{ old('agama', $update_siswa->agama) == 'katolik' ? 'selected' : '' }}>Katolik
+                                    {{ old('agama', $siswa_bimbingan->agama) == 'katolik' ? 'selected' : '' }}>Katolik
                                 </option>
                                 <option value="kristen"
-                                    {{ old('agama', $update_siswa->agama) == 'kristen' ? 'selected' : '' }}>Kristen
+                                    {{ old('agama', $siswa_bimbingan->agama) == 'kristen' ? 'selected' : '' }}>Kristen
                                 </option>
                                 <option
-                                    value="buddha"{{ old('agama', $update_siswa->agama) == 'buddha' ? 'selected' : '' }}>
+                                    value="buddha"{{ old('agama', $siswa_bimbingan->agama) == 'buddha' ? 'selected' : '' }}>
                                     Buddha</option>
                                 <option
-                                    value="konghucu"{{ old('agama', $update_siswa->agama) == 'konghucu' ? 'selected' : '' }}>
+                                    value="konghucu"{{ old('agama', $siswa_bimbingan->agama) == 'konghucu' ? 'selected' : '' }}>
                                     Konghucu</option>
                             </select>
                             @error('agama')
@@ -169,7 +164,7 @@
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat"
-                                value="{{ old('alamat', $update_siswa->alamat) }}" required>
+                                value="{{ old('alamat', $siswa_bimbingan->alamat) }}" required>
                             @error('alamat')
                                 <div>
                                     {{ $message }}
@@ -182,16 +177,16 @@
                             <select name="kelas" id="kelas" class="form-control" required>
                                 <option value="" disabled selected>--Pilih Kelas--</option>
                                 <option value="XII-A"
-                                    {{ old('kelas', $update_siswa->kelas) == 'XII-A' ? 'selected' : '' }}>
+                                    {{ old('kelas', $siswa_bimbingan->kelas) == 'XII-A' ? 'selected' : '' }}>
                                     XII-A</option>
                                 <option value="XII-B"
-                                    {{ old('kelas', $update_siswa->kelas) == 'XII-B' ? 'selected' : '' }}>
+                                    {{ old('kelas', $siswa_bimbingan->kelas) == 'XII-B' ? 'selected' : '' }}>
                                     XII-B</option>
                                 <option value="XII-C"
-                                    {{ old('kelas', $update_siswa->kelas) == 'XII-C' ? 'selected' : '' }}>
+                                    {{ old('kelas', $siswa_bimbingan->kelas) == 'XII-C' ? 'selected' : '' }}>
                                     XII-C</option>
                                 <option value="XII-D"
-                                    {{ old('kelas', $update_siswa->kelas) == 'XII-D' ? 'selected' : '' }}>
+                                    {{ old('kelas', $siswa_bimbingan->kelas) == 'XII-D' ? 'selected' : '' }}>
                                     XII-D</option>
                             </select>
                             @error('kelas')
@@ -204,7 +199,7 @@
                         <div class="form-group">
                             <label for="nama_orangtua">Nama Orangtua</label>
                             <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua"
-                                value="{{ old('nama_orangtua', $update_siswa->nama_orangtua) }}" required>
+                                value="{{ old('nama_orangtua', $siswa_bimbingan->nama_orangtua) }}" required>
                             @error('alamat')
                                 <div>
                                     {{ $message }}
@@ -215,7 +210,7 @@
                         <div class="form-group">
                             <label for="no_hp_orangtua">No. HP Orangtua</label>
                             <input type="number" class="form-control" id="no_hp_orangtua" name="no_hp_orangtua"
-                                value="{{ old('no_hp_orangtua', $update_siswa->no_hp_orangtua) }}" required>
+                                value="{{ old('no_hp_orangtua', $siswa_bimbingan->no_hp_orangtua) }}" required>
                             @error('no_hp_orangtua')
                                 <div>
                                     {{ $message }}
@@ -228,7 +223,7 @@
                         <div class="form-group">
                             <label for="exampleInputFile">Upload Foto Profile</label>
                             <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                            <img src="{{ asset('dist/img/' . $update_siswa->gambar_profile) }}" width="70"
+                            <img src="{{ asset('dist/img/' . $siswa_bimbingan->gambar_profile) }}" width="70"
                                 alt="existing-image" class="my-3"><br>
                             @error('gambar_profile')
                                 <div>

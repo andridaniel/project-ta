@@ -15,6 +15,7 @@ use App\Http\controllers\DataPenggunaController;
 use App\Http\controllers\DataGuruPembimbingController;
 use App\Http\controllers\DataSiswaController;
 use App\Http\controllers\DataAdminController;
+use App\Http\controllers\DataSiswaBimbinganController;
 
 
 
@@ -65,27 +66,27 @@ Route::middleware('auth')->group(function () {
 
     //data TempatTrainigController
     Route::get('/tempattraining', [TempatTrainingController::class, 'index'])->name('tempattraining');
-    Route::post('/tempattraining', [DataDiriTempatTrainingController::class, 'simpanPilihanTempat'])->name('tempattraining.simpanPilihanTempat');
-
     Route::delete('/delete/{id}', [TempatTrainingController::class, 'delete'])->name('delete');
     Route::get('/formtempattraining', [FormTempatTrainingController::class, 'index'])->name('formtempattraining');
     Route::post('/formtempattraining', [FormTempatTrainingController::class, 'store'])->name('formtempatraining.store');
     Route::get('/detailtempattraining/{id}', [DetailTempatTrainingController::class, 'show'])->name('show');
     Route::get('/datadiritempattraining/{id}', [DetailTempatTrainingController::class, 'dataShow'])->name('dataShow');
     Route::get('/detailtempattraining', [DetailTempatTrainingController::class, 'index'])->name('detailtempattraining');
-    Route::get('/datadiritempattraining', [DataDiriTempatTrainingController::class, 'index'])->name('datadiritempattraining');
+    // Route::get('/datadiritempattraining', [DataDiriTempatTrainingController::class, 'index'])->name('datadiritempattraining');
     Route::get('/updatetempattraining', [UpdateTempatTrainingController::class, 'index'])->name('updatetempattraining');
 
 
+    //DataDiriTempatTrainingController
+    Route::post('/tempattraining', [DataDiriTempatTrainingController::class, 'simpanPilihanTempat'])->name('tempattraining.simpanPilihanTempat');
+    Route::get('/datadiritempattraining/{id}', [DataDiriTempatTrainingController::class, 'dataDiri'])->name('datadiritempattraining');
 
 
-    //admin
+    //DataPenggunaController
     Route::get('pagesadmin/data_pengguna', [DataPenggunaController::class, 'index'])->name('data_pengguna');
 
     //profilepenggunacontroller
     Route::get('/profilepengguna', [ProfilePenggunaController::class, 'index'])->name('profilepengguna');
-    Route::get('/sidebar', [ProfilePenggunaController::class, 'gambarSidebar'])->name('sidebar');
-    Route::get('/datadiritempattraining', [ProfilePenggunaController::class, 'dataDiri'])->name('datadiritempattraining');
+    Route::put('/profilepengguna/update', [ProfilePenggunaController::class, 'update'])->name('profilepengguna.update');
 
 
 
@@ -127,6 +128,11 @@ Route::middleware('auth')->group(function () {
     Route::get('pagesadmin/data_admin', [DataAdminController::class, 'index'])->name('data_admin');
     Route::get('/edit_admin/{id}', [DataAdminController::class, 'edit'])->name('edit_admin');
     Route::put('/update_admin/{id}', [DataAdminController::class, 'update'])->name('update_admin');
+
+
+    //Data Siswa Bimbingan DataSiswaBimbinganController
+    Route::get('/data_siswa_bimbingan', [DataSiswaBimbinganController::class, 'index'])->name('data_siswa_bimbingan');
+    Route::get('/detail_siswa_bimbingan/{id}', [DataSiswaBimbinganController::class, 'show'])->name('detail_siswa_bimbingan');
 
 
 

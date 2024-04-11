@@ -3,6 +3,11 @@
 @section('konten')
     <div class="px-5 p-5 mx-5">
         <div class="card card-primary">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <div class="text-bold p-3">
                 <a class="kembali" href="{{ route('dashboard') }}"> &lt; Kembali</a>
@@ -12,7 +17,7 @@
                 <h3 class="text-bold px-3">My Profile </h3>
             </div>
             <!-- form start -->
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('profilepengguna.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -33,16 +38,18 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="nisn">Nisn</label>
-                        <input type="number" class="form-control" id="nisn" name="nisn" required
-                            value="{{ $nisn }}">
-                        @error('nisn')
-                            <div>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+                    @if (auth()->user()->role_id == '3')
+                        <div class="form-group">
+                            <label for="nisn">Nisn</label>
+                            <input type="number" class="form-control" id="nisn" name="nisn" required
+                                value="{{ $nisn }}">
+                            @error('nisn')
+                                <div>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="form-group">
                         <label for="name">Nama Lengkap</label>
@@ -141,7 +148,7 @@
                         <label for="no_hp">Nomor Telepon</label>
                         <input type="number" class="form-control" id="no_hp" name="no_hp" required
                             value="{{ auth()->user()->no_hp }}">
-                        @error('no_telepon')
+                        @error('no_hp')
                             <div>
                                 {{ $message }}
                             </div>
@@ -227,6 +234,12 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="guru_pembimbing_id">Guru Pembimbing</label>
+                            <input type="text" class="form-control" id="guru_pembimbing_id" name="guru_pembimbing_id"
+                                value="{{ old('guru_pembimbing_id', $nama_guru_pembimbing) }}" required>
                         </div>
                     @endif
 

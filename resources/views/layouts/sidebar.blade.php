@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-white elevation-4">
+<aside class="main-sidebar sidebar-white warnasidebar elevation-4">
     <!-- Brand Logo -->
     {{-- <a href="index3.html" class="brand-link">
         <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -6,7 +6,7 @@
     </a> --}}
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar ">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -79,7 +79,7 @@
                     </a>
                 </li>
 
-
+                @if (auth()->user()->role_id == '1')
                 <li class="nav-item mt-2">
                     <a href="{{ route('userregister') }}"
                         class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'userregister' ? 'activesidebar' : '' }}                                         ">
@@ -123,76 +123,74 @@
                         </p>
                     </a>
                 </li>
+                @endif
+
+                @if (auth()->user()->role_id == '2')
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('data_siswa_bimbingan') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Siswa Bimbingan
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->role_id == '3')
+
+                <li class="nav-item mt-2">
+                    <a href="{{ route('data_siswa_bimbingan') }}"
+                        class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            Jadwal Interview
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+
+                {{-- Laporan --}}
+                <li class="nav-item mt-2">
+                    <a href="{{ route('data_siswa_bimbingan') }}"
+                        class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Laporan Harian
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item mt-2">
+                    <a href="{{ route('data_siswa_bimbingan') }}"
+                        class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Laporan Mingguan
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
 
 
+                <li class="nav-item mt-2">
+                    <a href="{{ route('data_siswa_bimbingan') }}"
+                        class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Laporan Bulanan
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
 
+                @endif
 
-                {{-- <li class="nav-item mt-2">
-                <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Siswa Bimbingan
-                    <span class="badge badge-info right"></span>
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item mt-2">
-                <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Surat dan validasi
-                    <span class="badge badge-info right"></span>
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item  mt-2">
-                <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-                  <i class="nav-icon fas fa-print"></i>
-                  <p>
-                    Jadwal Interview
-                    <span class="badge badge-info right"></span>
-                  </p>
-                </a>
-              </li>
-
-
-              <li class="nav-item  mt-2">
-                <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-                  <i class="nav-icon fas fa-calendar-alt"></i>
-                  <p>
-                    Laporan dan Mentoring
-                    <span class="badge badge-info right"></span>
-                  </p>
-                </a>
-              </li>
-
-
-              <li class="nav-item  mt-2">
-                <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-                  <i class="nav-icon fas fa-book"></i>
-                  <p>
-                    Laporan akhir
-                    <span class="badge badge-info right"></span>
-                  </p>
-                </a>
-              </li>
-
-
-          <li class="nav-item  mt-2">
-            <a href="pages/calendar.html" class="custom-border hover-element nav-link">
-              <i class="nav-icon fas fa-folder"></i>
-              <p>
-                Data
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </li>
- --}}
 
                 @auth
-                    <li class="nav-item mt-2">
+                    {{-- <li class="nav-item mt-2">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="btn"> <!-- Ganti dengan elemen yang sesuai -->
@@ -200,7 +198,20 @@
                                 {{ __('Log Out') }}
                             </button>
                         </form>
+                    </li> --}}
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            class="custom-border hover-element nav-link">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>
+                                {{ __('Keluar') }}
+                            </p>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </li>
+
                 @endauth
             </ul>
         </nav>

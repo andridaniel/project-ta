@@ -36,8 +36,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_tempat_Training">Tempat Training</label>
-                        <input type="text" class="form-control" id="id_tempat_Training" name="id_tempat_Training">
+                        <label for="email">Nama Tempat Training</label>
+                        <p>{{ $tempat_training->nama_hotel }}</p>
+                    </div>
+
+                    <div class="form-group ">
+                        {{-- <label for="id_tempat_Training">Tempat Training</label> --}}
+                        <input type="hidden" class="form-control" id="id_tempat_Training" name="id_tempat_Training"
+                            value={{ $tempat_training->id }}>
                     </div>
 
                 </div>

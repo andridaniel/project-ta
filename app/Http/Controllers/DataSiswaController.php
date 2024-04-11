@@ -14,6 +14,7 @@ class DataSiswaController extends Controller
 {
     public function index()
     {
+
         $data_siswa = Siswa::with(['User', 'User.Role'])->get();
         return view('pages.pagesadmin.data_siswa', compact('data_siswa'));
 
@@ -77,15 +78,16 @@ class DataSiswaController extends Controller
 
     //menapilkan data admin dari tabel user dan Admin
     public function show($id){
-
+        $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->first();
         $data_siswa = Siswa::with(["user"])->where("id",$id)->first();
 
         if (!$data_siswa) {
             return redirect()->back()->with('error', 'Record not found');
         }
 
-        return view('pages.pagesadmin.detail_siswa', compact('data_siswa'));
+        return view('pages.pagesadmin.detail_siswa', compact('data_siswa', 'guru_pembimbing'));
     }
+
 
 
     public function delete($id)
@@ -111,18 +113,30 @@ class DataSiswaController extends Controller
 
 
 
+    // public function edit($id)
+    // {
+    //     $update_siswa = Siswa::with(['User', 'User.Role', 'hasGuruPembimbing', 'hasGuruPembimbing.User'])->find($id);
+    //     $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->get();
+
+    //     if (!$update_siswa) {
+    //         return redirect()->back()->with('error', 'Record not found');
+    //     }
+
+    //     return view('pages.pagesadmin.update_siswa', compact('update_siswa', 'guru_pembimbing'));
+    // }
+
     public function edit($id)
     {
         $update_siswa = Siswa::with(['User', 'User.Role', 'hasGuruPembimbing', 'hasGuruPembimbing.User'])->find($id);
-        $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->get();
 
-        if (!$update_siswa) {
-            return redirect()->back()->with('error', 'Record not found');
-        }
+         // Mendapatkan ID guru pembimbing siswa
+         $guru_pembimbing_id = $update_siswa->guru_pembimbing_id;
 
-        return view('pages.pagesadmin.update_siswa', compact('update_siswa', 'guru_pembimbing'));
+         // Mengambil data guru pembimbing yang terkait
+         $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->get();
+
+         return view('pages.pagesadmin.update_siswa', compact('update_siswa', 'guru_pembimbing'));
     }
-
 
 
     //update data siswa
@@ -165,7 +179,6 @@ class DataSiswaController extends Controller
         $update_siswa->kelas = $request->kelas;
         $update_siswa->nama_orangtua = $request->nama_orangtua;
         $update_siswa->no_hp_orangtua = $request->no_hp_orangtua;
-        $update_siswa->gambar_profile = $request->gambar_profile;
 
 
 

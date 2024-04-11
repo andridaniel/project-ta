@@ -143,7 +143,6 @@ class DataGuruPembimbingController extends Controller
         $update_guru_pembimbing->agama = $request->agama;
         $update_guru_pembimbing->alamat = $request->alamat;
         $update_guru_pembimbing->wali_kelas = $request->wali_kelas;
-        $update_guru_pembimbing->gambar_profile = $request->gambar_profile;
 
 
         // Save the admin's changes
