@@ -83,15 +83,6 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputFile">Upload Foto Profile</label>
-                        <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                        @error('gambar_profile')
-                            <div>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
 
 
                 </div>

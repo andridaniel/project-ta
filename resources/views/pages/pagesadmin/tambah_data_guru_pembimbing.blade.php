@@ -13,7 +13,8 @@
             </div>
 
             <!-- form start -->
-            <form action="{{ route('tambah_data_guru_pembimbing.store', $user) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('tambah_data_guru_pembimbing.store', $user) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -101,15 +102,6 @@
 
 
 
-                    <div class="form-group">
-                        <label for="exampleInputFile">Upload Foto Profile</label>
-                        <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                        @error('gambar_profile')
-                            <div>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
                 </div>
                 <!-- /.card-body -->
 

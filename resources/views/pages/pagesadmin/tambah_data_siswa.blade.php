@@ -25,7 +25,7 @@
                                 <select id="guru_pembimbing_id" name="guru_pembimbing_id" class="form-control">
                                     <option value="" disabled selected>--Pilih--</option>
                                     @foreach ($guru_pembimbing as $guru)
-                                        <option value="{{ $guru->id }}">{{ $guru->name }}
+                                        <option value="{{ $guru->Guru_Pembimbing->id }}">{{ $guru->name }}
                                         </option>
                                     @endforeach
 
@@ -152,16 +152,6 @@
                             @enderror
                         </div>
 
-
-                        <div class="form-group">
-                            <label for="exampleInputFile">Upload Foto Profile</label>
-                            <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                            @error('gambar_profile')
-                                <div>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
                     </div>
                     <!-- /.card-body -->
 

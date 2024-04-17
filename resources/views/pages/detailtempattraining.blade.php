@@ -46,9 +46,13 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
-                            class="btn custom-border hover-element btn-block">Daftar</a>
+                        @if (!$is_siswa_registered)
+                            <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
+                                class="btn custom-border hover-element btn-block">Daftar</a>
+                        @endif
                     </div>
+
+
                 </div>
 
             </form>

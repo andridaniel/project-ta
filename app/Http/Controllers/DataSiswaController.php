@@ -22,11 +22,14 @@ class DataSiswaController extends Controller
 
     public function TambahDataSiswa(User $user)
     {
-        $guru_pembimbing = User::where('role_id', 2)->get();
+
+        $guru_pembimbing = User::with('Guru_Pembimbing')->where('role_id', 2)->get();
         if(!$user){
             return redirect()->route('userregister')->with('error','data gagal ditambahkan.');
 
         }
+
+        // dd ($guru_pembimbing);
         return view('pages.pagesadmin.tambah_data_siswa', compact('user', 'guru_pembimbing'));
     }
 
@@ -43,7 +46,6 @@ class DataSiswaController extends Controller
             'kelas' => 'required',
             'nama_orangtua' => 'required',
             'no_hp_orangtua' => 'required',
-            'gambar_profile' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if($validator->fails()){
@@ -52,11 +54,11 @@ class DataSiswaController extends Controller
 
 
         //upload gambar
-        $gambar = $request->file('gambar_profile');
-        $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
-        $path = 'dist/img/' . $fileName;
+        // $gambar = $request->file('gambar_profile');
+        // $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+        // $path = 'dist/img/' . $fileName;
 
-        file_put_contents($path, file_get_contents($gambar));
+        // file_put_contents($path, file_get_contents($gambar));
 
         $validated_input = $validator->validated();
 
@@ -64,7 +66,7 @@ class DataSiswaController extends Controller
         $validated_input['user_id'] = auth()->user()->id;
 
         // Menyimpan gambar
-        $validated_input['gambar_profile'] = $fileName;
+        // $validated_input['gambar_profile'] = $fileName;
 
          // Menyimpan guru_pembimbing_id
         $validated_input['guru_pembimbing_id'] = $request->guru_pembimbing_id; // Menggunakan nilai dari form
@@ -78,14 +80,14 @@ class DataSiswaController extends Controller
 
     //menapilkan data admin dari tabel user dan Admin
     public function show($id){
-        $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->first();
-        $data_siswa = Siswa::with(["user"])->where("id",$id)->first();
+
+        $data_siswa = Siswa::with(["user", "hasGuruPembimbing", "hasGuruPembimbing.User"])->where("id",$id)->first();
 
         if (!$data_siswa) {
             return redirect()->back()->with('error', 'Record not found');
         }
 
-        return view('pages.pagesadmin.detail_siswa', compact('data_siswa', 'guru_pembimbing'));
+        return view('pages.pagesadmin.detail_siswa', compact('data_siswa'));
     }
 
 
@@ -171,6 +173,7 @@ class DataSiswaController extends Controller
 
         // Update the admin's data
         $update_siswa->guru_pembimbing_id = $request->guru_pembimbing_id;
+        $update_siswa->nisn = $request->nisn;
         $update_siswa->tempat_lahir = $request->tempat_lahir;
         $update_siswa->tgl_lahir = $request->tgl_lahir;
         $update_siswa->jenis_kelamin = $request->jenis_kelamin;
@@ -205,10 +208,10 @@ class DataSiswaController extends Controller
             file_put_contents($path, file_get_contents($gambar));
 
             // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
-            $update_siswa->gambar_profile = $fileName;
+            $update_siswa->User->gambar_profile = $fileName;
 
             // Simpan perubahan ke dalam database
-            $update_siswa->save();
+            $update_siswa->User->save();
         }
 
         // Redirect back to the admin edit page with a success message

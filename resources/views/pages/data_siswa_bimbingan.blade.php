@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="widget-user-image">
                                     <img class="img-circle elevation-2"
-                                        src="{{ asset('dist/img/' . $siswa->gambar_profile) }}" alt="User Avatar">
+                                        src="{{ asset('dist/img/' . $siswa->user->gambar_profile) }}" alt="User Avatar">
                                 </div>
                                 <div class="card-footer">
                                     <div class="form-group">

@@ -15,7 +15,7 @@
             <form>
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <img src="{{ asset('dist/img/' . $data_guru_pembimbing->gambar_profile) }}" width="150"
+                        <img src="{{ asset('dist/img/' . $data_guru_pembimbing->user->gambar_profile) }}" width="150"
                             alt="gambar profile" class="img-circle border"><br>
                     </div>
 

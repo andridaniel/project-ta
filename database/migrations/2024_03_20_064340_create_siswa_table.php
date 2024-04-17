@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('kelas');
             $table->string('nama_orangtua');
             $table->string('no_hp_orangtua');
-            $table->string('gambar_profile')->nullable();
             $table->timestamps();
         });
     }

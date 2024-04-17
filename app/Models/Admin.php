@@ -11,7 +11,7 @@ class Admin extends Model
 
     protected $table = 'admins';
 
-    public function user()
+    public function User()
     {
         return $this->belongsTo(User::class);
     }
@@ -24,6 +24,5 @@ class Admin extends Model
         'jenis_kelamin',
         'agama',
         'alamat',
-        'gambar_profile',
     ];
 }

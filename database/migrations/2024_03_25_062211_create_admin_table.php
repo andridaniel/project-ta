@@ -19,8 +19,6 @@ return new class extends Migration
             $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
             $table->enum('agama',['hindu','islam','katolik','kristen','buddha','konghucu']);
             $table->string('alamat');
-            $table->string('gambar_profile')->nullable();
-
             $table->timestamps();
         });
     }

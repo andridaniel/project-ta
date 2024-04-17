@@ -28,7 +28,6 @@ class FormTempatTrainingController extends Controller
             'alamat_hotel' => 'required',
             'telepon_hotel' => 'required',
             'email_hotel' => 'required|email',
-            'bintang_hotel' => 'required|numeric',
             'lowongan_training' => 'required',
             'jumlah_lowongan_training' => 'required|numeric',
             'ketentuan_tambahan_training' => 'required',

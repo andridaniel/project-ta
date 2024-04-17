@@ -19,7 +19,7 @@
                 <div class="card-body">
 
                     <div class="text-center mb-4">
-                        <img src="{{ asset('dist/img/' . $update_siswa->gambar_profile) }}" width="150"
+                        <img src="{{ asset('dist/img/' . $update_siswa->user->gambar_profile) }}" width="150"
                             alt="gambar profile" class="img-circle border"><br>
                     </div>
 
@@ -223,12 +223,10 @@
                             @enderror
                         </div>
 
-
-
                         <div class="form-group">
                             <label for="exampleInputFile">Upload Foto Profile</label>
                             <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                            <img src="{{ asset('dist/img/' . $update_siswa->gambar_profile) }}" width="70"
+                            <img src="{{ asset('dist/img/' . $update_siswa->user->gambar_profile) }}" width="70"
                                 alt="existing-image" class="my-3"><br>
                             @error('gambar_profile')
                                 <div>
@@ -236,6 +234,8 @@
                                 </div>
                             @enderror
                         </div>
+
+
 
 
                     </div>

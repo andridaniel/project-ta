@@ -16,6 +16,7 @@ use App\Http\controllers\DataGuruPembimbingController;
 use App\Http\controllers\DataSiswaController;
 use App\Http\controllers\DataAdminController;
 use App\Http\controllers\DataSiswaBimbinganController;
+use App\Http\controllers\DataLaporanController;
 
 
 
@@ -86,7 +87,7 @@ Route::middleware('auth')->group(function () {
 
     //profilepenggunacontroller
     Route::get('/profilepengguna', [ProfilePenggunaController::class, 'index'])->name('profilepengguna');
-    Route::put('/profilepengguna/update', [ProfilePenggunaController::class, 'update'])->name('profilepengguna.update');
+    Route::put('/profilepengguna/updateProfile', [ProfilePenggunaController::class, 'updateProfile'])->name('profilepengguna.updateProfile');
 
 
 
@@ -132,10 +133,14 @@ Route::middleware('auth')->group(function () {
 
     //Data Siswa Bimbingan DataSiswaBimbinganController
     Route::get('/data_siswa_bimbingan', [DataSiswaBimbinganController::class, 'index'])->name('data_siswa_bimbingan');
+    Route::get('/kelompok_bimbingan', [DataSiswaBimbinganController::class, 'kelompok_bimbingan'])->name('kelompok_bimbingan');
     Route::get('/detail_siswa_bimbingan/{id}', [DataSiswaBimbinganController::class, 'show'])->name('detail_siswa_bimbingan');
 
 
 
+    //Data Laporan DataLaporanController
+    Route::get('/data_laporan_mingguan', [DataLaporanController::class, 'index'])->name('data_laporan_mingguan');
+    Route::get('/data_laporan_akhir', [DataLaporanController::class, 'laporan_akhir'])->name('data_laporan_akhir');
 
 
 

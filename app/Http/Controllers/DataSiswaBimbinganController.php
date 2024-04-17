@@ -11,7 +11,7 @@ class DataSiswaBimbinganController extends Controller
 {
     public function index(Request $request){
         // Mendapatkan ID guru pembimbing yang sedang login
-        $guru_pembimbing_id = $request->user()->id;
+        $guru_pembimbing_id = $request->user()->load("Guru_Pembimbing")->Guru_Pembimbing->id;
 
         // Memuat semua siswa yang terkait dengan guru pembimbing saat ini
         $siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->get();
@@ -25,6 +25,18 @@ class DataSiswaBimbinganController extends Controller
         $siswa_bimbingan = Siswa::with(["user","hasGuruPembimbing"])->where("id", $id)->first();
 
         return view('pages.detail_siswa_bimbingan', compact('siswa_bimbingan','guru_pembimbing'));
+    }
+
+
+    public function kelompok_bimbingan(Request $request){
+    // Mendapatkan ID Guru Pembimbing dari siswa yang sedang login
+     $guru_pembimbing_id = $request->user()->load("Siswa")->Siswa->guru_pembimbing_id;
+
+    //  // Memuat semua siswa yang memiliki guru pembimbing dengan ID yang sama
+     $kelompok_bimbingan = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->get();
+
+     return view('pages.kelompok_bimbingan', compact('kelompok_bimbingan'));
+
     }
 
 

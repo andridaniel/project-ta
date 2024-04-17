@@ -15,7 +15,7 @@
                 </div>
             </div>
             <!-- form start -->
-            <form action="{{ route('userregister.create') }}" method="POST">
+            <form action="{{ route('userregister.create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -61,6 +61,7 @@
                         <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
                     </div>
 
+
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password"
@@ -74,6 +75,19 @@
                             placeholder="Masukan Password" required autocomplete="new-password">
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">Upload Foto Profile</label>
+                        <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
+                        @error('gambar_profile')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+
+
 
 
                     <!-- /.card-body -->

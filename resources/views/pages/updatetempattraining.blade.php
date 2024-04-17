@@ -17,7 +17,7 @@
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="nama_hotel">Nama hotel</label>
+                        <label for="nama_hotel">Nama Tempat Training</label>
                         <input type="text" class="form-control" id="nama_hotel" name="nama_hotel" required
                             value="{{ old('nama_hotel', $update_tempat_training->nama_hotel) }}">
                         @error('nama_hotel')
@@ -29,7 +29,7 @@
 
 
                     <div class="form-group">
-                        <label for="alamat_hotel">Alamat Hotel</label>
+                        <label for="alamat_hotel">Alamat Tempat Training</label>
                         <input type="text" class="form-control" id="alamat_hotel" name="alamat_hotel" required
                             value="{{ old('alamat_hotel', $update_tempat_training->alamat_hotel) }}">
                         @error('alamat_hotel')
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="telepon_hotel">Nomor Telepon Hotel</label>
+                        <label for="telepon_hotel">Nomor Telepon Tempat Training</label>
                         <input type="number" class="form-control" id="telepon_hotel" name="telepon_hotel" required
                             value="{{ old('telepon_hotel', $update_tempat_training->telepon_hotel) }}">
                         @error('telepon_hotel')
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email_hotel">Email Hotel</label>
+                        <label for="email_hotel">Email Tempat Training</label>
                         <input type="email" class="form-control" id="email_hotel" name="email_hotel" required
                             value="{{ old('email_hotel', $update_tempat_training->email_hotel) }}">
                         @error('email_hotel')
@@ -61,37 +61,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="bintang_hotel">Bintang Hotel</label>
-                        <select name="bintang_hotel" id="bintang_hotel" class="form-control" required>
-                            <option value="" disabled selected>--Pilih Bintang--</option>
-                            <option value="1"
-                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '1' ? 'selected' : '' }}>
-                                1 </option>
-                            <option value="2"
-                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '2' ? 'selected' : '' }}>
-                                2 </option>
-                            <option value="3"
-                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '3' ? 'selected' : '' }}>
-                                3 </option>
-                            <option value="4"
-                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '4' ? 'selected' : '' }}>
-                                4 </option>
-                            <option value="5"
-                                {{ old('bintang_hotel', $update_tempat_training->bintang_hotel) == '5' ? 'selected' : '' }}>
-                                5 </option>
-                        </select>
-                        @error('bintang_hotel')
-                            <div>
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
 
                     <div class="form-row">
                         <div class="form-group col-md-10">
-                            <label for="lowongan_training">Lowongan Magang</label>
+                            <label for="lowongan_training">Lowongan Tempat Training</label>
                             <input type="text" class="form-control" id="lowongan_training" name="lowongan_training"
                                 value="{{ old('lowongan_tairning', $update_tempat_training->lowongan_training) }}">
                             @error('lowongan_training')
@@ -128,6 +101,7 @@
 
 
                     <div class="form-group card-footer">
+                        <label for="exampleInputFile"> Upload Foto Tempat Training</label>
                         <input type="file" class="form-control" id="exampleInputFile" name="gambar">
                         <img src="{{ asset('dist/img/' . $update_tempat_training->gambar) }}" width="70"
                             alt="existing-image" class="my-3"><br>

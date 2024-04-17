@@ -15,11 +15,11 @@
             <form>
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <img src="{{ asset('dist/img/' . $data_siswa->gambar_profile) }}" width="150" alt="gambar profile"
-                            class="img-circle border"><br>
+                        <img src="{{ asset('dist/img/' . $data_siswa->User->gambar_profile) }}" width="150"
+                            alt="gambar profile" class="img-circle border"><br>
                     </div>
                     <div class="form-group">
-                        <p>Guru Pembimbing : <span>{{ $guru_pembimbing->User->name }}</span></p>
+                        <p>Guru pembimbing : <span>{{ $data_siswa->hasGuruPembimbing->user->name }}</span></p>
                         <p>NIS : <span>{{ $data_siswa->nisn }}</span></p>
                         <p>Nama Lengkap: <span>{{ $data_siswa->user->name }}</span></p>
                         <p>No Telepon : <span>{{ $data_siswa->user->no_hp }}</span></p>

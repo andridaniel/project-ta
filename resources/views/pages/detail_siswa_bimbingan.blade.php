@@ -5,7 +5,7 @@
         <div class="card card-primary">
 
             <div class="text-bold p-3">
-                <a class="kembali" href="{{ route('data_siswa') }}"> &lt; Kembali</a>
+                <a class="kembali" href="{{ route('data_siswa_bimbingan') }}"> &lt; Kembali</a>
             </div>
 
             <div>
@@ -19,25 +19,15 @@
                 <div class="card-body">
 
                     <div class="text-center mb-4">
-                        <img src="{{ asset('dist/img/' . $siswa_bimbingan->gambar_profile) }}" width="150"
+                        <img src="{{ asset('dist/img/' . $siswa_bimbingan->user->gambar_profile) }}" width="150"
                             alt="gambar profile" class="img-circle border"><br>
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="guru_pembimbing_id"> Guru Pembimbing:</label>
-                            </div>
-                            <div class="col-md-12">
-                                <select id="guru_pembimbing_id" name="guru_pembimbing_id" class="form-control">
-                                    <option value="" disabled selected>--Pilih--</option>
-                                    @foreach ($guru_pembimbing as $guru)
-                                        <option value="{{ $guru->id }}">{{ $guru->name }}
-                                        </option>
-                                    @endforeach
+                        <div class="form-group">
+                            <label for="guru_pembimbing_id"> Guru Pembimbing:</label>
+                            <p>{{ $siswa_bimbingan->hasGuruPembimbing->user->name }}</p>
 
-                                </select>
-                            </div>
                             @error('guru_pembimbing_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -223,7 +213,7 @@
                         <div class="form-group">
                             <label for="exampleInputFile">Upload Foto Profile</label>
                             <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                            <img src="{{ asset('dist/img/' . $siswa_bimbingan->gambar_profile) }}" width="70"
+                            <img src="{{ asset('dist/img/' . $siswa_bimbingan->user->gambar_profile) }}" width="70"
                                 alt="existing-image" class="my-3"><br>
                             @error('gambar_profile')
                                 <div>

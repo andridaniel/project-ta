@@ -9,6 +9,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProfilePenggunaController extends Controller
 {
@@ -26,7 +27,7 @@ class ProfilePenggunaController extends Controller
             $tgl_lahir = $user->admin->tgl_lahir;
             $agama = $user->admin->agama;
             $jenis_kelamin = $user->admin->jenis_kelamin;
-            $gambar_profile = $user->admin->gambar_profile;
+
         } elseif ($user->isSiswa()) {
 
             $alamat = $user->siswa->alamat;
@@ -40,7 +41,7 @@ class ProfilePenggunaController extends Controller
             $kelas = $user->siswa->kelas;
             $nama_orangtua = $user->siswa->nama_orangtua;
             $no_hp_orangtua = $user->siswa->no_hp_orangtua;
-            $gambar_profile = $user->siswa->gambar_profile;
+
 
         } elseif ($user->isGuruPembimbing()) {
             $alamat = $user->guru_pembimbing->alamat;
@@ -49,7 +50,7 @@ class ProfilePenggunaController extends Controller
             $jenis_kelamin = $user->guru_pembimbing->jenis_kelamin;
             $agama = $user->guru_pembimbing->agama;
             $wali_kelas = $user->guru_pembimbing->wali_kelas;
-            $gambar_profile = $user->guru_pembimbing->gambar_profile;
+
         } else {
             // Jika pengguna tidak memiliki peran yang sesuai, mungkin Anda ingin menangani kasus ini dengan cara tertentu.
             abort(403, 'Unauthorized access');
@@ -62,62 +63,56 @@ class ProfilePenggunaController extends Controller
 
 
     //update data
-    public function update(Request $request)
-{
-    // Mendapatkan pengguna yang sedang diautentikasi
-    $user = auth()->user();
+    public function updateProfile(Request $request)
+    {
+        // Validasi data yang diterima dari request
+        $request->validate([
+            'guru_pembimbing_id' => 'required|string|max:255',
+            'nisn' => 'required|string|max:25',
+            'name' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tgl_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:255',
+            'wali_kelas' => 'required|string|max:255',
+            'kelas' => 'required|string|max:255',
+            'nama_orangtua' => 'required|string|max:255',
+            'no_hp_orangtua' => 'required|string|max:255',
+            'gambar_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // tambahkan aturan validasi untuk kolom lainnya yang ingin Anda perbarui
+        ]);
 
-    // Validasi input yang diterima dari form
-    $validatedData = $request->validate([
-        // Atur aturan validasi sesuai dengan kebutuhan Anda
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'no_hp' => 'required|string|max:255',
-        'tempat_lahir' => 'required|string|max:255',
-        'tgl_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-        'agama' => 'required|string|max:255',
-        'alamat' => 'required|string|max:255',
-        'gambar_profile' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // Lanjutkan dengan aturan validasi untuk atribut lainnya
-    ]);
+        // Dapatkan pengguna yang sedang diautentikasi
+        $user = auth()->user();
 
-    // Memperbarui data sesuai peran pengguna
-    if ($user->isAdmin()) {
-        $user->admin->update($validatedData);
-    }elseif ($user->isSiswa()) {
-        // Pastikan user memiliki role siswa sebelum memperbarui data siswa
-        if ($user->siswa) {
-            // Lakukan validasi tambahan untuk guru_pembimbing_id sebelum pembaruan data siswa
-            if ($request->has('guru_pembimbing_id')) {
-                // Periksa apakah guru_pembimbing_id ada dalam basis data
-                $guruPembimbingExists = Guru_Pembimbing::where('id', $request->guru_pembimbing_id)->exists();
-                if (!$guruPembimbingExists) {
-                    // Jika guru_pembimbing_id tidak valid, redirect dengan pesan kesalahan
-                    return redirect()->back()->with('error', 'ID guru pembimbing tidak valid.');
-                }
-            }
-            $user->siswa->update(array_merge($validatedData, [
-                'guru_pembimbing_id' => $request->guru_pembimbing_id,
-                'kelas' => $request->kelas,
-                'nama_orangtua' => $request->nama_orangtua,
-                'no_hp_orangtua' => $request->no_hp_orangtua,
-            ]));
-        } else {
-            // Handle ketika user tidak memiliki role siswa
-            abort(403, 'Unauthorized access');
+        // Perbarui data pengguna berdasarkan peran pengguna
+        if ($request->hasFile('gambar_profile')) {
+            // Ambil gambar yang diunggah
+            $gambar = $request->file('gambar_profile');
+            // Buat nama file baru
+            $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+            // Simpan gambar baru ke dalam direktori 'dist/img/'
+            $path = 'dist/img/' . $fileName;
+            // Pindahkan file yang diunggah ke direktori tujuan
+            $gambar->move(public_path('dist/img'), $fileName);
+            // Update kolom gambar_profile di dalam database
+            $user->gambar_profile = $fileName;
         }
+
+        // Update data pengguna sesuai peran
+        if ($user->isAdmin()) {
+            $user->admin->update($request->all());
+        } elseif ($user->isSiswa()) {
+            $user->siswa->update($request->all());
+        } elseif ($user->isGuruPembimbing()) {
+            $user->guru_pembimbing->update($request->all());
+        }
+
+        // Redirect kembali ke halaman profil pengguna dengan pesan sukses
+        return redirect()->route('profilepengguna')->with('success', 'Profil berhasil diperbarui.');
     }
-
-
-    // Handle updating the image if provided
-    if ($request->hasFile('gambar_profile')) {
-        // Lakukan penanganan gambar seperti yang Anda lakukan sebelumnya
-    }
-
-    // Redirect atau melakukan operasi lainnya setelah update
-    return redirect()->back()->with('success', 'Data berhasil diperbarui.');
-}
 
 
 

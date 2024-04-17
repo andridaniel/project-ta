@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@example.com',
             'no_hp' => "08123567789",
+            'gambar_profile' => 'default.png',
             'password' => Hash::make('password'),
         ]);
 
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
             'alamat' => 'Jl. Cempaka No. 10',
-            'gambar_profile' => 'default.png',
+
 
         ]);
 

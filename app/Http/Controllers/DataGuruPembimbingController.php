@@ -38,32 +38,30 @@ class DataGuruPembimbingController extends Controller
             'agama' => 'required',
             'alamat' => 'required',
             'wali_kelas' => 'required',
-            'gambar_profile' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator);
         }
 
-        //upload gambar
-        $gambar = $request->file('gambar_profile');
-        $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
-        $path = 'dist/img/' . $fileName;
+        // //upload gambar
+        // $gambar = $request->file('gambar_profile');
+        // $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+        // $path = 'dist/img/' . $fileName;
 
-        file_put_contents($path, file_get_contents($gambar));
+        // file_put_contents($path, file_get_contents($gambar));
 
         $validated_input = $validator->validated();
 
         // Menyimpan user_id
         $validated_input['user_id'] = auth()->user()->id;
 
-        // Menyimpan gambar
-        $validated_input['gambar_profile'] = $fileName;
+        // // Menyimpan gambar
+        // $validated_input['gambar_profile'] = $fileName;
 
-        // Menyimpan data
+       // Menyimpan data
         $user->Guru_Pembimbing()->create($validated_input);
-
-        return redirect()->route('data_guru_pembimbing')->with('success', 'Product created successfully!');
+        return redirect()->route('data_guru_pembimbing')->with('success', 'Data Guru Berhasil Ditambahkan');
     }
 
     //menapilkan data guru pembimbing dari tabel admins
@@ -166,10 +164,10 @@ class DataGuruPembimbingController extends Controller
             file_put_contents($path, file_get_contents($gambar));
 
             // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
-            $update_guru_pembimbing->gambar_profile = $fileName;
+            $update_guru_pembimbing->User->gambar_profile = $fileName;
 
             // Simpan perubahan ke dalam database
-            $update_guru_pembimbing->save();
+            $update_guru_pembimbing->User->save();
         }
 
         // Redirect back to the admin edit page with a success message

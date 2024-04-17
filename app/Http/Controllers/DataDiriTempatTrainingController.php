@@ -34,7 +34,7 @@ class DataDiriTempatTrainingController extends Controller
         // Validasi input jika diperlukan
 
         // Ambil ID siswa dari autentikasi atau sesi
-        $id_siswa = auth()->user()->id;
+        $id_siswa = auth()->user()->load("Siswa")->Siswa->id;
 
         // Ambil ID tempat training dari data yang dikirimkan melalui formulir
         $id_tempat_Training = $request->input('id_tempat_Training');

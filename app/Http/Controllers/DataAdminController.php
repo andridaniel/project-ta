@@ -36,7 +36,6 @@ class DataAdminController extends Controller
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
-            'gambar_profile' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
 
@@ -45,11 +44,11 @@ class DataAdminController extends Controller
     }
 
     //upload gambar
-    $gambar = $request->file('gambar_profile');
-    $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
-    $path = 'dist/img/' . $fileName;
+    // $gambar = $request->file('gambar_profile');
+    // $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
+    // $path = 'dist/img/' . $fileName;
 
-    file_put_contents($path, file_get_contents($gambar));
+    // file_put_contents($path, file_get_contents($gambar));
 
     $validated_input = $validator->validated();
 
@@ -57,7 +56,7 @@ class DataAdminController extends Controller
     $validated_input['user_id'] = auth()->user()->id;
 
     // Menyimpan gambar
-    $validated_input['gambar_profile'] = $fileName;
+    // $validated_input['gambar_profile'] = $fileName;
 
     // Menyimpan data
     $user->Admin()->create($validated_input);
@@ -121,12 +120,12 @@ class DataAdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'no_hp' => 'required|string|max:255',
+            'gambar_profile' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048', // Make gambar_profile nullable to allow updating without changing the image
             'tempat_lahir' => 'required|string|max:255',
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'gambar_profile' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048', // Make gambar_profile nullable to allow updating without changing the image
             // Add validation rules for other fields as needed
         ]);
 
@@ -153,6 +152,7 @@ class DataAdminController extends Controller
         $update_admin->User->email = $request->email;
         $update_admin->User->no_hp = $request->no_hp;
 
+
         // Save the user's changes
         $update_admin->User->save();
 
@@ -164,12 +164,11 @@ class DataAdminController extends Controller
 
             // Simpan gambar baru
             file_put_contents($path, file_get_contents($gambar));
-
             // Setelah menyimpan gambar baru, Anda dapat menyimpan nama file ke dalam properti 'gambar_profile' di dalam database
-            $update_admin->gambar_profile = $fileName;
+            $update_admin->User->gambar_profile = $fileName;
 
             // Simpan perubahan ke dalam database
-            $update_admin->save();
+            $update_admin->User->save();
         }
 
         // Redirect back to the admin edit page with a success message

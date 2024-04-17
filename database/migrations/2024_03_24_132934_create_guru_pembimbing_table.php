@@ -20,7 +20,6 @@ return new class extends Migration
             $table->enum('agama',['hindu','islam','katolik','kristen','buddha','konghucu']);
             $table->string('alamat');
             $table->string('wali_kelas');
-            $table->string('gambar_profile')->nullable();
 
             $table->timestamps();
         });

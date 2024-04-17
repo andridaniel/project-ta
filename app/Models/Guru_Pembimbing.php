@@ -24,6 +24,5 @@ class Guru_Pembimbing extends Model
         'agama',
         'alamat',
         'wali_kelas',
-        'gambar_profile',
     ];
 }
