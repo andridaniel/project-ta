@@ -5,7 +5,7 @@
         @if (auth()->user()->role_id == '2')
             <div class="col-md-10 mx-auto mt-5 mb-5">
                 <div class="card-header bgcolor">
-                    <h3 class="card-title text-white"> <strong>Laporan Akhir Siswa</strong></h3>
+                    <h3 class="card-title text-white"> <strong>Laporan Mingguan Siswa</strong></h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
@@ -43,41 +43,8 @@
                 <!-- /.card-body -->
             </div>
         @endif
-
-        {{-- untuk siswa --}}
-        @if (auth()->user()->role_id == '3')
-            <div class="px-5 p-2">
-                <div class="card card-primary">
-                    <form action="{{ route('data_laporan_mingguan') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        {{-- minggu ke 1 --}}
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="laporan_akhir">Laporan Akhir</label>
-                                <input type="file" class="form-control" id="laporan_akhir" name="laporan_akhir">
-                                <input type="text" class="form-control mt-2" id="validasi" name="validasi"
-                                    placeholder="keterangan">
-                                @error('minggu_1')
-                                    <div>
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-row card-footer">
-                                <div class="form-group col-md-6">
-                                    <button type="submit" class="btn custom-border hover-element btn-block">Simpan</button>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <button type="submit" class="btn custom-border hover-element btn-block">Batal</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        @endif
         <!-- /.card -->
+
     </div>
     </div>
 @endsection

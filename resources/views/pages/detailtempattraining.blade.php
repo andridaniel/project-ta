@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <h3 class="text-bold px-3">Detail Tempat Magang</h3>
+                <h3 class="text-bold px-3">Detail Tempat Training</h3>
             </div>
             <!-- form start -->
             <form>
@@ -19,42 +19,34 @@
                         <img src="{{ asset('dist/img/' . $data_tempat_training->gambar) }}" alt="gambar hotel" width="400">
                     </div>
 
-                    <div class="form-group">
-                        <h5 class="text-bold">{{ $data_tempat_training->nama_hotel }}</h5>
-                        <p>{{ $data_tempat_training->alamat_hotel }}</p>
-                        <p>No Telepon : <span> {{ $data_tempat_training->telepon_hotel }}</span></p>
-                        <p>Email : <span> {{ $data_tempat_training->email_hotel }}</span></p>
-                        <p>Bintang : <span> {{ $data_tempat_training->bintang_hotel }}</span></p>
+                    <div class="form-group card-footer">
+                        <p>Nama : <span>{{ $data_tempat_training->nama_tempat_training }}</span></p>
+                        <p>Alamat : <span>{{ $data_tempat_training->alamat_tempat_training }}</span> </p>
+                        <p>No Telepon : <span> {{ $data_tempat_training->telepon_tempat_training }}</span></p>
+                        <p>Email : <span> {{ $data_tempat_training->email_tempat_training }}</span></p>
                         <p>Lowongan : <span> {{ $data_tempat_training->lowongan_training }}</span></p>
+                        <p>Jumlah Lowongan : <span> {{ $data_tempat_training->jumlah_lowongan_training }}</span></p>
+                        <p>Ketentuan Tambahan : <span> {{ $data_tempat_training->ketentuan_tambahan_training }}</span></p>
+                        <p class="text-bold">Jadwal interview : <span> {{ $data_tempat_training->jadwal_interview }}</span>
+                            >> jam
+                            : {{ $data_tempat_training->waktu_interview }}</p>
                     </div>
 
-
-
-                    <div class="form-group">
-                        <label for="emailhotel">Jumlah Lowongan Training</label>
-                        <p>{{ $data_tempat_training->jumlah_lowongan_training }}</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="emailhotel">Ketentuan Tambahan</label>
-                        <p>{{ $data_tempat_training->ketentuan_tambahan_training }}</p>
-                    </div>
 
                     <div class="form-group" style="display: none;">
                         <label for="emailhotel">Ingat Hapus</label>
                         <p>{{ $data_tempat_training->id }}</p>
                     </div>
 
-                    <div class="form-group">
-                        @if (!$is_siswa_registered)
-                            <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
-                                class="btn custom-border hover-element btn-block">Daftar</a>
-                        @endif
-                    </div>
-
-
+                    @if (auth()->user()->role_id == '3')
+                        <div class="form-group">
+                            @if (!$is_siswa_registered)
+                                <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
+                                    class="btn custom-border hover-element btn-block">Daftar</a>
+                            @endif
+                        </div>
+                    @endif
                 </div>
-
             </form>
         </div>
     </div>

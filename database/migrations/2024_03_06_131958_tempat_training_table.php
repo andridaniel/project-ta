@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('tempat_training', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained(); // Menambahkan user_id
-            $table->string('nama_hotel');
-            $table->string('alamat_hotel');
-            $table->string('telepon_hotel');
-            $table->string('email_hotel')->unique();
+            $table->string('nama_tempat_training');
+            $table->string('alamat_tempat_training');
+            $table->string('telepon_tempat_training');
+            $table->string('email_tempat_training')->unique();
             $table->string('lowongan_training');
             $table->integer('jumlah_lowongan_training');
             $table->text('ketentuan_tambahan_training');
+            $table->date('jadwal_interview');
+            $table->time('waktu_interview');
             $table->string('gambar')->nullable();
             $table->timestamps();
         });

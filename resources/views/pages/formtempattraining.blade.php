@@ -16,10 +16,10 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="nama_hotel">Nama Tempat Training</label>
-                        <input type="text" class="form-control" id="nama_hotel" name="nama_hotel"
-                            placeholder="Masukan Nama Hotel Disini" required>
-                        @error('nama_hotel')
+                        <label for="nama_tempat_training">Nama Tempat Training</label>
+                        <input type="text" class="form-control" id="nama_tempat_training" name="nama_tempat_training"
+                            placeholder="Masukan Nama Tempat Training" required>
+                        @error('nama_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -27,10 +27,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat_hotel">Alamat Tempat Training</label>
-                        <input type="text" class="form-control" id="alamat_hotel" name="alamat_hotel"
-                            placeholder="Masukan Alamat Hotel Disini" required>
-                        @error('alamat_hotel')
+                        <label for="alamat_tempat_training">Alamat Tempat Training</label>
+                        <input type="text" class="form-control" id="alamat_tempat_training" name="alamat_tempat_training"
+                            placeholder="Masukan Alamat Tempat Training" required>
+                        @error('alamat_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -38,10 +38,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="telepon_hotel">Nomor Telepon Tempat Training</label>
-                        <input type="number" class="form-control" id="telepon_hotel" name="telepon_hotel"
-                            placeholder="Masukan Nomor Telepon Hotel Disini" required>
-                        @error('telepon_hotel')
+                        <label for="telepon_tempat_training">Nomor Telepon Tempat Training</label>
+                        <input type="number" class="form-control" id="telepon_tempat_training"
+                            name="telepon_tempat_training" placeholder="Masukan Nomor Telepon Tempat Training" required>
+                        @error('telepon_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -49,10 +49,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email_hotel">Email Tempat Training</label>
-                        <input type="email" class="form-control" id="email_hotel" name="email_hotel"
-                            placeholder="Masukan Alamat Email Hotel Disini" required>
-                        @error('email_hotel')
+                        <label for="email_tempat_training">Email Tempat Training</label>
+                        <input type="email" class="form-control" id="email_tempat_training" name="email_tempat_training"
+                            placeholder="Masukan Alamat Email Tempat Training" required>
+                        @error('email_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -63,7 +63,7 @@
                         <div class="form-group col-md-10">
                             <label for="lowongan_training">Lowongan Tempat Training</label>
                             <input type="text" class="form-control" id="lowongan_training" name="lowongan_training"
-                                placeholder="Masukan Lowongan Magang Disini" required>
+                                placeholder="Masukan Lowongan Training" required>
                             @error('lowongan_training')
                                 <div>
                                     {{ $message }}
@@ -81,6 +81,8 @@
                             @enderror
                         </div>
                     </div>
+
+
 
 
                     <div class="form-group">
@@ -104,6 +106,29 @@
                             </div>
                         @enderror
                     </div>
+
+                    <div class="form-row card-footer">
+                        <div class="form-group col-md-10">
+                            <label for="jadwal_interview">Jadwal Interview</label>
+                            <input type="date" class="form-control" id="jadwal_interview" name="jadwal_interview"
+                                required>
+                            @error('jadwal_interview')
+                                <div>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="waktu_interview">Waktu</label>
+                            <input type="time" class="form-control" id="waktu_interview" name="waktu_interview" required>
+                            @error('waktu_interview')
+                                <div>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.card-body -->
 

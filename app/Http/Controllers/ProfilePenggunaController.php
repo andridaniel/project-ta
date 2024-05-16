@@ -65,27 +65,40 @@ class ProfilePenggunaController extends Controller
     //update data
     public function updateProfile(Request $request)
     {
-        // Validasi data yang diterima dari request
-        $request->validate([
-            'guru_pembimbing_id' => 'required|string|max:255',
-            'nisn' => 'required|string|max:25',
-            'name' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'tempat_lahir' => 'required|string|max:255',
-            'tgl_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'agama' => 'required|string|max:255',
-            'wali_kelas' => 'required|string|max:255',
-            'kelas' => 'required|string|max:255',
-            'nama_orangtua' => 'required|string|max:255',
-            'no_hp_orangtua' => 'required|string|max:255',
-            'gambar_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // tambahkan aturan validasi untuk kolom lainnya yang ingin Anda perbarui
-        ]);
-
         // Dapatkan pengguna yang sedang diautentikasi
         $user = auth()->user();
+
+        $validateForm = [
+            // 'guru_pembimbing_id' => 'required|string|max:255',
+            // 'nisn' => 'required|string|max:25',
+            // 'name' => 'required|string|max:255',
+            // 'alamat' => 'required|string|max:255',
+            // 'email' => 'required|email|max:255',
+            // 'tempat_lahir' => 'required|string|max:255',
+            // 'tgl_lahir' => 'required|date',
+            // 'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            // 'agama' => 'required|string|max:255',
+            // 'wali_kelas' => 'required|string|max:255',
+            // 'kelas' => 'required|string|max:255',
+            // 'gambar_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // tambahkan aturan validasi untuk kolom lainnya yang ingin Anda perbarui
+        ];
+
+        if($user->isSiswa()){
+            $validateForm["nama_orangtua"] = 'required|string|max:255';
+            $validateForm["no_hp_orangtua"] = 'required|string|max:255';
+            // $validateForm["guru_pembimbing_id"] = 'required|string|max:255';
+            $validateForm["nisn"] = 'required|string|max:25';
+            $validateForm["agama"] = 'required|string|max:255';
+            $validateForm["kelas"] = 'required|string|max:255';
+            $validateForm["gambar"] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }elseif($user->isGuruPembimbing()){
+            $validateForm["agama"] = 'required|string|max:255';
+            $validateForm["wali_kelas"] = 'required|string|max:255';
+
+        }
+
+        $request->validate($validateForm);
 
         // Perbarui data pengguna berdasarkan peran pengguna
         if ($request->hasFile('gambar_profile')) {
@@ -101,13 +114,34 @@ class ProfilePenggunaController extends Controller
             $user->gambar_profile = $fileName;
         }
 
+        $data = [
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'gambar_profile' => $request->gambar_profile,
+        ];
+
         // Update data pengguna sesuai peran
         if ($user->isAdmin()) {
-            $user->admin->update($request->all());
+
+            $user->admin->update($data);
         } elseif ($user->isSiswa()) {
-            $user->siswa->update($request->all());
+            $data["nama_orangtua"] = $request->nama_orangtua;
+            $data["agama"] = $request->agama;
+            // $data["guru_pembimbing_id"] = $request->guru_pembimbing_id;
+            $data["nisn"] = $request->nisn;
+            $data["kelas"] = $request->kelas;
+            $data["nama_orangtua"] = $request->nama_orangtua;
+            $data["no_hp_orangtua"] = $request->no_hp_orangtua;
+
+            $user->siswa->update($data);
         } elseif ($user->isGuruPembimbing()) {
-            $user->guru_pembimbing->update($request->all());
+            $data["wali_kelas"] = $request->wali_kelas;
+            $data["agama"] = $request->agama;
+            $user->guru_pembimbing->update($data);
         }
 
         // Redirect kembali ke halaman profil pengguna dengan pesan sukses

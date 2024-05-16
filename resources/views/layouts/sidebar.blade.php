@@ -39,7 +39,7 @@
                         class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'dashboard' ? 'activesidebar' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Dashboard
+                            Beranda
                             <span class="badge badge-info right"></span>
                         </p>
                     </a>
@@ -51,7 +51,7 @@
                         class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'profilepengguna' ? 'activesidebar' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            My Profile
+                            Data Diri
                             <span class="badge badge-info right"></span>
                         </p>
                     </a>
@@ -64,64 +64,6 @@
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Kelompok Bimbingan
-                                <span class="badge badge-info right"></span>
-                            </p>
-                        </a>
-                    </li>
-                @endif
-
-
-                <li class="nav-item  mt-2 ">
-                    <a href="{{ route('tempattraining') }}"
-                        class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'tempattraining' ? 'activesidebar' : '' }}">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>
-                            Tempat Training
-                            <span class="badge badge-info right"></span>
-                        </p>
-                    </a>
-                </li>
-
-                @if (auth()->user()->role_id == '1')
-                    <li class="nav-item mt-2">
-                        <a href="{{ route('userregister') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'userregister' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon ion ion-person-add"></i>
-                            <p>
-                                Register
-                                <span class="badge badge-info right"></span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-2">
-                        <a href="{{ route('data_admin') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_admin' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon fas fa-folder"></i>
-                            <p>
-                                Data Admin
-                                <span class="badge badge-info right"></span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-2">
-                        <a href="{{ route('data_guru_pembimbing') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_guru_pembimbing' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon fas fa-folder"></i>
-                            <p>
-                                Data Guru Pembimbing
-                                <span class="badge badge-info right"></span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-2">
-                        <a href="{{ route('data_siswa') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon fas fa-folder"></i>
-                            <p>
-                                Data Siswa
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
@@ -141,41 +83,97 @@
                     </li>
                 @endif
 
-                @if (auth()->user()->role_id == '3')
+                <li class="nav-item  mt-2 ">
+                    <a href="{{ route('tempattraining') }}"
+                        class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'tempattraining' ? 'activesidebar' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Tempat Training
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+
+                @if (auth()->user()->role_id == '1')
                     <li class="nav-item mt-2">
-                        <a href="{{ route('data_siswa_bimbingan') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon fas fa-calendar-alt"></i>
+                        <a href="{{ route('userregister') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'userregister' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon ion ion-person-add"></i>
                             <p>
-                                Jadwal Interview
+                                Daftar User
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
                     </li>
 
-
-
-                    {{-- Laporan --}}
                     <li class="nav-item mt-2">
-                        <a href="{{ route('data_siswa_bimbingan') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa_bimbingan' ? 'activesidebar' : '' }}                                         ">
-                            <i class="nav-icon fas fa-newspaper"></i>
+                        <a href="{{ route('data_admin') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_admin' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-folder"></i>
                             <p>
-                                Tempat Trainingku
+                                Akun Admin
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('data_guru_pembimbing') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_guru_pembimbing' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Akun Pembimbing
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('data_siswa') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_siswa' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Akun Siswa
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
                     </li>
                 @endif
+
+
 
 
                 @if (in_array(auth()->user()->role_id, ['2', '3']))
                     <li class="nav-item mt-2">
-                        <a href="{{ route('data_laporan_mingguan') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_laporan_mingguan' ? 'activesidebar' : '' }}                                         ">
+                        <a href="{{ route('Surat') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'Surat' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Form dan Surat
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->role_id == '2')
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('hasil_interview') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'hasil_interview' ? 'activesidebar' : '' }}                                         ">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Validasi Interview
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('validasi_laporan') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'validasi_laporan' ? 'activesidebar' : '' }}                                         ">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Laporan Mingguan
+                                Validasi Laporan
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
@@ -183,17 +181,35 @@
 
 
                     <li class="nav-item mt-2">
-                        <a href="{{ route('data_laporan_akhir') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_laporan_akhir' ? 'activesidebar' : '' }}                                         ">
+                        <a href="{{ route('data_laporan_monitoring') }}"
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_laporan_monitoring' ? 'activesidebar' : '' }}                                         ">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Laporan Akhir
+                                Laporan Monitoring
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
                     </li>
                 @endif
 
+
+
+
+
+
+
+
+
+                @if (auth()->user()->role_id == '3')
+                    <a href="{{ route('kegiatan_training') }}"
+                        class="custom-border hover-element nav-link {{ Route::currentRouteName() == ' kegiatan_training' ? 'activesidebar' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Kegiatan Training
+                            <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                @endif
 
                 @auth
                     {{-- <li class="nav-item mt-2">

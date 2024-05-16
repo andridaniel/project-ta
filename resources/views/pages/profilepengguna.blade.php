@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('konten')
-    <div class="px-5 p-5 mx-5">
+    <div class=" mt-1 ">
         <div class="card card-primary">
             @if (session('success'))
                 <div class="alert alert-success">
@@ -22,6 +22,11 @@
             <div>
                 <h3 class="text-bold px-3">My Profile </h3>
             </div>
+            @if (auth()->user()->role_id == '3')
+                <div class="form-group px-3">
+                    <label for="guru_pembimbing_id">Guru Pembimbing : <span>{{ $nama_guru_pembimbing }}</span></label>
+                </div>
+            @endif
             <!-- form start -->
             <form action="{{ route('profilepengguna.updateProfile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -234,7 +239,7 @@
                             @enderror
 
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="exampleInputFile">Upload Foto Profile</label>
                                 <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
                                 <img src="{{ asset('dist/img/' . auth()->user()->gambar_profile) }}" width="70"
@@ -244,14 +249,8 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
-                        </div>
-
-                        <div class="form-group">
-                            <label for="guru_pembimbing_id">Guru Pembimbing</label>
-                            <input type="text" class="form-control" id="guru_pembimbing_id" name="guru_pembimbing_id"
-                                value="{{ old('guru_pembimbing_id', $nama_guru_pembimbing) }}" required>
                         </div>
                     @endif
 

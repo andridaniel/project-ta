@@ -9,7 +9,7 @@ class DataLaporanController extends Controller
     //laporan mingguan
     public function index ()
     {
-        return view('pages.data_laporan_mingguan');
+        return view('pages.validasi_laporan');
     }
 
 
@@ -18,5 +18,12 @@ class DataLaporanController extends Controller
     public function laporan_akhir()
     {
         return view('pages.data_laporan_akhir');
+    }
+
+    //laporan Monitoring
+
+    public function laporan_monitoring()
+    {
+        return view('pages.data_laporan_monitoring');
     }
 }

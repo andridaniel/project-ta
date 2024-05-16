@@ -24,7 +24,7 @@
                                 <div class="container-fluid">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
-                                            <h1 class="m-0">Pilihan Tempat Training</h1>
+                                            <h5 class="m-0 text-bold">Pilihan Tempat Training</h5>
                                         </div><!-- /.col -->
                                     </div><!-- /.row -->
                                 </div><!-- /.container-fluid -->
@@ -37,12 +37,11 @@
                                             <img src="{{ asset('dist/img/' . $PilihanTempatTraining->gambar) }}"
                                                 class="card-img-top" alt="gambar training">
                                             <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <strong>{{ $PilihanTempatTraining->nama_hotel }}</strong>
-                                                </h5>
                                                 <p class="card-text">
-                                                    <strong>Alamat:</strong> {{ $PilihanTempatTraining->alamat_hotel }} <br>
-                                                    <strong>Bintang:</strong> {{ $PilihanTempatTraining->bintang_hotel }}
+                                                    <strong>Nama:</strong>
+                                                    {{ $PilihanTempatTraining->nama_tempat_training }} <br>
+                                                    <strong>Alamat:</strong>
+                                                    {{ $PilihanTempatTraining->alamat_tempat_training }}
                                                     <br>
                                                     <strong>Posisi:</strong> {{ $PilihanTempatTraining->lowongan_training }}
                                                 </p>
@@ -71,7 +70,7 @@
                             <div class="container-fluid">
                                 <div class="form-group mb-2">
                                     <div class="form-row float-left">
-                                        <h1 class="float-left">Tempat Training</h1>
+                                        <h5 class="float-left text-bold">Tempat Training</h5>
                                     </div><!-- /.col -->
                                     @if (in_array(auth()->user()->role_id, ['1', '2']))
                                         <div class="form-row float-right">
@@ -91,12 +90,11 @@
                                         <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}" class="card-img-top"
                                             alt="gambar training">
                                         <div class="card-body">
-                                            <h5 class="card-title"><strong>{{ $tempatTraining->nama_hotel }}</strong></h5>
                                             <p class="card-text">
-                                                <strong>Alamat:</strong> {{ $tempatTraining->alamat_hotel }} <br>
-                                                <strong>Posisi:</strong> {{ $tempatTraining->lowongan_training }} <br>
-                                                <strong>Sisa Lowongan:</strong>
-                                                {{ $tempatTraining->jumlah_lowongan_training }}
+                                                <strong>Nama :</strong>{{ $tempatTraining->nama_tempat_training }}<br>
+                                                <strong>Alamat :</strong> {{ $tempatTraining->alamat_tempat_training }}
+                                                <br>
+                                                <strong>Posisi :</strong> {{ $tempatTraining->lowongan_training }} <br>
                                             </p>
 
                                             @if (in_array(auth()->user()->role_id, ['1', '2']))

@@ -19,14 +19,15 @@ class Tempat_Training extends Model
 
     protected $fillable = [
         'user_id',
-        'nama_hotel',
-        'alamat_hotel',
-        'telepon_hotel',
-        'email_hotel',
-        'bintang_hotel',
+        'nama_tempat_training',
+        'alamat_tempat_training',
+        'telepon_tempat_training',
+        'email_tempat_training',
         'lowongan_training',
         'jumlah_lowongan_training',
         'ketentuan_tambahan_training', // corrected property name
+        'jadwal_interview',
+        'waktu_interview',
         'gambar',
     ];
 }

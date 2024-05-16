@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <h3 class="text-bold px-3">Update Data Siswa</h3>
+                <h3 class="text-bold px-3">Data Siswa Bimbingan</h3>
             </div>
 
             <!-- form start -->
@@ -26,7 +26,9 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="guru_pembimbing_id"> Guru Pembimbing:</label>
-                            <p>{{ $siswa_bimbingan->hasGuruPembimbing->user->name }}</p>
+                            <input type="text" class="form-control" id="guru_pembimbing_id" name="guru_pembimbing_id"
+                                value="{{ old('guru_pembimbing_id', $siswa_bimbingan->hasGuruPembimbing->user->name) }}"
+                                required>
 
                             @error('guru_pembimbing_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -210,7 +212,7 @@
 
 
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="exampleInputFile">Upload Foto Profile</label>
                             <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
                             <img src="{{ asset('dist/img/' . $siswa_bimbingan->user->gambar_profile) }}" width="70"
@@ -220,22 +222,12 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
 
                     </div>
                     <!-- /.card-body -->
-
-                    <div class="form-row card-footer">
-                        <div class="form-group col-md-6">
-                            <button type="submit" class="btn custom-border hover-element btn-block">Simpan</button>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <button type="submit" class="btn custom-border hover-element btn-block">Batal</button>
-                        </div>
-                    </div>
-
-
+                </div>
             </form>
         </div>
     </div>

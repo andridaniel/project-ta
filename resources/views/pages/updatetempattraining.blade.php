@@ -17,10 +17,11 @@
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="nama_hotel">Nama Tempat Training</label>
-                        <input type="text" class="form-control" id="nama_hotel" name="nama_hotel" required
-                            value="{{ old('nama_hotel', $update_tempat_training->nama_hotel) }}">
-                        @error('nama_hotel')
+                        <label for="nama_tempat_training">Nama Tempat Training</label>
+                        <input type="text" class="form-control" id="nama_tempat_training" name="nama_tempat_training"
+                            required
+                            value="{{ old('nama_tempat_training', $update_tempat_training->nama_tempat_training) }}">
+                        @error('nama_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -29,10 +30,11 @@
 
 
                     <div class="form-group">
-                        <label for="alamat_hotel">Alamat Tempat Training</label>
-                        <input type="text" class="form-control" id="alamat_hotel" name="alamat_hotel" required
-                            value="{{ old('alamat_hotel', $update_tempat_training->alamat_hotel) }}">
-                        @error('alamat_hotel')
+                        <label for="alamat_tempat_training">Alamat Tempat Training</label>
+                        <input type="text" class="form-control" id="alamat_tempat_training" name="alamat_tempat_training"
+                            required
+                            value="{{ old('alamat_tempat_training', $update_tempat_training->alamat_tempat_training) }}">
+                        @error('alamat_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -40,10 +42,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="telepon_hotel">Nomor Telepon Tempat Training</label>
-                        <input type="number" class="form-control" id="telepon_hotel" name="telepon_hotel" required
-                            value="{{ old('telepon_hotel', $update_tempat_training->telepon_hotel) }}">
-                        @error('telepon_hotel')
+                        <label for="telepon_tempat_training">Nomor Telepon Tempat Training</label>
+                        <input type="number" class="form-control" id="telepon_tempat_training"
+                            name="telepon_tempat_training" required
+                            value="{{ old('telepon_tempat_training', $update_tempat_training->telepon_tempat_training) }}">
+                        @error('telepon_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -51,10 +54,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email_hotel">Email Tempat Training</label>
-                        <input type="email" class="form-control" id="email_hotel" name="email_hotel" required
-                            value="{{ old('email_hotel', $update_tempat_training->email_hotel) }}">
-                        @error('email_hotel')
+                        <label for="email_tempat_training">Email Tempat Training</label>
+                        <input type="email" class="form-control" id="email_tempat_training" name="email_tempat_training"
+                            required
+                            value="{{ old('email_tempat_training', $update_tempat_training->email_tempat_training) }}">
+                        @error('email_tempat_training')
                             <div>
                                 {{ $message }}
                             </div>
@@ -111,6 +115,32 @@
                             </div>
                         @enderror
                     </div>
+
+                    <div class="form-row card-footer">
+                        <div class="form-group col-md-10">
+                            <label for="jadwal_interview">Jadwal Interview</label>
+                            <input type="date" class="form-control" id="jadwal_interview" name="jadwal_interview"
+                                value="{{ old('jadwal_interview', $update_tempat_training->jadwal_interview) }}" required>
+
+                            @error('jadwal_interview')
+                                <div>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="waktu_interview">Waktu</label>
+                            <input type="time" class="form-control" id="waktu_interview" name="waktu_interview"
+                                value="{{ old('waktu_interview', $update_tempat_training->waktu_interview) }}" required>
+
+                            @error('waktu_interview')
+                                <div>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.card-body -->
 

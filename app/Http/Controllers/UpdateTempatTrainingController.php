@@ -18,13 +18,15 @@ class UpdateTempatTrainingController extends Controller
     public function update(Request $request, $id)
         {
             $validator = Validator::make($request->all(), [
-                'nama_hotel' => 'required',
-                'alamat_hotel' => 'required',
-                'telepon_hotel' => 'required',
-                'email_hotel' => 'required|email',
+                'nama_tempat_training' => 'required',
+                'alamat_tempat_training' => 'required',
+                'telepon_tempat_training' => 'required',
+                'email_tempat_training' => 'required|email',
                 'lowongan_training' => 'required',
                 'jumlah_lowongan_training' => 'required|numeric',
                 'ketentuan_tambahan_training' => 'required',
+                'jadwal_interview' => 'required',
+                'waktu_interview' => 'required',
                 'gambar' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
@@ -53,14 +55,15 @@ class UpdateTempatTrainingController extends Controller
             }
 
             // Update data lainnya
-            $update_tempat_training->nama_hotel = $request->nama_hotel;
-            $update_tempat_training->alamat_hotel = $request->alamat_hotel;
-            $update_tempat_training->telepon_hotel = $request->telepon_hotel;
-            $update_tempat_training->email_hotel = $request->email_hotel;
-            $update_tempat_training->bintang_hotel = $request->bintang_hotel;
+            $update_tempat_training->nama_tempat_training = $request->nama_tempat_training;
+            $update_tempat_training->alamat_tempat_training = $request->alamat_tempat_training;
+            $update_tempat_training->telepon_tempat_training = $request->telepon_tempat_training;
+            $update_tempat_training->email_tempat_training = $request->email_tempat_training;
             $update_tempat_training->lowongan_training = $request->lowongan_training;
             $update_tempat_training->jumlah_lowongan_training = $request->jumlah_lowongan_training;
             $update_tempat_training->ketentuan_tambahan_training = $request->ketentuan_tambahan_training;
+            $update_tempat_training->jadwal_interview = $request->jadwal_interview;
+            $update_tempat_training->waktu_interview = $request->waktu_interview;
 
 
             // Simpan perubahan

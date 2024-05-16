@@ -2,7 +2,7 @@
 
 @section('konten')
     <div class="card mt-5 mx-auto mb-5">
-        <div class="col-md-10 mx-auto mb-5 mt-5">
+        <div class=" mx-3 mb-5 mt-5">
             <div class="card-header bgcolor">
                 <h3 class="card-title text-white"> <strong>Klompok Bimbingan</strong></h3>
             </div>

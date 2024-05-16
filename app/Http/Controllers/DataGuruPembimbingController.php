@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Guru_Pembimbing;
+use App\Models\Surat;
+use App\Models\Siswa;
+use App\Models\Surat_Kerapian;
 use Illuminate\Support\Facades\Validator;
 use illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -173,5 +176,68 @@ class DataGuruPembimbingController extends Controller
         // Redirect back to the admin edit page with a success message
         return redirect()->route('data_guru_pembimbing', $id)->with('success', 'Guru pembimbing record updated successfully.');
     }
+
+
+    //untuk surat pengantar
+    public function Surat()
+    {
+        $surats = Surat::all();
+        $suratKerapian = Surat_Kerapian::with('siswa.user')->get();
+
+        return view('pages.Surat', compact('surats', 'suratKerapian'));
+    }
+
+    public function StoreSurat(Request $request)
+    {
+        $request->validate([
+            'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        try {
+            $file_surat_pengantar = $request->file('file_surat_pengantar');
+            $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
+            $path = 'dist/surat/' . $fileName;
+
+            $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
+
+            $surat = new Surat();
+            $surat->file_surat_pengantar = $fileName;
+            $surat->save();
+
+            return redirect()->back()->with('success', 'Surat berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
+        }
+    }
+
+    public function deleteSurat(Surat $surat)
+    {
+
+        try {
+            // Hapus file surat dari sistem penyimpanan
+            $filePath = public_path('dist/surat/') . $surat->file_surat_pengantar;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            // Hapus data surat dari database
+            $surat->delete();
+
+            return redirect()->back()->with('success', 'Surat berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat.');
+        }
+    }
+
+
+
+
+
+    //hasil interview
+    public function hasil_interview()
+    {
+        return view ('pages.hasil_interview');
+    }
+
 
 }

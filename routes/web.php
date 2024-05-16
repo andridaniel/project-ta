@@ -17,6 +17,7 @@ use App\Http\controllers\DataSiswaController;
 use App\Http\controllers\DataAdminController;
 use App\Http\controllers\DataSiswaBimbinganController;
 use App\Http\controllers\DataLaporanController;
+use App\Http\Controllers\KegiatanTrainingController;
 
 
 
@@ -109,6 +110,10 @@ Route::middleware('auth')->group(function () {
     Route::get('pagesadmin/detail_siswa/{id}', [DataSiswaController::class, 'show'])->name('detail_siswa');
     Route::get('/edit_siswa/{id}', [DataSiswaController::class, 'edit'])->name('edit_siswa');
     Route::put('/update_siswa/{id}', [DataSiswaController::class, 'update'])->name('update_siswa');
+    Route::get('Surat', [DataSiswaController::class, 'SuratKerapian'])->name('Surat');
+    Route::delete('/surat/{surat_kerapian}', [DataSiswaController::class, 'deleteSuratKerapian'])->name('Surat.deleteSuratKerapian');
+    Route::post('/Surat', [DataSiswaController::class, 'StoreSuratKerapian'])->name('Surat.StoreSuratKerapian');
+    Route::delete('/Surat/{id}', [DataSiswaController::class, 'destroy'])->name('Surat.destroy');
 
 
     //Data guru GuruPembimbingController
@@ -119,6 +124,13 @@ Route::middleware('auth')->group(function () {
     Route::get('pagesadmin/detail_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'show'])->name('detail_guru_pembimbing');
     Route::get('/edit_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'edit'])->name('edit_guru_pembimbing');
     Route::put('/update_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'update'])->name('update_guru_pembimbing');
+    Route::get('Surat', [DataGuruPembimbingController::class, 'Surat'])->name('Surat');
+    Route::delete('/surat/{surat}', [DataGuruPembimbingController::class, 'deleteSurat'])->name('Surat.deleteSurat');
+    Route::post('/Surat/guru', [DataGuruPembimbingController::class, 'StoreSurat'])->name('Surat.StoreSurat');
+
+
+
+    Route::get('hasil_interview', [DataGuruPembimbingController::class, 'hasil_interview'])->name('hasil_interview');
 
 
     //Data admin AdminController
@@ -139,10 +151,13 @@ Route::middleware('auth')->group(function () {
 
 
     //Data Laporan DataLaporanController
-    Route::get('/data_laporan_mingguan', [DataLaporanController::class, 'index'])->name('data_laporan_mingguan');
+    Route::get('/validasi_laporan', [DataLaporanController::class, 'index'])->name('validasi_laporan');
     Route::get('/data_laporan_akhir', [DataLaporanController::class, 'laporan_akhir'])->name('data_laporan_akhir');
+    Route::get('/data_laporan_monitoring', [DataLaporanController::class, 'laporan_monitoring'])->name('data_laporan_monitoring');
 
 
+    //data kegiatan training
+    Route::get('/kegiatan_training', [KegiatanTrainingController::class, 'index'])->name('kegiatan_training');
 
 });
 

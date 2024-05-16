@@ -21,7 +21,7 @@ class DetailTempatTrainingController extends Controller
         }
 
         // Mendapatkan id siswa yang sedang login
-        $id_siswa = auth()->user()->siswa->id;
+        $id_siswa = auth()->user()->id;
 
         // Memeriksa apakah siswa sudah mendaftar pada tempat training
         $is_siswa_registered = Pilihan_Tempat_Training::where('id_siswa', $id_siswa)

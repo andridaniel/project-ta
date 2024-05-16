@@ -6,6 +6,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="form-group">
+                        @if (auth()->user()->role_id == '2')
+                            <div class="text-bold p-2 float-right">
+                                <a class="kembali" href="{{ route('dashboard') }}"> &lt; Kembali</a>
+                            </div>
+                        @endif
                         <div>
                             <h3 class="card-title text-bold "> Data Guru Pembimbing</h3>
                         </div>
@@ -27,7 +32,9 @@
                                 <th>Status</th>
                                 <th>Nama Lengkap</th>
                                 <th>Email</th>
-                                <th>Aksi</th>
+                                @if (auth()->user()->role_id == '1')
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -37,41 +44,43 @@
                                     <td>{{ $dataPengguna->User->Role->nama }}</td>
                                     <td>{{ $dataPengguna->User->name }}</td>
                                     <td>{{ $dataPengguna->User->email }}</td>
-                                    <td>
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <form
-                                                    action="{{ route('delete_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="badge bg-danger"><i
-                                                            class="nav-icon fas fa-trash-alt px-1"></i>Delete</button>
-                                                </form>
-                                            </div>
+                                    @if (auth()->user()->role_id == '1')
+                                        <td>
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <form
+                                                        action="{{ route('delete_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="badge bg-danger"><i
+                                                                class="nav-icon fas fa-trash-alt px-1"></i>Delete</button>
+                                                    </form>
+                                                </div>
 
-                                            <div class="form-group mx-1">
-                                                <a href="{{ route('edit_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
-                                                    class="badge bg-warning">
-                                                    <i class="nav-icon fas fa-edit px-1"></i> Update
-                                                </a>
-                                            </div>
+                                                <div class="form-group mx-1">
+                                                    <a href="{{ route('edit_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
+                                                        class="badge bg-warning">
+                                                        <i class="nav-icon fas fa-edit px-1"></i> Update
+                                                    </a>
+                                                </div>
 
-                                            <div class="form-group mx-1">
-                                                <a href="{{ route('detail_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
-                                                    class="badge bg-info">
-                                                    <i class="nav-icon fas fa-info px-1"></i> Detail
-                                                </a>
-                                            </div>
+                                                <div class="form-group mx-1">
+                                                    <a href="{{ route('detail_guru_pembimbing', ['id' => $dataPengguna->id]) }}"
+                                                        class="badge bg-info">
+                                                        <i class="nav-icon fas fa-info px-1"></i> Detail
+                                                    </a>
+                                                </div>
 
-                                            {{-- <div class="form-group mx-1">
+                                                {{-- <div class="form-group mx-1">
                                                 <a href="{{ route('tambah_data_guru_pembimbing') }}" class="badge bg-dark">
                                                     <i class="nav-icon fas fa-plus px-1"></i> Lengkapi Data
                                                 </a>
                                             </div> --}}
 
-                                        </div>
-                                    </td>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

@@ -24,13 +24,15 @@ class FormTempatTrainingController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'nama_hotel' => 'required',
-            'alamat_hotel' => 'required',
-            'telepon_hotel' => 'required',
-            'email_hotel' => 'required|email',
+            'nama_tempat_training' => 'required',
+            'alamat_tempat_training' => 'required',
+            'telepon_tempat_training' => 'required',
+            'email_tempat_training' => 'required|email',
             'lowongan_training' => 'required',
             'jumlah_lowongan_training' => 'required|numeric',
             'ketentuan_tambahan_training' => 'required',
+            'jadwal_interview' => 'required',
+            'waktu_interview' => 'required',
             'gambar' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -53,10 +55,10 @@ class FormTempatTrainingController extends Controller
         $validated_input['gambar'] = $fileName;
 
         // Check apakah email sudah ada atau belum
-        $existingEmail = Tempat_Training::where('email_hotel', $validated_input['email_hotel'])->first();
+        $existingEmail = Tempat_Training::where('email_tempat_training', $validated_input['email_tempat_training'])->first();
         if ($existingEmail) {
             // Email sudah ada, berikan pesan kesalahan
-            return redirect()->back()->withErrors(['email_hotel' => 'Email already exists.']);
+            return redirect()->back()->withErrors(['email_tempat_training' => 'Email already exists.']);
         }
 
         // Email belum ada, lanjutkan proses penyimpanan data

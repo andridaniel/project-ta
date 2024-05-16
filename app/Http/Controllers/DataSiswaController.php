@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Guru_Pembimbing;
+use App\Models\Surat_kerapian;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -74,7 +75,7 @@ class DataSiswaController extends Controller
         // Menyimpan data
         $user->Siswa()->create($validated_input);
 
-        return redirect()->route('data_siswa')->with('success', 'Product created successfully!');
+        return redirect()->route('data_siswa')->with('success', 'Data Siswa Berhasil Ditambahkan');
     }
 
 
@@ -216,6 +217,72 @@ class DataSiswaController extends Controller
 
         // Redirect back to the admin edit page with a success message
         return redirect()->route('data_siswa', $id)->with('success', 'Data Siswa record updated successfully.');
+    }
+
+
+    // surat kerapian untuk siswa
+    public function SuratKerapian()
+    {
+
+        $suratKerapian = Surat_Kerapian::all();
+        return view('pages.Surat', compact('suratKerapian'));
+    }
+
+    public function StoreSuratKerapian(Request $request)
+    {
+
+        $request->validate([
+            'file_surat_kerapian' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        try {
+            $file_surat_kerapian = $request->file('file_surat_kerapian');
+            $fileName = date('Y.m.d') . '_' . $file_surat_kerapian->getClientOriginalName();
+            $path = 'dist/surat/' . $fileName;
+
+            $file_surat_kerapian->move(public_path('dist/surat'), $fileName);
+
+            $surat = new Surat_Kerapian();
+            $surat->file_surat_kerapian = $fileName;
+            $surat->id_siswa = auth()->user()->id;
+            $surat->save();
+
+            return redirect()->back()->with('success', 'Surat kerapian berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat kerapian.');
+        }
+
+    }
+
+    // hapus untuk surat kerapian siswa
+    public function destroy($id)
+    {
+        try {
+            $surat = Surat_Kerapian::findOrFail($id);
+            $surat->delete();
+
+            return redirect()->back()->with('successkerapian', 'Surat kerapian berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat kerapian.');
+        }
+    }
+
+    public function deleteSuratKerapian(Surat_Kerapian $surat_kerapian)
+    {
+        try {
+            // Hapus file surat dari sistem penyimpanan
+            $filePath = public_path('dist/surat/') . $surat_kerapian->file_surat_kerapian;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            // Hapus data surat dari database
+            $surat_kerapian->delete();
+
+            return redirect()->back()->with('success', 'Surat berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat.');
+        }
     }
 
 }
