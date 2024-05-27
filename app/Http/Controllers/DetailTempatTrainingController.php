@@ -21,11 +21,12 @@ class DetailTempatTrainingController extends Controller
         }
 
         // Mendapatkan id siswa yang sedang login
-        $id_siswa = auth()->user()->id;
+        $id_siswa = auth()->user()->load("Siswa")->siswa->id;
+
 
         // Memeriksa apakah siswa sudah mendaftar pada tempat training
         $is_siswa_registered = Pilihan_Tempat_Training::where('id_siswa', $id_siswa)
-            ->whereIn('id_tempat_training', $data_tempat_training->pluck('id'))
+            ->where('id_tempat_Training', $data_tempat_training->id)
             ->exists();
 
         return view('pages.detailtempattraining', compact('data_tempat_training', 'is_siswa_registered'));

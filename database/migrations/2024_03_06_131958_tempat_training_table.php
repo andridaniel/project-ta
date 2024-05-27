@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('telepon_tempat_training');
             $table->string('email_tempat_training')->unique();
             $table->string('lowongan_training');
-            $table->integer('jumlah_lowongan_training');
             $table->text('ketentuan_tambahan_training');
             $table->date('jadwal_interview');
             $table->time('waktu_interview');

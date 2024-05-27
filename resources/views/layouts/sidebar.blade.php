@@ -94,6 +94,18 @@
                     </a>
                 </li>
 
+                @if (auth()->user()->role_id == '3')
+                    <li class="nav-item  mt-2 ">
+                        <a href="{{ route('jadwal_interview') }}"
+                            class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'jadwal_interview' ? 'activesidebar' : '' }}">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                Jadwal Interview
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
+                @endif
                 @if (auth()->user()->role_id == '1')
                     <li class="nav-item mt-2">
                         <a href="{{ route('userregister') }}"

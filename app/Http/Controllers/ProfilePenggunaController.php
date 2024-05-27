@@ -100,6 +100,15 @@ class ProfilePenggunaController extends Controller
 
         $request->validate($validateForm);
 
+        $data = [
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+        ];
+
         // Perbarui data pengguna berdasarkan peran pengguna
         if ($request->hasFile('gambar_profile')) {
             // Ambil gambar yang diunggah
@@ -111,18 +120,12 @@ class ProfilePenggunaController extends Controller
             // Pindahkan file yang diunggah ke direktori tujuan
             $gambar->move(public_path('dist/img'), $fileName);
             // Update kolom gambar_profile di dalam database
-            $user->gambar_profile = $fileName;
+            $data['gambar_profile'] = $fileName;
         }
 
-        $data = [
-            'name' => $request->name,
-            'alamat' => $request->alamat,
-            'email' => $request->email,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'gambar_profile' => $request->gambar_profile,
-        ];
+
+        $user->update($data);
+
 
         // Update data pengguna sesuai peran
         if ($user->isAdmin()) {

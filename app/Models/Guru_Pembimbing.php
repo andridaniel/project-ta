@@ -16,6 +16,16 @@ class Guru_Pembimbing extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function surat_kerapian()
+    {
+        return $this->hasMany(Surat_Kerapian::class);
+    }
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'guru_pembimbing_id');
+    }
+
     protected $fillable = [
         'user_id',
         'tempat_lahir',

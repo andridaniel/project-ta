@@ -19,14 +19,20 @@
                 <a class="kembali" href="{{ route('dashboard') }}"> &lt; Kembali</a>
             </div>
 
-            <div>
-                <h3 class="text-bold px-3">My Profile </h3>
-            </div>
-            @if (auth()->user()->role_id == '3')
-                <div class="form-group px-3">
-                    <label for="guru_pembimbing_id">Guru Pembimbing : <span>{{ $nama_guru_pembimbing }}</span></label>
+            <div class="card-header bgcolor">
+                <div class="float-left">
+                    <h3 class="card-title text-bold text-light">My Profile </h3>
                 </div>
-            @endif
+
+                @if (auth()->user()->role_id == '3')
+                    <div class="form-group float-right">
+                        <h3 class="card-title text-bold text-light" for="guru_pembimbing_id">Pembimbing :
+                            <span>{{ $nama_guru_pembimbing }}</span>
+                        </h3>
+                    </div>
+                @endif
+            </div>
+
             <!-- form start -->
             <form action="{{ route('profilepengguna.updateProfile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -238,21 +244,21 @@
                                 </div>
                             @enderror
 
-
-                            {{-- <div class="form-group">
-                                <label for="exampleInputFile">Upload Foto Profile</label>
-                                <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
-                                <img src="{{ asset('dist/img/' . auth()->user()->gambar_profile) }}" width="70"
-                                    alt="existing-image" class="my-3"><br>
-                                @error('gambar_profile')
-                                    <div>
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div> --}}
-
                         </div>
                     @endif
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">Upload Foto Profile <span class="">(jika ingin mengganti
+                                profile)</span></label>
+                        <input type="file" class="form-control" id="exampleInputFile" name="gambar_profile">
+                        {{-- <img src="{{ asset('dist/img/' . auth()->user()->gambar_profile) }}" width="70"
+                            alt="existing-image" class="my-3"><br> --}}
+                        @error('gambar_profile')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
 
 

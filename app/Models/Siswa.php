@@ -25,6 +25,20 @@ class Siswa extends Model
         return $this->belongsToMany(Tempat_Training::class, 'pilihan_tempat_trainings', 'id_siswa', 'id_tempat_Training');
     }
 
+    public function hasSuratKerapian(){
+        return $this->hasOne(Surat_Kerapian::class, 'id_siswa', 'id');
+    }
+
+    public function hasHasilInterview(){
+        return $this->hasMany(Hasil_Interview::class, 'id_siswa', 'id');
+    }
+
+    public function pilihanTempatTraining()
+    {
+
+        return $this->hasOne(Pilihan_Tempat_Training::class, 'id_siswa', 'id');
+    }
+
     protected $fillable = [
         'user_id',
         'guru_pembimbing_id',

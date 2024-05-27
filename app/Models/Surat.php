@@ -12,6 +12,8 @@ class Surat extends Model
     protected $table = 'surat_pengantar';
 
     protected $fillable = [
+        'id_siswa',
+        'id_pilihan_tempat_training',
         'file_surat_pengantar',
     ];
 }

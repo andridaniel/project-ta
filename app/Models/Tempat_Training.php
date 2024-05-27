@@ -24,10 +24,14 @@ class Tempat_Training extends Model
         'telepon_tempat_training',
         'email_tempat_training',
         'lowongan_training',
-        'jumlah_lowongan_training',
         'ketentuan_tambahan_training', // corrected property name
         'jadwal_interview',
         'waktu_interview',
         'gambar',
     ];
+
+    public function pilihanTempatTrainings()
+    {
+        return $this->hasMany(Pilihan_Tempat_Training::class, 'id_tempat_Training');
+    }
 }

@@ -7,6 +7,8 @@ use App\Models\Guru_Pembimbing;
 use App\Models\Surat;
 use App\Models\Siswa;
 use App\Models\Surat_Kerapian;
+use App\Models\Tempat_Training;
+use App\Models\Pilihan_Tempat_Training;
 use Illuminate\Support\Facades\Validator;
 use illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -179,40 +181,74 @@ class DataGuruPembimbingController extends Controller
 
 
     //untuk surat pengantar
-    public function Surat()
+    public function Surat (Request $request)
     {
-        $surats = Surat::all();
-        $suratKerapian = Surat_Kerapian::with('siswa.user')->get();
+        $auth_login = $request->user()->load("Guru_Pembimbing","Siswa");
+
+        if($auth_login->Guru_Pembimbing){
+            $guru_pembimbing_id = $auth_login->Guru_Pembimbing->id;
+
+            $siswas = Siswa::with(['user', 'hasSuratKerapian'])
+            ->where('guru_pembimbing_id', $guru_pembimbing_id)
+            ->get();
+
+            $daftar_surat_pengantar_siswa = Siswa::has('hasPilihanTempatTraining')->with([
+                'hasPilihanTempatTraining'
+            ])->whereGuruPembimbingId($guru_pembimbing_id)->get();
+
+            return view('pages.Surat', compact('siswas','daftar_surat_pengantar_siswa'));
+        }
+
+        $surats = Surat::where('id_siswa', $auth_login->Siswa->id)->get();
+        $suratKerapian = Surat_Kerapian::where('id_siswa',$auth_login->Siswa->id)->first();
 
         return view('pages.Surat', compact('surats', 'suratKerapian'));
+
     }
 
-    public function StoreSurat(Request $request)
-    {
-        $request->validate([
-            'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
-        ]);
+    public function StoreSurat(Request $request, $id_siswa, $id_pilihan_tempat_training)
+{
+    // Validasi input
+    $request->validate([
+        'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
+    ]);
 
-        try {
-            $file_surat_pengantar = $request->file('file_surat_pengantar');
-            $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
-            $path = 'dist/surat/' . $fileName;
+    // Dapatkan ID guru pembimbing dari user
+    $guru_pembimbing_id = $request->user()->Guru_Pembimbing->id;
 
-            $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
+    // Periksa apakah siswa terkait dengan guru pembimbing dan memiliki pilihan tempat training
+    $siswa = Siswa::where('id', $id_siswa)
+                ->where('guru_pembimbing_id', $guru_pembimbing_id)
+                ->whereHas('pilihanTempatTraining', function($query) use ($id_pilihan_tempat_training) {
+                    $query->where('id', $id_pilihan_tempat_training);
+                })
+                ->firstOrFail();
 
-            $surat = new Surat();
-            $surat->file_surat_pengantar = $fileName;
-            $surat->save();
+    try {
+        $file_surat_pengantar = $request->file('file_surat_pengantar');
+        $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
+        $path = 'dist/surat/' . $fileName;
 
-            return redirect()->back()->with('success', 'Surat berhasil ditambahkan');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
-        }
+        // Pindahkan file ke direktori tujuan
+        $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
+
+        // Simpan data surat ke database
+        $surat = new Surat();
+        $surat->id_siswa = $siswa->id;
+        $surat->id_pilihan_tempat_training = $id_pilihan_tempat_training; // Menyimpan ID tempat training
+        $surat->file_surat_pengantar = $fileName;
+        $surat->save();
+
+        return redirect()->back()->with('success', 'Surat berhasil ditambahkan');
+    } catch (\Exception $e) {
+        \Log::error('Error storing surat: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
     }
+}
 
-    public function deleteSurat(Surat $surat)
+    //delete surat pengantar
+    public function deleteSuratPengantar(Surat $surat)
     {
-
         try {
             // Hapus file surat dari sistem penyimpanan
             $filePath = public_path('dist/surat/') . $surat->file_surat_pengantar;
@@ -225,6 +261,7 @@ class DataGuruPembimbingController extends Controller
 
             return redirect()->back()->with('success', 'Surat berhasil dihapus.');
         } catch (\Exception $e) {
+            \Log::error('Error deleting surat: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat.');
         }
     }
@@ -233,11 +270,7 @@ class DataGuruPembimbingController extends Controller
 
 
 
-    //hasil interview
-    public function hasil_interview()
-    {
-        return view ('pages.hasil_interview');
-    }
+
 
 
 }

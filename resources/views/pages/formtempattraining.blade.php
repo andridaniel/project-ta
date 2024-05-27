@@ -70,7 +70,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
+                        {{-- <div class="form-group col-md-2">
                             <label for="jumlah_lowongan_training">Jumlah Lowongan</label>
                             <input type="number" class="form-control" id="jumlah_lowongan_training"
                                 name="jumlah_lowongan_training" placeholder="Jumlah" required>
@@ -79,7 +79,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
 
 

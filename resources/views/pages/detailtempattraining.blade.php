@@ -27,9 +27,9 @@
                         <p>Lowongan : <span> {{ $data_tempat_training->lowongan_training }}</span></p>
                         <p>Jumlah Lowongan : <span> {{ $data_tempat_training->jumlah_lowongan_training }}</span></p>
                         <p>Ketentuan Tambahan : <span> {{ $data_tempat_training->ketentuan_tambahan_training }}</span></p>
-                        <p class="text-bold">Jadwal interview : <span> {{ $data_tempat_training->jadwal_interview }}</span>
+                        {{-- <p class="text-bold">Jadwal interview : <span> {{ $data_tempat_training->jadwal_interview }}</span>
                             >> jam
-                            : {{ $data_tempat_training->waktu_interview }}</p>
+                            : {{ $data_tempat_training->waktu_interview }}</p> --}}
                     </div>
 
 
@@ -43,6 +43,8 @@
                             @if (!$is_siswa_registered)
                                 <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
                                     class="btn custom-border hover-element btn-block">Daftar</a>
+                            @else
+                                <p class="bg-danger p-2">Anda telah terdaftar di tempat training ini.</p>
                             @endif
                         </div>
                     @endif

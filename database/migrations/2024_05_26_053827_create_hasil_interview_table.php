@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_pengantar', function (Blueprint $table) {
+        Schema::create('hasil_interview', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_siswa');
-            $table->foreignId('id_pilihan_tempat_training');
-            $table->string('file_surat_pengantar')->nullable();
+            $table->foreignId('id_tempat_training');
+            $table->string('file_hasil_interview')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_pengantar');
+        Schema::dropIfExists('hasil_interview');
     }
 };

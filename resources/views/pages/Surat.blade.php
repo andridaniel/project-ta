@@ -32,43 +32,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($suratKerapian as $key => $surat_kerapian)
+                                @foreach ($siswas as $key => $siswa)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>
-                                            @if ($surat_kerapian->user)
-                                                {{ $surat_kerapian->user->siswa->nisn }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($surat_kerapian->user)
-                                                {{ $surat_kerapian->user->name }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($surat_kerapian->user)
-                                                {{ $surat_kerapian->user->siswa->kelas }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ asset('dist/surat/' . $surat_kerapian->file_surat_kerapian) }}"
-                                                target="_blank">
-                                                Lihat Surat Kerapian
-                                            </a>
-                                        </td>
+                                        <td>{{ $siswa->nisn }}</td>
+                                        <td>{{ $siswa->user->name }}</td>
+                                        <td>{{ $siswa->kelas }}</td>
+                                        @if ($siswa->hasSuratKerapian)
+                                            <td>
+                                                <a href="{{ asset('dist/surat/' . $siswa->hasSuratKerapian->file_surat_kerapian) }}"
+                                                    target="_blank">
+                                                    Lihat Surat Kerapian
+                                                </a>
+                                            </td>
 
-                                        <td>
-                                            <form action="{{ route('Surat.destroy', ['id' => $surat_kerapian->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="badge bg-danger">
-                                                    <i class="nav-icon fas fa-trash-alt px-1"></i>
-                                                    Hapus File
-                                                </button>
-                                            </form>
+                                            <td>
+                                                <form
+                                                    action="{{ route('Surat.destroy', ['id' => $siswa->hasSuratKerapian->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="badge bg-danger">
+                                                        <i class="nav-icon fas fa-trash-alt px-1"></i>
+                                                        Hapus File
+                                                    </button>
+                                                </form>
 
-                                        </td>
+                                            </td>
+                                        @else
+                                            <td colspan="2">Tidak ada file surat kerapian</td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
@@ -104,7 +97,7 @@
                 </div>
 
                 <!-- form start -->
-                <form action="{{ route('Surat.StoreSurat') }}" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (session('success'))
                         <div class="alert alert-success">
@@ -113,142 +106,178 @@
                     @endif
                     <div class="card m-3">
                         <div class="form-group card-body">
-                            <div class="form-row ">
+                            <div class="row">
+                                @forelse ($daftar_surat_pengantar_siswa as $siswa)
+                                    <div class="col-md-4">
+                                        <!-- Widget: user widget style 1 -->
+                                        <div class="card card-widget widget-user shadow">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header bg-info">
+                                                <h3 class="widget-user-username">{{ $siswa->user->name }}</h3>
+                                            </div>
+                                            <div class="widget-user-image">
+                                                <img class="img-circle elevation-2"
+                                                    src="{{ asset('dist/img/' . $siswa->user->gambar_profile) }}"
+                                                    alt="User Avatar">
+                                            </div>
+                                            <div class="card-footer">
+                                                @foreach ($siswa->hasPilihanTempatTraining as $tempatMagang)
+                                                    <h6>Tempat training
+                                                        {{ $loop->iteration }} : {{ $tempatMagang->nama_tempat_training }}
+                                                    </h6>
+                                                @endforeach
+                                                <div class="form-group">
+                                                    <div class="mt-3">
+                                                        <a href="{{ route('SuratPengantarSiswa', ['id' => $siswa->id]) }}"
+                                                            class="btn bg-info text-white btn-block">Upload Surat
+                                                            Pengantar</a>
+                                                    </div>
+                                                </div>
+                                                <!-- /.row -->
+                                            </div>
+                                        </div>
+                                        <!-- /.widget-user -->
+                                    </div>
+                                @empty
+                                    <div>
+                                        <i class="mx-auto">Tidak ada data Surat Pengantar</i>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+
+                </form>
+            @endif
+
+        </div>
+    </div>
+
+
+    @if (auth()->user()->role_id == '3')
+        {{-- untuk form kerapian siswa --}}
+
+        @if (!$suratKerapian)
+            <form action="{{ route('Surat.StoreSuratKerapian') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="card m-3">
+
+                    <div class="form-group">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
+                        <div class="card m-3">
+                            <div class="card-header text-light bgcolor">
+                                <h5 class=" text-bold ">Surat Kerapian</h5>
+                                {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
+                            </div>
+                            <div class="form-row px-3 mt-4 ">
                                 <div class="form-group col-md-10">
-                                    <input type="file" class="form-control" id="file_surat_pengantar"
-                                        name="file_surat_pengantar">
+                                    <input type="file" class="form-control" id="file_surat_kerapian"
+                                        name="file_surat_kerapian">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
-                </form>
+                        </div>
+            </form>
+        @endif
 
-                @foreach ($surats as $surat)
-                    <a href="{{ asset('dist/surat/' . $surat->file_surat_pengantar) }}" target="_blank"
-                        class="text-primary">
-                        Lihat File Surat Pengantar : {{ $surat->file_surat_pengantar }}
-                    </a>
+        @if ($suratKerapian)
+            <div class="card m-3">
+                <div>
+                    <div class="card-header text-light bgcolor">
+                        <h5 class=" text-bold ">Surat Kerapian</h5>
+                        {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
+                    </div>
+                    <i class="float-right p-2">Hapus Jika Terjadi Kesalahan</i>
+                    <p class="px-3 mt-3 text-bold">Nama File:
+                        <a href="{{ asset('dist/surat/' . $suratKerapian->file_surat_kerapian) }}" target="_blank"
+                            class="text-primary">
+                            {{ $suratKerapian->file_surat_kerapian }}
+                        </a>
+                    </p>
 
-                    <form id="deleteForm{{ $surat->id }}" action="{{ route('Surat.deleteSurat', $surat->id) }}"
-                        method="POST">
+                    <form id="deleteForm{{ $suratKerapian->id }}"
+                        action="{{ route('Surat.deleteSuratKerapian', $suratKerapian->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-danger mx-1 mt-2 deleteSurat"
-                            data-surat-id="{{ $surat->id }}">Hapus</button>
+                        <button type="submit" class="btn btn-danger mx-3 mb-3 deleteSuratKerapian"
+                            data-surat-id="{{ $suratKerapian->id }}">Hapus</button>
                     </form>
-                @endforeach
-            @endif
+                </div>
+            </div>
+        @endif
 
+        <div class="card m-3">
+            <form action="" method="post">
 
-
-            <script>
-                document.querySelectorAll('.deleteSurat').forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        if (confirm('Apakah Anda yakin ingin menghapus surat ini?')) {
-                            const suratId = this.getAttribute('data-surat-id');
-                            document.getElementById('deleteForm' + suratId).submit();
-                        }
-                    });
-                });
-            </script>
-        </div>
-    </div>
-
-    {{-- surat pengantar untuk siswa --}}
-    @if (auth()->user()->role_id == '3')
-        <form action="" method="post">
-            <div class="card m-3">
                 <div class="form-group">
-                    <div class="card-header">
+                    <div class="card-header text-light bgcolor">
                         <h5 class=" text-bold">Surat Pengantar</h5>
-                        <i class="float-right">Surat Pengantar Dapat di download disini</i>
+                        {{-- <i class="float-right">Surat Pengantar Dapat di download disini</i> --}}
                     </div>
                     <div class="form-row px-3 mt-4">
-                        @foreach ($surats as $surat)
+                        {{-- @foreach ($surats as $surat) --}}
+                        @forelse ($surats as $surat)
                             <div class="form-group col-md-10">
                                 <input type="text" class="form-control" id="file_surat_pengantar"
                                     name="file_surat_pengantar" value="{{ $surat->file_surat_pengantar }}" readonly>
                             </div>
                             <div class="form-group col-md-2">
-                                <a href="{{ asset('dist/surat/' . $surat->file_surat_pengantar) }}" class="btn btn-primary"
-                                    download>Download</a>
+                                <a href="{{ asset('dist/surat/' . $surat->file_surat_pengantar) }}"
+                                    class="btn btn-primary" download>Download</a>
                             </div>
-                        @endforeach
+
+                        @empty
+                            <div>
+                                <i>Surat Pengantar Belum ada</i>
+                            </div>
+                        @endforelse
+                        {{-- @endforeach --}}
                     </div>
                 </div>
-            </div>
-        </form>
-
-
-
-
-        {{-- untuk form kerapian siswa --}}
-        <form action="{{ route('Surat.StoreSuratKerapian') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="card m-3">
-                <div class="form-group">
-                    <div class="card-header">
-                        <h5 class=" text-bold">Form Kerapian</h5>
-                        <i class="float-right">Tambahkan surat kerapian disini</i>
-                    </div>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <div class="form-row px-3 mt-4 ">
-                        <div class="form-group col-md-10">
-                            <input type="file" class="form-control" id="file_surat_kerapian" name="file_surat_kerapian">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-        </form>
-
-        @foreach ($suratKerapian as $surat_kerapian)
-            @if ($surat_kerapian->id_siswa == auth()->user()->id)
-                <div class="my-3">
-                    <p class="px-3 text-bold">Nama File:
-                        <a href="{{ asset('dist/surat/' . $surat_kerapian->file_surat_kerapian) }}" target="_blank"
-                            class="text-primary">
-                            {{ $surat_kerapian->file_surat_kerapian }}
-                        </a>
-                    </p>
-
-                    <form id="deleteForm{{ $surat_kerapian->id }}"
-                        action="{{ route('Surat.deleteSuratKerapian', $surat_kerapian->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-danger mx-3 deleteSuratKerapian"
-                            data-surat-id="{{ $surat_kerapian->id }}">Hapus</button>
-                    </form>
-                </div>
-            @endif
-        @endforeach
-
-
-        <script>
-            document.querySelectorAll('.deleteSuratKerapian').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (confirm('Apakah Anda yakin ingin menghapus surat ini?')) {
-                        const suratId = this.getAttribute('data-surat-id');
-                        try {
-                            document.getElementById('deleteForm' + suratId).submit();
-                        } catch (error) {
-                            console.error(error);
-                            alert('Terjadi kesalahan saat menghapus surat.');
-                        }
-                    }
-                });
-            });
-        </script>
+            </form>
+        </div>
     @endif
 
+
+
     </div>
+
     </div>
+
+    <script>
+        document.getElementById('siswa').addEventListener('change', function() {
+            var fileUploadDiv = document.getElementById('file-upload');
+            var submitButtonDiv = document.getElementById('submit-button');
+
+            if (this.value) {
+                fileUploadDiv.style.display = 'block';
+                submitButtonDiv.style.display = 'block';
+            } else {
+                fileUploadDiv.style.display = 'none';
+                submitButtonDiv.style.display = 'none';
+            }
+        });
+
+        document.querySelector('.deleteSuratKerapian').addEventListener("click", (e) => {
+            if (confirm('Apakah Anda yakin ingin menghapus surat ini?')) {
+                const suratId = this.getAttribute('data-surat-id');
+                try {
+                    document.getElementById('deleteForm' + suratId).submit();
+                } catch (error) {
+                    console.error(error);
+                    alert('Terjadi kesalahan saat menghapus surat.');
+                }
+            }
+        })
+    </script>
+
+
+
 @endsection

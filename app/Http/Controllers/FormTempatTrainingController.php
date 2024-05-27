@@ -29,7 +29,6 @@ class FormTempatTrainingController extends Controller
             'telepon_tempat_training' => 'required',
             'email_tempat_training' => 'required|email',
             'lowongan_training' => 'required',
-            'jumlah_lowongan_training' => 'required|numeric',
             'ketentuan_tambahan_training' => 'required',
             'jadwal_interview' => 'required',
             'waktu_interview' => 'required',

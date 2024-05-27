@@ -18,6 +18,8 @@ use App\Http\controllers\DataAdminController;
 use App\Http\controllers\DataSiswaBimbinganController;
 use App\Http\controllers\DataLaporanController;
 use App\Http\Controllers\KegiatanTrainingController;
+use App\Http\Controllers\InterviewController;
+use App\Models\Surat;
 
 
 
@@ -125,12 +127,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'edit'])->name('edit_guru_pembimbing');
     Route::put('/update_guru_pembimbing/{id}', [DataGuruPembimbingController::class, 'update'])->name('update_guru_pembimbing');
     Route::get('Surat', [DataGuruPembimbingController::class, 'Surat'])->name('Surat');
-    Route::delete('/surat/{surat}', [DataGuruPembimbingController::class, 'deleteSurat'])->name('Surat.deleteSurat');
-    Route::post('/Surat/guru', [DataGuruPembimbingController::class, 'StoreSurat'])->name('Surat.StoreSurat');
+    Route::delete('/surat_pengantar_siswa/{surat}', [DataGuruPembimbingController::class, 'deleteSuratPengantar'])->name('surat_pengantar_siswa.deleteSuratPengantar');
+    Route::post('surat_pengantar_siswa/{id_siswa}/{id_pilihan_tempat_training}', [DataGuruPembimbingController::class, 'StoreSurat'])->name('storesurat');
 
 
 
-    Route::get('hasil_interview', [DataGuruPembimbingController::class, 'hasil_interview'])->name('hasil_interview');
 
 
     //Data admin AdminController
@@ -155,9 +156,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/data_laporan_akhir', [DataLaporanController::class, 'laporan_akhir'])->name('data_laporan_akhir');
     Route::get('/data_laporan_monitoring', [DataLaporanController::class, 'laporan_monitoring'])->name('data_laporan_monitoring');
 
+    Route::get('/surat_pengantar_siswa/{id}', [DataLaporanController::class, 'SuratPengantarSiswa'])->name('SuratPengantarSiswa');
+
 
     //data kegiatan training
     Route::get('/kegiatan_training', [KegiatanTrainingController::class, 'index'])->name('kegiatan_training');
+
+    //data interview
+    Route::get('/jadwal_interview', [InterviewController::class, 'jadwal_interview'])->name('jadwal_interview');
+    Route::post('/jadwal_interview/{id_siswa}/{id_tempat_training}', [InterviewController::class, 'StoreInterview'])->name('StoreInterview');
+    Route::delete('/jadwal_interview/{hasil_interview}', [InterviewController::class, 'deleteHasilInterview'])->name('jadwal_interview.deleteHasilInterview');
+
+    Route::get('hasil_interview', [interviewController::class, 'hasil_interview'])->name('hasil_interview');
+    Route::put('hasil_interview/{id_siswa}/{id_tempat_training}/{id}/update', [InterviewController::class, 'updateInterview'])->name('hasil_interview.updateInterview');
+
+
+
+
+
 
 });
 

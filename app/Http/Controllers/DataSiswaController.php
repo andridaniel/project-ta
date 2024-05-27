@@ -244,7 +244,7 @@ class DataSiswaController extends Controller
 
             $surat = new Surat_Kerapian();
             $surat->file_surat_kerapian = $fileName;
-            $surat->id_siswa = auth()->user()->id;
+            $surat->id_siswa = auth()->user()->load('Siswa')->Siswa->id;
             $surat->save();
 
             return redirect()->back()->with('success', 'Surat kerapian berhasil disimpan.');

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tempat_Training;
+use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Surat;
+use App\Models\Pilihan_Tempat_Training;
 
 class DataLaporanController extends Controller
 {
@@ -26,4 +31,21 @@ class DataLaporanController extends Controller
     {
         return view('pages.data_laporan_monitoring');
     }
+
+
+
+
+
+
+
+
+    //surat pengantar siswa
+    public function SuratPengantarSiswa($id)
+    {
+        $surats = Surat::all();
+        $siswas = Siswa::where('id',$id)->with(['user','hasPilihanTempatTraining'])->has('hasPilihanTempatTraining')->first();
+        return view('pages.surat_pengantar_siswa', compact('siswas','surats'));
+    }
+
+
 }

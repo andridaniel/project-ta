@@ -37,7 +37,7 @@
 
                     <div class="form-group">
                         <label for="email">Nama Tempat Training</label>
-                        <p>{{ $tempat_training->nama_hotel }}</p>
+                        <p>{{ $tempat_training->nama_tempat_training }}</p>
                     </div>
 
                     <div class="form-group ">
