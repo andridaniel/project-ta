@@ -153,14 +153,24 @@ Route::middleware('auth')->group(function () {
 
     //Data Laporan DataLaporanController
     Route::get('/validasi_laporan', [DataLaporanController::class, 'index'])->name('validasi_laporan');
-    Route::get('/data_laporan_akhir', [DataLaporanController::class, 'laporan_akhir'])->name('data_laporan_akhir');
+    Route::put('/validasi_laporan/{id_siswa}/{id_tempat_training}/{id}/update', [DataLaporanController::class, 'validasiLaporanAkhir'])->name('validasi_laporan.validasiLaporanAkhir');
     Route::get('/data_laporan_monitoring', [DataLaporanController::class, 'laporan_monitoring'])->name('data_laporan_monitoring');
-
+    Route::post('/data_laporan_monitoring/{id_siswa}/{id_tempat_training}/store', [DataLaporanController::class, 'StoreLaporanMonitoring'])->name('StoreLaporanMonitoring');
     Route::get('/surat_pengantar_siswa/{id}', [DataLaporanController::class, 'SuratPengantarSiswa'])->name('SuratPengantarSiswa');
+    Route::get('/detail_laporan_monitoring', [DataLaporanController::class, 'detailLaporanMonitoring'])->name('detail_laporan_monitoring');
+
 
 
     //data kegiatan training
-    Route::get('/kegiatan_training', [KegiatanTrainingController::class, 'index'])->name('kegiatan_training');
+    Route::get('kegiatan_training', [KegiatanTrainingController::class, 'index'])->name('kegiatan_training');
+    // Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}', [KegiatanTrainingController::class, 'StoreLaporan'])->name('StoreLaporan');
+    // Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}', [KegiatanTrainingcontroller::class, 'TambahLaporanAkhir'])->name('TambahLaporanAkhir');
+    Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}/store', [KegiatanTrainingController::class, 'StoreLaporan'])->name('StoreLaporan');
+    Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}/akhir', [KegiatanTrainingController::class, 'TambahLaporanAkhir'])->name('TambahLaporanAkhir');
+    Route::get('/detail_laporan_mingguan', [KegiatanTrainingController::class, 'detailLaporanMingguan'])->name('detail_laporan_mingguan');
+    Route::put('/detail_laporan_mingguan/{id_siswa}/{id_tempat_training}/{id}/update', [KegiatanTrainingController::class, 'UpdateLaporanMingguan'])->name('detail_laporan_mingguan.UpdateLaporanMingguan');
+    Route::get('/laporan_siswa', [KegiatanTrainingController::class, 'laporanSiswa'])->name('laporan_siswa');
+    Route::put('/laporan_siswa/{id_siswa}/{id_tempat_training}/{id}/update', [KegiatanTrainingController::class, 'validasiLaporanMingguan'])->name('laporan_siswa.validasiLaporanMingguan');
 
     //data interview
     Route::get('/jadwal_interview', [InterviewController::class, 'jadwal_interview'])->name('jadwal_interview');

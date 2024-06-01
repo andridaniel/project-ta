@@ -122,6 +122,7 @@
                                             </div>
                                             <div class="card-footer">
                                                 @foreach ($siswa->hasPilihanTempatTraining as $tempatMagang)
+                                                    <h6 class="text-bold ">Pilihan Training :</h6>
                                                     <h6>Tempat training
                                                         {{ $loop->iteration }} : {{ $tempatMagang->nama_tempat_training }}
                                                     </h6>

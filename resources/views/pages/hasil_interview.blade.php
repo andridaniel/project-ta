@@ -44,16 +44,13 @@
                             </div>
                             <div class="form-group col-md-12 px-3">
                                 <select name="keterangan" id="keterangan" class="form-control">
-                                    <option value="" disabled selected>--pilih keterangan--</option>
-                                    <option value="DiProses",
-                                        {{ old('keterangan', $hasil_interview->keterangan) == ' Diproses' ? 'selected' : '' }}>
-                                        proses</option>
-                                    <option value="Diterima",
-                                        {{ old('keterangan', $hasil_interview->keterangan) == ' Diterima' ? 'selected' : '' }}>
-                                        Diterima</option>
-                                    <option value="Ditolak",
-                                        {{ old('keterangan', $hasil_interview->keterangan) == ' Ditolak' ? 'selected' : '' }}>
-                                        Ditolak</option>
+                                    <option value="" disabled>--pilih keterangan--</option>
+                                    <option value="Diproses" @if ($hasil_interview->keterangan == 'Diproses') selected @endif>Diproses
+                                    </option>
+                                    <option value="Diterima" @if ($hasil_interview->keterangan == 'Diterima') selected @endif>Diterima
+                                    </option>
+                                    <option value="Ditolak" @if ($hasil_interview->keterangan == 'Ditolak') selected @endif>Ditolak
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">

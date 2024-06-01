@@ -194,7 +194,7 @@
 
                     <li class="nav-item mt-2">
                         <a href="{{ route('data_laporan_monitoring') }}"
-                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_laporan_monitoring' ? 'activesidebar' : '' }}                                         ">
+                            class="custom-border  hover-element nav-link {{ Route::currentRouteName() == 'data_laporan_monitoring' ? 'activesidebar' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Laporan Monitoring
@@ -206,21 +206,17 @@
 
 
 
-
-
-
-
-
-
                 @if (auth()->user()->role_id == '3')
-                    <a href="{{ route('kegiatan_training') }}"
-                        class="custom-border hover-element nav-link {{ Route::currentRouteName() == ' kegiatan_training' ? 'activesidebar' : '' }}">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>
-                            Kegiatan Training
-                            <span class="badge badge-info right"></span>
-                        </p>
-                    </a>
+                    <li class="nav-item mt-2">
+                        <a href="{{ route('kegiatan_training') }}"
+                            class="custom-border hover-element nav-link {{ Route::currentRouteName() == 'kegiatan_training' ? 'activesidebar' : '' }}">
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>
+                                Kegiatan Training
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                    </li>
                 @endif
 
                 @auth

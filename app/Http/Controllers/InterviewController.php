@@ -48,6 +48,12 @@ public function StoreInterview(Request $request, $id_siswa, $id_tempat_training)
         ->where('id_siswa', $id_siswa)
         ->first();
 
+    $checkMingguIsExists = hasil_interview::where('id_siswa', $id_siswa)->where('id_tempat_training', $request->id_tempat_training)->exists();
+
+    if($checkMingguIsExists){
+            return redirect()->back()->with("error", "Mohon Maaf Anda Sudah Upload Laporan Hasil Interview, Hanya Diperbolehkan Mengupload 1 kali");
+        }
+
     if (!$pilihan_tempat_training) {
         return redirect()->route('jadwal_interview')->with('error', 'Training place not found.');
     }
@@ -90,6 +96,7 @@ public function StoreInterview(Request $request, $id_siswa, $id_tempat_training)
             ->with('siswa.user', 'tempatTraining')
             ->get();
 
+
             return view('pages.hasil_interview', compact('hasilInterviews'));
         }
 
@@ -101,17 +108,18 @@ public function StoreInterview(Request $request, $id_siswa, $id_tempat_training)
     {
         // Validate the incoming request
         $request->validate([
-            'file_hasil_interview' => 'nullable|mimes:pdf|max:2048',
+            'file_hasil_interview' => 'nullable|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
             'keterangan' => 'required',
         ]);
 
         // Retrieve the training place associated with the student
-        $pilihan_tempat_training = Pilihan_Tempat_Training::where('id', $id_tempat_training)
+        $pilihan_tempat_training = Pilihan_Tempat_Training::where('id_tempat_Training', $id_tempat_training)
             ->where('id_siswa', $id_siswa)
             ->first();
 
+
         if (!$pilihan_tempat_training) {
-            return redirect()->route('jadwal_interview')->with('error', 'Training place not found.');
+            return redirect()->back()->with('error', 'Training place not found.');
         }
 
         // Retrieve the interview data
