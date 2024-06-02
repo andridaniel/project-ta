@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('konten')
-    <div class="px-5 p-2">
+    <div class=" p-2">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -10,8 +10,8 @@
 
         <div class="card card-primary">
             <div class="form-group">
-                <div>
-                    <h3 class="text-bold px-2 mt-2">Menambhakan Data pengguna</h3>
+                <div class="card-header bgcolor">
+                    <h3 class="text-bold card-title text-white">Menambahkan Data pengguna</h3>
                 </div>
             </div>
             <!-- form start -->
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password_confirmation">Confirm Password</label>
+                        <label for="password_confirmation">Konfirmasi Password</label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
                             placeholder="Masukan Password" required autocomplete="new-password">
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

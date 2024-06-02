@@ -132,7 +132,7 @@ class KegiatanTrainingController extends Controller
             $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
            // Fetch all hasil interview associated with the students
-            $data_laporan_siswa = Laporan_Mingguan::where('id_siswa', $id_siswa)
+            $data_laporan_siswa = Laporan_Mingguan::whereIn('id_siswa', $id_siswa)
             ->with('siswa.user', 'tempatTraining')
             ->get();
 

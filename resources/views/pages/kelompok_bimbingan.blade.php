@@ -13,8 +13,7 @@
                         <tr>
                             <th style="width: 10px">No</th>
                             <th>Nama Siswa</th>
-                            <th>Nisn</th>
-                            <th>No Handphone</th>
+                            <th style="width: 25px">Nisn</th>
                             <th>Kelas</th>
                         </tr>
                     </thead>
@@ -24,7 +23,6 @@
                                 <td> {{ $key + 1 }}</td>
                                 <td>{{ $kelompok_bimbingan->user->name }}</td>
                                 <td>{{ $kelompok_bimbingan->nisn }}</td>
-                                <td>{{ $kelompok_bimbingan->user->no_hp }}</td>
                                 <td>{{ $kelompok_bimbingan->kelas }}</td>
                             </tr>
                         @endforeach

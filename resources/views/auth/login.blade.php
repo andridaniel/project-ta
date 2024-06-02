@@ -12,12 +12,12 @@
 
         <!-- text -->
         <div class="mb-3">
-            <h1 class="text-center text-3xl font-bold">Welcome Back</h1>
+            <h3 class="text-center text-2xl font-bold">Selamat Datang Kembali</h3>
         </div>
 
         <!-- text2 -->
         <div class="mb-3">
-            <h4 class="text-center">Pendataan Anak Magang SMK Triatma Jaya Dalung</h4>
+            <h4 class="text-center">Pendataan Anak Training SMK Triatma Jaya Dalung</h4>
         </div>
 
         <!-- Email Address -->
@@ -64,12 +64,12 @@
         </div> --}}
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('password.request') }}">
                     {{ __('Lupa password?') }}
                 </a>
-            @endif
+            @endif --}}
 
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}

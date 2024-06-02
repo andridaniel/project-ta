@@ -59,28 +59,18 @@
                         @enderror
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-10">
-                            <label for="lowongan_training">Lowongan Tempat Training</label>
-                            <input type="text" class="form-control" id="lowongan_training" name="lowongan_training"
-                                placeholder="Masukan Lowongan Training" required>
-                            @error('lowongan_training')
-                                <div>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        {{-- <div class="form-group col-md-2">
-                            <label for="jumlah_lowongan_training">Jumlah Lowongan</label>
-                            <input type="number" class="form-control" id="jumlah_lowongan_training"
-                                name="jumlah_lowongan_training" placeholder="Jumlah" required>
-                            @error('jumlah_lowongan_training')
-                                <div>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div> --}}
+                    <div class="form-group ">
+                        <label for="lowongan_training">Lowongan Tempat Training</label>
+                        <input type="text" class="form-control" id="lowongan_training" name="lowongan_training"
+                            placeholder="Masukan Lowongan Training" required>
+                        @error('lowongan_training')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
+
+
 
 
 

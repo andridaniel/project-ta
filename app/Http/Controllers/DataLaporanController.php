@@ -27,11 +27,11 @@ class DataLaporanController extends Controller
             $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
            // Fetch all hasil interview associated with the students
-            $hasilLaporan = Hasil_Interview::where('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
+            $hasilLaporan = Hasil_Interview::whereIn('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
             ->with('siswa.user', 'tempatTraining')
             ->get();
 
-            $hasilLaporanAkhir = Laporan_Akhir::where('id_siswa', $id_siswa)
+            $hasilLaporanAkhir = Laporan_Akhir::whereIn('id_siswa', $id_siswa)
             ->with('siswa.user', 'tempatTraining')
             ->get();
 
@@ -86,7 +86,7 @@ class DataLaporanController extends Controller
             $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
            // Fetch all hasil interview associated with the students
-            $laporanMonitoring = Hasil_Interview::where('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
+            $laporanMonitoring = Hasil_Interview::whereIn('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
             ->with('siswa.user', 'tempatTraining')
             ->get();
 
@@ -147,7 +147,7 @@ class DataLaporanController extends Controller
             $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
            // Fetch all hasil interview associated with the students
-            $data_laporan_monitoring = Laporan_Monitoring::where('id_siswa', $id_siswa)
+            $data_laporan_monitoring = Laporan_Monitoring::whereIn('id_siswa', $id_siswa)
             ->with('siswa.user', 'tempatTraining')
             ->get();
 

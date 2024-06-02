@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('konten')
-    <div class="px-5 p-2">
+    <div class=" p-2">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -24,57 +24,57 @@
                         </div>
                     @endif
 
-                    <table class="table table-bordered">
+                    <table class=" table table-bordered p-auto">
                         <thead>
                             <tr>
                                 <th style="width: 10px">No</th>
                                 <th>Status</th>
                                 <th>Nama Lengkap</th>
-                                <th>Email</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data_admin as $key => $dataPengguna)
                                 <tr>
-                                    <td> {{ $key + 1 }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td>{{ $dataPengguna->User->Role->nama }}</td>
                                     <td>{{ $dataPengguna->User->name }}</td>
-                                    <td>{{ $dataPengguna->User->email }}</td>
-                                    <td>
 
+                                    <td width="20%">
                                         <div class="form-row">
-                                            <div class="form-group">
+                                            <div class="form-group mx-auto">
                                                 <form action="{{ route('delete_admin', ['id' => $dataPengguna->id]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="badge bg-danger"><i
-                                                            class="nav-icon fas fa-trash-alt px-1"></i>Delete</button>
+                                                    <button class="badge btn bg-danger"><i
+                                                            class="fa-sharp fas fa-trash px-1"></i></button>
                                                 </form>
                                             </div>
 
-                                            <div class="form-group mx-1">
+                                            <div class="form-group mx-auto">
                                                 <a href="{{ route('edit_admin', ['id' => $dataPengguna->id]) }}"
-                                                    class="badge bg-warning">
-                                                    <i class="nav-icon fas fa-edit px-1"></i> Update
+                                                    class="badge bg-primary">
+                                                    <i class=" fas fa-pen px-1"></i>
                                                 </a>
                                             </div>
 
-                                            <div class="form-group mx-1">
+                                            <div class="form-group mx-auto">
                                                 <a href="{{ route('detail_admin', ['id' => $dataPengguna->id]) }}"
                                                     class="badge bg-info">
-                                                    <i class="nav-icon fas fa-info px-1"></i> Detail
+                                                    <i class="fa-sharp fas fa-eye px-1"></i>
                                                 </a>
                                             </div>
+                                        </div>
 
-                                            {{-- <div class="form-group mx-1">
+
+                                        {{-- <div class="form-group mx-1">
                                                 <a href="{{ route('tambah_data_admin') }}" class="badge bg-dark">
                                                     <i class="nav-icon fas fa-plus px-1"></i> Lengkapi Data
                                                 </a>
                                             </div> --}}
 
-                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach

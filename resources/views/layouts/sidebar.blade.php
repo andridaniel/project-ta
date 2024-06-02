@@ -8,22 +8,21 @@
     <!-- Sidebar -->
     <div class="sidebar ">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel card-header mt-3 pb-3 mb-3 d-flex">
+
+        <div class="user-panel mt-3 pb-3 mb-4 d-flex" style="border-bottom: solid 2px purple;">
             <div class="image">
                 <img src="{{ asset('dist/img/' . auth()->user()->gambar_profile) }}" class="img-circle elevation-2"
-                    alt="gambar profile">
+                    alt="User Image">
             </div>
             <div class="info">
-                <p class="d-block text-capitalize ">
-                    <a class="textdecoration " href="{{ route('profilepengguna') }}">
-                        @auth
-                            {{ auth()->user()->name }}
-                        @endauth
-                    </a>
-                </p>
+                <a href="{{ route('profilepengguna') }}" class="d-block textdecoration"> @auth
+                        {{ auth()->user()->name }}
+                    @endauth
+                </a>
             </div>
-
         </div>
+
+
 
         <!-- SidebarSearch Form -->
 
@@ -233,7 +232,7 @@
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                             class="custom-border hover-element nav-link">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <i class=" nav-icon fas fa-backspace"></i>
                             <p>
                                 {{ __('Keluar') }}
                             </p>

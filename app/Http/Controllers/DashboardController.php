@@ -12,20 +12,20 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $jumlah_siswa = 0;
+        // $jumlah_siswa = 0;
 
-        if ($request->user()->role->nama === 'siswa') {
-            if ($request->user()->siswa && $request->user()->siswa->guru_pembimbing_id) {
-                $guru_pembimbing_id = $request->user()->siswa->guru_pembimbing_id;
-                $jumlah_siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->count();
-            }
-        } elseif ($request->user()->role->nama === 'guru pembimbing' || $request->user()->role->nama === 'admin') {
-            $jumlah_siswa = Siswa::count();
-        }
+        // if ($request->user()->role->nama === 'siswa') {
+        //     if ($request->user()->siswa && $request->user()->siswa->guru_pembimbing_id) {
+        //         $guru_pembimbing_id = $request->user()->siswa->guru_pembimbing_id;
+        //         $jumlah_siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->count();
+        //     }
+        // } elseif ($request->user()->role->nama === 'guru pembimbing' || $request->user()->role->nama === 'admin') {
+        //     $jumlah_siswa = Siswa::count();
+        // }
 
 
 
-        return view('pages.dashboard', compact('jumlah_siswa'));
+        return view('pages.dashboard');
     }
 
 }

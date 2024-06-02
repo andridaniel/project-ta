@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('konten')
-    <div class="px-5 p-2">
+    <div class=" p-2">
         <div class="card card-primary">
 
             <div class="text-bold p-3">

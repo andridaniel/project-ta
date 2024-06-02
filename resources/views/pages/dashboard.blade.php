@@ -22,12 +22,6 @@
 
     @if (auth()->user()->role_id == '3')
         <div>
-            <div class="container-fluid">
-                <div class="form-group card bgcolor">
-                    <h4 class="mx-auto p-5 text-white">Selamat Datang Buat Siswa Yang Siap Melakukan Training</h4>
-                </div>
-            </div>
-
             <section class="content">
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
@@ -35,35 +29,54 @@
                         <!-- ./col -->
                         <div class="col-lg-6 col-6">
                             <!-- small box -->
-                            <div class="small-box bgcolor text-light">
+                            <div class="small-box bg-success text-light ">
                                 <div class="inner">
-                                    <h3>{{ $jumlah_siswa }}<sup style="font-size: 20px"></sup></h3>
+                                    <h3>{{ \App\Models\Guru_pembimbing::count() }}</h3>
 
-                                    <p>Siswa Bimbingan</p>
+                                    <p>Data Guru Pembimbing</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-person" style="color: rgb(188, 186, 186);"></i>
+                                    <i class="ion ion-person"></i>
                                 </div>
-                                <a href="{{ route('kelompok_bimbingan') }}" class="small-box-footer">More info <i
+                                <a href="{{ route('data_guru_pembimbing') }}" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-6">
                             <!-- small box -->
-                            <div class="small-box bgcolor text-light">
+                            <div class="small-box bg-info text-light">
                                 <div class="inner">
                                     <h3>{{ \App\Models\Tempat_Training::count() }}<sup style="font-size: 20px"></sup></h3>
 
-                                    <p>Tempat Training</p>
+                                    <p>Data Tempat Training</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-stats-bars" style="color: rgb(188, 186, 186);"></i>
+                                    <i class="ion ion-stats-bars"></i>
                                 </div>
                                 <a href="{{ route('tempattraining') }}" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+
+                    </div>
+
+                    <div class="card bg-danger">
+                        <div class="mx-auto mt-2">
+                            <h3 class="card-title text-bold text-center">
+                                SELAMAT DATANG DI SISTEM TEMPAT TRAINING SMK TRIATMA JAYA DALUNG
+                            </h3> <br>
+                        </div>
+
+                        <div class="px-5 text-center">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam maxime minima debitis at
+                                expedita,
+                                neque ducimus optio numquam dolorum id aliquid explicabo mollitia suscipit consequuntur
+                                blanditiis velit. Tempora, quisquam aperiam!
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -76,53 +89,75 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-lg-6 col-6">
-                        <!-- small box -->
-                        <div class="small-box bgcolor text-light">
-                            <div class="inner">
-                                <h3>{{ \App\Models\Siswa::count() }}</h3>
-
-                                <p>Siswa</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person" style="color: rgb(188, 186, 186);"></i>
-                            </div>
-                            <a href="{{ route('data_siswa') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
                     <!-- ./col -->
-                    <div class="col-lg-6 col-6">
+                    <div class="col-lg-4 col-4">
                         <!-- small box -->
-                        <div class="small-box bgcolor text-light">
+                        <div class="small-box bg-info text-light">
                             <div class="inner">
                                 <h3>{{ \App\Models\Tempat_Training::count() }}<sup style="font-size: 20px"></sup></h3>
 
-                                <p>Tempat Training</p>
+                                <p>Data Tempat Training</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars" style="color: rgb(188, 186, 186);"></i>
+                                <i class="ion ion-stats-bars"></i>
                             </div>
                             <a href="{{ route('tempattraining') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-6 col-6">
+                    <div class="col-lg-4 col-4">
                         <!-- small box -->
-                        <div class="small-box bgcolor text-light ">
+                        <div class="small-box bg-success text-light ">
                             <div class="inner">
                                 <h3>{{ \App\Models\Guru_pembimbing::count() }}</h3>
 
-                                <p>Guru Pembimbing</p>
+                                <p>Data Guru Pembimbing</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-person" style="color: rgb(188, 186, 186);"></i>
+                                <i class="ion ion-person"></i>
                             </div>
                             <a href="{{ route('data_guru_pembimbing') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+
+                    <div class="col-lg-4 col-4">
+                        <!-- small box -->
+                        <div class="small-box bg-warning text-light ">
+                            <div class="inner">
+                                <h3>{{ \App\Models\Siswa::count() }}</h3>
+
+                                <p>Siswa</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person"></i>
+                            </div>
+                            <a href="{{ route('data_siswa') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card bg-danger">
+                    <div class="mx-auto mt-2">
+                        <h3 class="card-title text-bold">
+                            SELAMAT DATANG DI SISTEM TEMPAT TRAINING SMK TRIATMA JAYA DALUNG
+                        </h3> <br>
+                    </div>
+
+                    <div class="px-5 text-center">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam maxime minima debitis at expedita,
+                            neque ducimus optio numquam dolorum id aliquid explicabo mollitia suscipit consequuntur
+                            blanditiis velit. Tempora, quisquam aperiam!
+                        </p>
+                    </div>
+
+
+
+
 
                 </div>
             </div>
