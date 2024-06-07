@@ -3,10 +3,10 @@
 @section('konten')
     {{-- untuk hasil interview siswa --}}
 
-    <div class="card-body m-2">
+    <div class="card-body">
         <div class="card m-1">
             <div class="card-header bgcolor text-white">
-                <h5 class=" text-bold">Hasil Interview</h5>
+                <h5 class=" text-bold card-title">Hasil Interview</h5>
             </div>
             @if (session('success'))
                 <div class="alert alert-success">

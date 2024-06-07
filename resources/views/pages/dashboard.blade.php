@@ -128,7 +128,7 @@
                             <div class="inner">
                                 <h3>{{ \App\Models\Siswa::count() }}</h3>
 
-                                <p>Siswa</p>
+                                <p> Data Siswa Training</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person"></i>

@@ -5,7 +5,7 @@
     @if (auth()->user()->role_id == '3')
         <div class="card m-3 ">
             <div class="card-header bgcolor ">
-                <h5 class="text-bold text-light"> Jadwal Interview & Upload Hasil Interview</h5>
+                <h5 class="text-bold text-light card-title"> Jadwal Interview & Upload Hasil Interview</h5>
             </div>
             @if (session('success'))
                 <div class="alert alert-success">
@@ -68,7 +68,7 @@
         <div class="card m-3">
             <div>
                 <div class="card-header text-light bgcolor">
-                    <h5 class=" text-bold ">Hasil Interview</h5>
+                    <h5 class=" text-bold card-title ">Hasil Interview</h5>
                     {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
                 </div>
 

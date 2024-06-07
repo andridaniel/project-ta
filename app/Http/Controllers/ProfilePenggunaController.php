@@ -80,7 +80,7 @@ class ProfilePenggunaController extends Controller
             // 'agama' => 'required|string|max:255',
             // 'wali_kelas' => 'required|string|max:255',
             // 'kelas' => 'required|string|max:255',
-            // 'gambar_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // tambahkan aturan validasi untuk kolom lainnya yang ingin Anda perbarui
         ];
 
@@ -104,6 +104,7 @@ class ProfilePenggunaController extends Controller
             'name' => $request->name,
             'alamat' => $request->alamat,
             'email' => $request->email,
+            'no_hp' => $request->no_hp,
             'tempat_lahir' => $request->tempat_lahir,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,

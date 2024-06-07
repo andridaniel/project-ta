@@ -23,7 +23,6 @@ class UpdateTempatTrainingController extends Controller
                 'telepon_tempat_training' => 'required',
                 'email_tempat_training' => 'required|email',
                 'lowongan_training' => 'required',
-                'jumlah_lowongan_training' => 'required|numeric',
                 'ketentuan_tambahan_training' => 'required',
                 'jadwal_interview' => 'required',
                 'waktu_interview' => 'required',
@@ -60,7 +59,6 @@ class UpdateTempatTrainingController extends Controller
             $update_tempat_training->telepon_tempat_training = $request->telepon_tempat_training;
             $update_tempat_training->email_tempat_training = $request->email_tempat_training;
             $update_tempat_training->lowongan_training = $request->lowongan_training;
-            $update_tempat_training->jumlah_lowongan_training = $request->jumlah_lowongan_training;
             $update_tempat_training->ketentuan_tambahan_training = $request->ketentuan_tambahan_training;
             $update_tempat_training->jadwal_interview = $request->jadwal_interview;
             $update_tempat_training->waktu_interview = $request->waktu_interview;

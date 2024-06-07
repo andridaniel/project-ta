@@ -29,6 +29,11 @@ class Siswa extends Model
         return $this->hasOne(Surat_Kerapian::class, 'id_siswa', 'id');
     }
 
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'id_siswa');
+    }
+
     public function hasHasilInterview(){
         return $this->hasMany(Hasil_Interview::class, 'id_siswa', 'id');
     }
@@ -36,7 +41,7 @@ class Siswa extends Model
     public function pilihanTempatTraining()
     {
 
-        return $this->hasOne(Pilihan_Tempat_Training::class, 'id_siswa', 'id');
+        return $this->hasMany(Pilihan_Tempat_Training::class, 'id_siswa', 'id');
     }
 
     protected $fillable = [

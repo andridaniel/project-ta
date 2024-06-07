@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach ($siswas as $key => $siswa)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $siswas->firstItem() + $key }}</td>
                                         <td>{{ $siswa->nisn }}</td>
                                         <td>{{ $siswa->user->name }}</td>
                                         <td>{{ $siswa->kelas }}</td>
@@ -52,7 +52,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="badge bg-danger">
+                                                    <button type="submit" class="badge btn bg-danger">
                                                         <i class="nav-icon fas fa-trash-alt px-1"></i>
                                                         Hapus File
                                                     </button>
@@ -71,14 +71,11 @@
 
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                    <div class="card-footer clearfix ">
+                        <div class="float-right">
+                            {{ $siswas->links('pagination::bootstrap-4') }}
+                        </div>
+
                     </div>
                 </div>
                 <!-- /.card -->
@@ -108,9 +105,9 @@
                         <div class="form-group card-body">
                             <div class="row">
                                 @forelse ($daftar_surat_pengantar_siswa as $siswa)
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 ">
                                         <!-- Widget: user widget style 1 -->
-                                        <div class="card card-widget widget-user shadow">
+                                        <div class="card card-widget widget-user shadow ">
                                             <!-- Add the bg color to the header using any of the bg-* classes -->
                                             <div class="widget-user-header bg-info">
                                                 <h3 class="widget-user-username">{{ $siswa->user->name }}</h3>
@@ -120,14 +117,14 @@
                                                     src="{{ asset('dist/img/' . $siswa->user->gambar_profile) }}"
                                                     alt="User Avatar">
                                             </div>
-                                            <div class="card-footer">
+                                            <div class="card-footer img-thumbnail ">
+                                                <h6 class="text-bold">Pilihan Training :</h6>
                                                 @foreach ($siswa->hasPilihanTempatTraining as $tempatMagang)
-                                                    <h6 class="text-bold ">Pilihan Training :</h6>
                                                     <h6>Tempat training
                                                         {{ $loop->iteration }} : {{ $tempatMagang->nama_tempat_training }}
                                                     </h6>
                                                 @endforeach
-                                                <div class="form-group">
+                                                <div class="form-group ">
                                                     <div class="mt-3">
                                                         <a href="{{ route('SuratPengantarSiswa', ['id' => $siswa->id]) }}"
                                                             class="btn bg-info text-white btn-block">Upload Surat
@@ -179,6 +176,12 @@
                                 <div class="form-group col-md-10">
                                     <input type="file" class="form-control" id="file_surat_kerapian"
                                         name="file_surat_kerapian">
+                                    @error('file_surat_kerapian')
+                                        <div>
+                                            <p class="text-danger">Terjadi kesalahan,{{ $message }}</p>
+
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -192,7 +195,7 @@
             <div class="card m-3">
                 <div>
                     <div class="card-header text-light bgcolor">
-                        <h5 class=" text-bold ">Surat Kerapian</h5>
+                        <h5 class=" text-bold card-title ">Surat Kerapian</h5>
                         {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
                     </div>
                     <i class="float-right p-2">Hapus Jika Terjadi Kesalahan</i>
@@ -219,20 +222,31 @@
 
                 <div class="form-group">
                     <div class="card-header text-light bgcolor">
-                        <h5 class=" text-bold">Surat Pengantar</h5>
+                        <h5 class=" text-bold card-title">Surat Pengantar</h5>
                         {{-- <i class="float-right">Surat Pengantar Dapat di download disini</i> --}}
                     </div>
-                    <div class="form-row px-3 mt-4">
+                    <div class=" px-2 mt-4">
                         {{-- @foreach ($surats as $surat) --}}
                         @forelse ($surats as $surat)
-                            <div class="form-group col-md-10">
-                                <input type="text" class="form-control" id="file_surat_pengantar"
-                                    name="file_surat_pengantar" value="{{ $surat->file_surat_pengantar }}" readonly>
+                            <div class="card">
+                                <div class="mx-2">
+                                    <p class="text-bold">Nama Tempat Training :
+                                        {{ $surat->tempatTraining->nama_tempat_training }}</p>
+                                </div>
+                                <div class="form-row mx-1 ">
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="file_surat_pengantar"
+                                            name="file_surat_pengantar" value="{{ $surat->file_surat_pengantar }}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <a href="{{ asset('dist/surat/' . $surat->file_surat_pengantar) }}"
+                                            class="btn btn-primary" download>Download</a>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="form-group col-md-2">
-                                <a href="{{ asset('dist/surat/' . $surat->file_surat_pengantar) }}"
-                                    class="btn btn-primary" download>Download</a>
-                            </div>
+
 
                         @empty
                             <div>

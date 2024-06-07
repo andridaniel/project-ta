@@ -122,26 +122,33 @@ class KegiatanTrainingController extends Controller
      }
 
     //data laporan siswa
-    public function laporanSiswa(Request $request)
+    public function laporanSiswa(Request $request, $id_siswa)
     {
         $auth_login = $request->user()->load('Guru_Pembimbing', 'Siswa');
 
         // Jika yang login adalah Guru Pembimbing
         if ($auth_login->Guru_Pembimbing) {
             // Ambil semua siswa yang berada di bawah bimbingan guru yang sedang login
-            $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
+            $siswa_ids = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
-           // Fetch all hasil interview associated with the students
-            $data_laporan_siswa = Laporan_Mingguan::whereIn('id_siswa', $id_siswa)
-            ->with('siswa.user', 'tempatTraining')
-            ->get();
+            // Periksa apakah siswa yang diminta ada dalam daftar bimbingan guru
+            if ($siswa_ids->contains($id_siswa)) {
+                // Fetch hasil interview associated with the specific student
+                $data_laporan_siswa = Laporan_Mingguan::where('id_siswa', $id_siswa)
+                    ->with('siswa.user', 'tempatTraining')
+                    ->get();
 
-            return view('pages.laporan_siswa', compact('data_laporan_siswa'));
+                return view('pages.laporan_siswa', compact('data_laporan_siswa'));
+            } else {
+                // Jika siswa tidak dalam daftar bimbingan guru
+                return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
+            }
         }
 
         // Jika yang login bukan Guru Pembimbing, atau tidak diizinkan
         return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
     }
+
 
 
 
@@ -170,7 +177,7 @@ class KegiatanTrainingController extends Controller
         $laporan->status = $request->status;
         $laporan->save();
 
-        return redirect()->route('laporan_siswa')->with('success', 'Laporan mingguan berhasil diupdate.');
+        return redirect()->back()->with('success', 'Laporan mingguan berhasil diupdate.');
     }
 
 
@@ -180,7 +187,7 @@ class KegiatanTrainingController extends Controller
     {
         // Validasi input
         $request->validate([
-            'file_laporan_akhir' => 'nullable|mimes:pdf|max:2048',
+            'file_laporan_akhir' => 'required|mimes:pdf|max:2048',
         ]);
 
         // Temukan kegiatan training berdasarkan id_siswa dan id_tempat_training
@@ -215,7 +222,7 @@ class KegiatanTrainingController extends Controller
             $laporan_akhir->file_laporan_akhir = $fileName;
             $laporan_akhir->save();
 
-            return redirect()->route('kegiatan_training')->with('success', 'Data interview berhasil ditambahkan.');
+            return redirect()->route('kegiatan_training')->with('success', 'laporan akhir berhasil di tambahkan.');
         } catch (\Exception $e) {
             return redirect()->route('kegiatan_training')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

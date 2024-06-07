@@ -111,7 +111,7 @@ class DataLaporanController extends Controller
         $checkBulanIsExists = Laporan_Monitoring::where('id_siswa', $id_siswa)->where('bulan', $request->bulan)->exists();
 
         if($checkBulanIsExists){
-            return redirect()->back()->with("error", "Mohon Maaf Laporan Dalam Minggu Ini Sudah Ada, Silahkan Cek Kembali");
+            return redirect()->back()->with("error", "Mohon Maaf Laporan Dalam Bulan Ini Sudah Ada, Silahkan Cek Kembali");
         }
 
         $kegiatan_monitoring = Hasil_Interview::where('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
@@ -137,39 +137,40 @@ class DataLaporanController extends Controller
 
 
     //detail laporan monitoring
-    public function detailLaporanMonitoring(Request $request)
+    public function detailLaporanMonitoring(Request $request , $id_siswa)
     {
         $auth_login = $request->user()->load('Guru_Pembimbing', 'Siswa');
 
-        // Jika yang login adalah Guru Pembimbing
         if ($auth_login->Guru_Pembimbing) {
-            // Ambil semua siswa yang berada di bawah bimbingan guru yang sedang login
-            $id_siswa = $auth_login->Guru_Pembimbing->siswa->pluck('id');
+            $siswa_ids = $auth_login->Guru_Pembimbing->siswa->pluck('id');
 
-           // Fetch all hasil interview associated with the students
-            $data_laporan_monitoring = Laporan_Monitoring::whereIn('id_siswa', $id_siswa)
-            ->with('siswa.user', 'tempatTraining')
-            ->get();
+            if ($siswa_ids->contains($id_siswa)) {
+                $data_laporan_monitoring = Laporan_Monitoring::where('id_siswa', $id_siswa)
+                    ->with('siswa.user', 'tempatTraining')
+                    ->get();
 
-            return view('pages.detail_laporan_monitoring', compact('data_laporan_monitoring'));
+                return view('pages.detail_laporan_monitoring', compact('data_laporan_monitoring'));
+            } else {
+                return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
+            }
         }
+
         return redirect()->route('data_laporan_monitoring')->with('error', 'Unauthorized access.');
     }
 
 
 
-
-
-
-
-
-
     //surat pengantar siswa
-    public function SuratPengantarSiswa($id)
+    public function SuratPengantarSiswa(Request $request, $id)
     {
-        $surats = Surat::all();
-        $siswas = Siswa::where('id',$id)->with(['user','hasPilihanTempatTraining'])->has('hasPilihanTempatTraining')->first();
-        return view('pages.surat_pengantar_siswa', compact('siswas','surats'));
+
+        $data_surats = Surat::where('id_siswa', $id)->get();
+        $siswas = Siswa::where('id',$id)->with(['user','hasPilihanTempatTraining'])->has('hasPilihanTempatTraining')->get();
+
+
+        return view('pages.surat_pengantar_siswa', compact('siswas','data_surats'));
+
+
     }
 
 

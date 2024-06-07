@@ -157,7 +157,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/data_laporan_monitoring', [DataLaporanController::class, 'laporan_monitoring'])->name('data_laporan_monitoring');
     Route::post('/data_laporan_monitoring/{id_siswa}/{id_tempat_training}/store', [DataLaporanController::class, 'StoreLaporanMonitoring'])->name('StoreLaporanMonitoring');
     Route::get('/surat_pengantar_siswa/{id}', [DataLaporanController::class, 'SuratPengantarSiswa'])->name('SuratPengantarSiswa');
-    Route::get('/detail_laporan_monitoring', [DataLaporanController::class, 'detailLaporanMonitoring'])->name('detail_laporan_monitoring');
+    Route::get('/detail_laporan_monitoring/{id_siswa}', [DataLaporanController::class, 'detailLaporanMonitoring'])->name('detail_laporan_monitoring');
 
 
 
@@ -169,7 +169,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}/akhir', [KegiatanTrainingController::class, 'TambahLaporanAkhir'])->name('TambahLaporanAkhir');
     Route::get('/detail_laporan_mingguan', [KegiatanTrainingController::class, 'detailLaporanMingguan'])->name('detail_laporan_mingguan');
     Route::put('/detail_laporan_mingguan/{id_siswa}/{id_tempat_training}/{id}/update', [KegiatanTrainingController::class, 'UpdateLaporanMingguan'])->name('detail_laporan_mingguan.UpdateLaporanMingguan');
-    Route::get('/laporan_siswa', [KegiatanTrainingController::class, 'laporanSiswa'])->name('laporan_siswa');
+    Route::get('/laporan_siswa{id_siswa}', [KegiatanTrainingController::class, 'laporanSiswa'])->name('laporan_siswa');
     Route::put('/laporan_siswa/{id_siswa}/{id_tempat_training}/{id}/update', [KegiatanTrainingController::class, 'validasiLaporanMingguan'])->name('laporan_siswa.validasiLaporanMingguan');
 
     //data interview

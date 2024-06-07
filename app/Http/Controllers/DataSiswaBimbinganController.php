@@ -35,10 +35,15 @@ class DataSiswaBimbinganController extends Controller
      // Menghitung jumlah siswa yang memiliki guru pembimbing dengan ID yang sama
     $jumlah_siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->count();
 
-    //  // Memuat semua siswa yang memiliki guru pembimbing dengan ID yang sama
+    //Memuat semua siswa yang memiliki guru pembimbing dengan ID yang sama
      $kelompok_bimbingan = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->get();
 
-     return view('pages.kelompok_bimbingan', compact('kelompok_bimbingan'));
+     $guru_pembimbing = Guru_Pembimbing::with(['User', 'User.Role'])
+     ->where ('id', $guru_pembimbing_id)
+     ->first(); // Mengambil data guru pembimbing
+     $data_guru_pembimbing = $guru_pembimbing->user->name;
+
+     return view('pages.kelompok_bimbingan', compact('kelompok_bimbingan','guru_pembimbing', 'data_guru_pembimbing'));
 
     }
 

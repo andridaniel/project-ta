@@ -9,10 +9,10 @@
                         <div class="col-sm-6">
                             <h3 class="card-title text-bold "> Data Admin</h3>
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <input type="button" onclick="window.location='{{ route('userregister') }}'"
                                 class="btn bgcolor text-white float-right" value="Kembali">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -30,15 +30,17 @@
                                 <th style="width: 10px">No</th>
                                 <th>Status</th>
                                 <th>Nama Lengkap</th>
+                                <th>No Hp</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data_admin as $key => $dataPengguna)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $data_admin->firstItem() + $key }}</td>
                                     <td>{{ $dataPengguna->User->Role->nama }}</td>
                                     <td>{{ $dataPengguna->User->name }}</td>
+                                    <td>{{ $dataPengguna->User->no_hp }}</td>
 
                                     <td width="20%">
                                         <div class="form-row">
@@ -84,14 +86,11 @@
 
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
+                <div class="card-footer clearfix ">
+                    <div class="float-right">
+                        {{ $data_admin->links('pagination::bootstrap-4') }}
+                    </div>
+
                 </div>
             </div>
             <!-- /.card -->

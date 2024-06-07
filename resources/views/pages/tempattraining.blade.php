@@ -34,8 +34,10 @@
                                 @foreach ($pilihan_tempat_training->Siswa->hasPilihanTempatTraining as $PilihanTempatTraining)
                                     <div class="col-md-4 mb-4">
                                         <div class="card">
-                                            <img src="{{ asset('dist/img/' . $PilihanTempatTraining->gambar) }}"
-                                                class="card-img-top" alt="gambar training">
+                                            <div class="img-thumbnail">
+                                                <img src="{{ asset('dist/img/' . $PilihanTempatTraining->gambar) }}"
+                                                    class="card-img-top image-style" alt="gambar training">
+                                            </div>
                                             <div class="card-body">
                                                 <p class="card-text">
                                                     <strong>Nama:</strong>
@@ -87,8 +89,10 @@
                             @foreach ($data_tempat_training as $tempatTraining)
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
-                                        <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}" class="card-img-top"
-                                            alt="gambar training">
+                                        <div class="img-thumbnail">
+                                            <img src="{{ asset('dist/img/' . $tempatTraining->gambar) }}"
+                                                class="card-img-top image-style" alt="gambar training">
+                                        </div>
                                         <div class="card-body">
                                             <p class="card-text">
                                                 <strong>Nama :</strong>{{ $tempatTraining->nama_tempat_training }}<br>

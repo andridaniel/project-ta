@@ -13,7 +13,7 @@ class DataAdminController extends Controller
 {
     public function index()
     {
-        $data_admin = Admin::with(['User', 'User.Role'])->get();
+        $data_admin = Admin::with(['User', 'User.Role'])->paginate(5);
         return view('pages.pagesadmin.data_admin', compact('data_admin'));
     }
 

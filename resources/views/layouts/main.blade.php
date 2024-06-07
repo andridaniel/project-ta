@@ -72,6 +72,26 @@
             color: rgba(105, 17, 116, 1);
         }
 
+        .img-thumbnail {
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+        }
+
+        .image-style {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        .style-thumbnail {
+            overflow: hidden;
+            position: relative;
+            height: 20px;
+        }
+
+
+
 
         .kembali {
             text-decoration: none;

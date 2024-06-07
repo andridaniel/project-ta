@@ -31,15 +31,17 @@
                                 <th style="width: 10px">No</th>
                                 <th>Status</th>
                                 <th>Nama Lengkap</th>
+                                <th>NO Hp</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data_siswa as $key => $dataPengguna)
                                 <tr>
-                                    <td> {{ $key + 1 }}</td>
+                                    <td> {{ $data_siswa->firstItem() + $key }}</td>
                                     <td>{{ $dataPengguna->User->Role->nama }}</td>
                                     <td>{{ $dataPengguna->User->name }}</td>
+                                    <td>{{ $dataPengguna->User->no_hp }}</td>
                                     @if (auth()->user()->role_id == '1')
                                         <td width="20%">
                                             <div class="form-row ">
@@ -67,12 +69,6 @@
                                                     </a>
                                                 </div>
 
-                                                {{-- <div class="form-group mx-1">
-                                                <a href="{{ route('tambah_data_siswa') }}" class="badge bg-dark">
-                                                    <i class="nav-icon fas fa-plus px-1"></i> Lengkapi Data
-                                                </a>
-                                            </div> --}}
-
                                             </div>
                                         </td>
                                     @endif
@@ -84,14 +80,11 @@
 
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
+                <div class="card-footer clearfix ">
+                    <div class="float-right">
+                        {{ $data_siswa->links('pagination::bootstrap-4') }}
+                    </div>
+
                 </div>
             </div>
             <!-- /.card -->

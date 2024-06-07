@@ -16,4 +16,21 @@ class Surat extends Model
         'id_pilihan_tempat_training',
         'file_surat_pengantar',
     ];
+
+
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'id_siswa');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_siswa');
+    }
+
+    public function tempatTraining()
+    {
+        return $this->belongsTo(Tempat_Training::class, 'id_pilihan_tempat_training');
+    }
+
 }

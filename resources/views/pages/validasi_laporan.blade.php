@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="m-4">
-                                    <a href="{{ route('laporan_siswa', ['id' => $hasil_laporan->id]) }}"
+                                    <a href="{{ route('laporan_siswa', ['id_siswa' => $hasil_laporan->id_siswa]) }}"
                                         class="btn btn-primary btn-block"> Lihat Laporan</a>
                                 </div>
                             </div>

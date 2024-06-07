@@ -13,16 +13,16 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div class="card card-secondary card-outline card-tabs">
+        <div class="card card-outline card-tabs">
             <div class="card-header p-0 pt-1 border-bottom-0">
                 <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
+                        <a class="nav-link active text-bold text-dark" id="custom-tabs-three-home-tab" data-toggle="pill"
                             href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
                             aria-selected="true">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill"
+                        <a class="nav-link text-bold text-dark" id="custom-tabs-three-profile-tab" data-toggle="pill"
                             href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile"
                             aria-selected="false">Update Profile</a>
                     </li>
@@ -229,12 +229,12 @@
                         aria-labelledby="custom-tabs-three-profile-tab">
                         <div class=" mt-1 ">
                             <div class="card ">
-                                <div class="card-header bgcolor">
+                                {{-- <div class="card-header bgcolor">
                                     <div class="float-left">
                                         <h3 class="card-title text-bold text-light">Update Data </h3>
                                     </div>
 
-                                    {{-- @if (auth()->user()->role_id == '3')
+                                    @if (auth()->user()->role_id == '3')
                                         <div class="form-group float-right">
                                             <h3 class="card-title text-bold text-light" for="guru_pembimbing_id">
                                                 Pembimbing
@@ -242,8 +242,8 @@
                                                 <span>{{ $nama_guru_pembimbing }}</span>
                                             </h3>
                                         </div>
-                                    @endif --}}
-                                </div>
+                                    @endif
+                                </div> --}}
 
                                 <!-- form start -->
                                 <form action="{{ route('profilepengguna.updateProfile') }}" method="POST"

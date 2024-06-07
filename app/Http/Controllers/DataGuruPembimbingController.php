@@ -19,7 +19,7 @@ class DataGuruPembimbingController extends Controller
 {
     public function index()
     {
-        $data_GuruPembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->get();
+        $data_GuruPembimbing = Guru_Pembimbing::with(['User', 'User.Role'])->paginate(5);
 
         return view('pages.pagesadmin.data_guru_pembimbing', compact('data_GuruPembimbing'));
     }
@@ -190,16 +190,20 @@ class DataGuruPembimbingController extends Controller
 
             $siswas = Siswa::with(['user', 'hasSuratKerapian'])
             ->where('guru_pembimbing_id', $guru_pembimbing_id)
-            ->get();
+            ->paginate(2);
 
             $daftar_surat_pengantar_siswa = Siswa::has('hasPilihanTempatTraining')->with([
                 'hasPilihanTempatTraining'
             ])->whereGuruPembimbingId($guru_pembimbing_id)->get();
 
+
             return view('pages.Surat', compact('siswas','daftar_surat_pengantar_siswa'));
         }
 
-        $surats = Surat::where('id_siswa', $auth_login->Siswa->id)->get();
+        $surats = Surat::where('id_siswa', $auth_login->Siswa->id)
+                ->with('siswa.user', 'tempatTraining')
+                ->get();
+
         $suratKerapian = Surat_Kerapian::where('id_siswa',$auth_login->Siswa->id)->first();
 
         return view('pages.Surat', compact('surats', 'suratKerapian'));
@@ -207,8 +211,8 @@ class DataGuruPembimbingController extends Controller
     }
 
     public function StoreSurat(Request $request, $id_siswa, $id_pilihan_tempat_training)
-{
-    // Validasi input
+    {
+        // Validasi input
     $request->validate([
         'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
     ]);
@@ -220,31 +224,32 @@ class DataGuruPembimbingController extends Controller
     $siswa = Siswa::where('id', $id_siswa)
                 ->where('guru_pembimbing_id', $guru_pembimbing_id)
                 ->whereHas('pilihanTempatTraining', function($query) use ($id_pilihan_tempat_training) {
-                    $query->where('id', $id_pilihan_tempat_training);
+                    $query->where('id_tempat_Training', $id_pilihan_tempat_training);
                 })
-                ->firstOrFail();
+                ->first();
 
-    try {
-        $file_surat_pengantar = $request->file('file_surat_pengantar');
-        $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
-        $path = 'dist/surat/' . $fileName;
+        try {
+            $file_surat_pengantar = $request->file('file_surat_pengantar');
+            $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
+            $path = 'dist/surat/' . $fileName;
 
-        // Pindahkan file ke direktori tujuan
-        $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
+            // Pindahkan file ke direktori tujuan
+            $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
 
-        // Simpan data surat ke database
-        $surat = new Surat();
-        $surat->id_siswa = $siswa->id;
-        $surat->id_pilihan_tempat_training = $id_pilihan_tempat_training; // Menyimpan ID tempat training
-        $surat->file_surat_pengantar = $fileName;
-        $surat->save();
+            // Simpan data surat ke database
+            $surat = new Surat();
+            $surat->id_siswa = $siswa->id;
+            $surat->id_pilihan_tempat_training = $id_pilihan_tempat_training;
+            $surat->file_surat_pengantar = $fileName;
+            $surat->save();
 
-        return redirect()->back()->with('success', 'Surat berhasil ditambahkan');
-    } catch (\Exception $e) {
-        \Log::error('Error storing surat: ' . $e->getMessage());
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
+            return redirect()->back()->with('success', 'Surat pengantar berhasil ditambahkan');
+        } catch (\Exception $e) {
+            \Log::error('Error storing surat: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
+        }
     }
-}
+
 
     //delete surat pengantar
     public function deleteSuratPengantar(Surat $surat)

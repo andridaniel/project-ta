@@ -31,6 +31,7 @@
                                 <th style="width: 10px">No</th>
                                 <th>Status</th>
                                 <th>Nama Lengkap</th>
+                                <th>No Hp</th>
                                 @if (auth()->user()->role_id == '1')
                                     <th>Aksi</th>
                                 @endif
@@ -39,9 +40,10 @@
                         <tbody>
                             @foreach ($data_GuruPembimbing as $key => $dataPengguna)
                                 <tr>
-                                    <td> {{ $key + 1 }}</td>
+                                    <td> {{ $data_GuruPembimbing->firstItem() + $key }}</td>
                                     <td>{{ $dataPengguna->User->Role->nama }}</td>
                                     <td>{{ $dataPengguna->User->name }}</td>
+                                    <td>{{ $dataPengguna->User->no_hp }}</td>
 
                                     @if (auth()->user()->role_id == '1')
                                         <td width="20%">
@@ -88,14 +90,11 @@
 
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
+                <div class="card-footer clearfix ">
+                    <div class="float-right">
+                        {{ $data_GuruPembimbing->links('pagination::bootstrap-4') }}
+                    </div>
+
                 </div>
             </div>
             <!-- /.card -->
