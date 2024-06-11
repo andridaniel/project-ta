@@ -32,7 +32,7 @@
                     </div>
 
 
-                    <div class="form-group" style="display: none;">
+                    {{-- <div class="form-group" style="display: none;">
                         <label for="emailhotel">Ingat Hapus</label>
                         <p>{{ $data_tempat_training->id }}</p>
                     </div>
@@ -46,7 +46,7 @@
                                 <p class="bg-danger p-2">Anda telah terdaftar di tempat training ini.</p>
                             @endif
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </form>
         </div>

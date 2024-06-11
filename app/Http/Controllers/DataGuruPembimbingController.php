@@ -213,43 +213,42 @@ class DataGuruPembimbingController extends Controller
     public function StoreSurat(Request $request, $id_siswa, $id_pilihan_tempat_training)
     {
         // Validasi input
-    $request->validate([
-        'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
-    ]);
+        $request->validate([
+            'file_surat_pengantar' => 'required|mimes:pdf|max:2048',
+        ]);
 
-    // Dapatkan ID guru pembimbing dari user
-    $guru_pembimbing_id = $request->user()->Guru_Pembimbing->id;
+        // Dapatkan ID guru pembimbing dari user
+        $guru_pembimbing_id = $request->user()->Guru_Pembimbing->id;
 
-    // Periksa apakah siswa terkait dengan guru pembimbing dan memiliki pilihan tempat training
-    $siswa = Siswa::where('id', $id_siswa)
-                ->where('guru_pembimbing_id', $guru_pembimbing_id)
-                ->whereHas('pilihanTempatTraining', function($query) use ($id_pilihan_tempat_training) {
-                    $query->where('id_tempat_Training', $id_pilihan_tempat_training);
-                })
-                ->first();
+        // Periksa apakah siswa terkait dengan guru pembimbing dan memiliki pilihan tempat training
+        $siswa = Siswa::where('id', $id_siswa)
+                    ->where('guru_pembimbing_id', $guru_pembimbing_id)
+                    ->whereHas('pilihanTempatTraining', function($query) use ($id_pilihan_tempat_training) {
+                        $query->where('id_tempat_Training', $id_pilihan_tempat_training);
+                    })
+                    ->first();
 
-        try {
-            $file_surat_pengantar = $request->file('file_surat_pengantar');
-            $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
-            $path = 'dist/surat/' . $fileName;
+            try {
+                $file_surat_pengantar = $request->file('file_surat_pengantar');
+                $fileName = date('Y.m.d') . '_' . $file_surat_pengantar->getClientOriginalName();
+                $path = 'dist/surat/' . $fileName;
 
-            // Pindahkan file ke direktori tujuan
-            $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
+                // Pindahkan file ke direktori tujuan
+                $file_surat_pengantar->move(public_path('dist/surat'), $fileName);
 
-            // Simpan data surat ke database
-            $surat = new Surat();
-            $surat->id_siswa = $siswa->id;
-            $surat->id_pilihan_tempat_training = $id_pilihan_tempat_training;
-            $surat->file_surat_pengantar = $fileName;
-            $surat->save();
+                // Simpan data surat ke database
+                $surat = new Surat();
+                $surat->id_siswa = $siswa->id;
+                $surat->id_pilihan_tempat_training = $id_pilihan_tempat_training;
+                $surat->file_surat_pengantar = $fileName;
+                $surat->save();
 
-            return redirect()->back()->with('success', 'Surat pengantar berhasil ditambahkan');
-        } catch (\Exception $e) {
-            \Log::error('Error storing surat: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
-        }
+                return redirect()->back()->with('success', 'Surat pengantar berhasil ditambahkan');
+            } catch (\Exception $e) {
+                \Log::error('Error storing surat: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat.');
+            }
     }
-
 
     //delete surat pengantar
     public function deleteSuratPengantar(Surat $surat)

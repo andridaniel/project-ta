@@ -247,7 +247,7 @@ class DataSiswaController extends Controller
             $surat->id_siswa = auth()->user()->load('Siswa')->Siswa->id;
             $surat->save();
 
-            return redirect()->back()->with('success', 'Surat kerapian berhasil disimpan.');
+            return redirect()->back()->with('success', 'Surat kerapian berhasil diupload.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan surat kerapian.');
         }
@@ -261,7 +261,7 @@ class DataSiswaController extends Controller
             $surat = Surat_Kerapian::findOrFail($id);
             $surat->delete();
 
-            return redirect()->back()->with('successkerapian', 'Surat kerapian berhasil dihapus.');
+            return redirect()->back()->with('success', 'Surat kerapian berhasil dihapus.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat kerapian.');
         }
@@ -279,7 +279,7 @@ class DataSiswaController extends Controller
             // Hapus data surat dari database
             $surat_kerapian->delete();
 
-            return redirect()->back()->with('success', 'Surat berhasil dihapus.');
+            return redirect()->back()->with('success', 'Surat Kerapian berhasil dihapus.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus surat.');
         }

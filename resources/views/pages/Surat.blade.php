@@ -160,14 +160,14 @@
                 <div class="card m-3">
 
                     <div class="form-group">
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
 
 
                         <div class="card m-3">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="card-header text-light bgcolor">
                                 <h5 class=" text-bold ">Surat Kerapian</h5>
                                 {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
@@ -193,6 +193,11 @@
 
         @if ($suratKerapian)
             <div class="card m-3">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div>
                     <div class="card-header text-light bgcolor">
                         <h5 class=" text-bold card-title ">Surat Kerapian</h5>

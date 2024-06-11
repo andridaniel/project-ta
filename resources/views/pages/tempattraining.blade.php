@@ -49,7 +49,7 @@
                                                 </p>
 
                                                 <div class="mt-3">
-                                                    <a href="{{ route('show', ['id' => $PilihanTempatTraining->id]) }}"
+                                                    <a href="{{ route('showPilihanTempatTraining', ['id' => $PilihanTempatTraining->id]) }}"
                                                         class="btn bgcolor text-white btn-block">More Information</a>
                                                 </div>
                                             </div>

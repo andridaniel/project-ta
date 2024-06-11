@@ -76,7 +76,7 @@
 
 
                     <div class="form-group">
-                        <label for="ketentuan_tambahan_training">Ketentuan Tambahan Trainig</label>
+                        <label for="ketentuan_tambahan_training">Ketentuan Tambahan Training</label>
                         <textarea name="ketentuan_tambahan_training" id="ketentuan_tambahan_training" cols="30" rows="5"
                             class="form-control" required></textarea>
                         @error('ketentuan_tambahan_training')

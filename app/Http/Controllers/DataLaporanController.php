@@ -131,7 +131,7 @@ class DataLaporanController extends Controller
         $kegiatan_monitoring->save();
 
 
-        return redirect()->route('data_laporan_monitoring')->with('success', 'Laporan mingguan berhasil diupload.');
+        return redirect()->route('data_laporan_monitoring')->with('success', 'Laporan monitoring berhasil diupload.');
 
     }
 

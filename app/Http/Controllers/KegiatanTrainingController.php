@@ -177,7 +177,7 @@ class KegiatanTrainingController extends Controller
         $laporan->status = $request->status;
         $laporan->save();
 
-        return redirect()->back()->with('success', 'Laporan mingguan berhasil diupdate.');
+        return redirect()->back()->with('success', 'Validasi laporan mingguan berhasil diupdate.');
     }
 
 
