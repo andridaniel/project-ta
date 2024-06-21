@@ -194,7 +194,7 @@ class DataGuruPembimbingController extends Controller
 
             $daftar_surat_pengantar_siswa = Siswa::has('hasPilihanTempatTraining')->with([
                 'hasPilihanTempatTraining'
-            ])->whereGuruPembimbingId($guru_pembimbing_id)->get();
+            ])->whereGuruPembimbingId($guru_pembimbing_id)->paginate(1);
 
 
             return view('pages.Surat', compact('siswas','daftar_surat_pengantar_siswa'));

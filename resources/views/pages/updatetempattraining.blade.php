@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <h3 class="text-bold px-3">Update Tempat Magang</h3>
+                <h3 class="text-bold px-3">Update Tempat Training</h3>
             </div>
             <!-- form start -->
             <form action="{{ route('update', $update_tempat_training->id) }}" method="post" enctype="multipart/form-data">

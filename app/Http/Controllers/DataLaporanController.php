@@ -29,7 +29,7 @@ class DataLaporanController extends Controller
            // Fetch all hasil interview associated with the students
             $hasilLaporan = Hasil_Interview::whereIn('id_siswa', $id_siswa)->where('keterangan', 'Diterima')
             ->with('siswa.user', 'tempatTraining')
-            ->get();
+            ->paginate(3);
 
             $hasilLaporanAkhir = Laporan_Akhir::whereIn('id_siswa', $id_siswa)
             ->with('siswa.user', 'tempatTraining')

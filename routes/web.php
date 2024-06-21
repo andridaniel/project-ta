@@ -168,6 +168,7 @@ Route::middleware('auth')->group(function () {
     // Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}', [KegiatanTrainingcontroller::class, 'TambahLaporanAkhir'])->name('TambahLaporanAkhir');
     Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}/store', [KegiatanTrainingController::class, 'StoreLaporan'])->name('StoreLaporan');
     Route::post('/kegiatan_training/{id_siswa}/{id_tempat_training}/akhir', [KegiatanTrainingController::class, 'TambahLaporanAkhir'])->name('TambahLaporanAkhir');
+    Route::put('/kegiatan_training/{id_siswa}/{id_tempat_training}/update', [KegiatanTrainingController::class, 'UpdateLaporanAkhir'])->name('UpdateLaporanAkhir');
     Route::get('/detail_laporan_mingguan', [KegiatanTrainingController::class, 'detailLaporanMingguan'])->name('detail_laporan_mingguan');
     Route::put('/detail_laporan_mingguan/{id_siswa}/{id_tempat_training}/{id}/update', [KegiatanTrainingController::class, 'UpdateLaporanMingguan'])->name('detail_laporan_mingguan.UpdateLaporanMingguan');
     Route::get('/laporan_siswa{id_siswa}', [KegiatanTrainingController::class, 'laporanSiswa'])->name('laporan_siswa');

@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('konten')
-
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -101,16 +100,39 @@
         </div>
 
 
-        <div class="card m-2 mt-5">
-            <div class="card-header bgcolor">
-                <h3 class="text-bold card-title text-light">Laporan Akhir</h3>
-            </div>
-            @foreach ($kegiatan_training as $kegiatan)
+        @if ($kegiatan_laporan_akhir)
+            <div class="card m-2 mt-5">
+                <div class="card-header bgcolor">
+                    <h3 class="text-bold card-title text-light">Laporan Akhir</h3>
+                </div>
                 <form
-                    action="{{ route('TambahLaporanAkhir', ['id_siswa' => $kegiatan->siswa->id, 'id_tempat_training' => $kegiatan->id_tempat_training]) }}"
+                    action="{{ route('TambahLaporanAkhir', ['id_siswa' => $kegiatan_laporan_akhir->siswa->id, 'id_tempat_training' => $kegiatan_laporan_akhir->id_tempat_training]) }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class=" m-2">
+                    <div class="m-2">
+                        <input type="file" name="file_laporan_akhir" id="file_laporan_akhir" class="form-control">
+                        <input type="hidden" name="status" id="status" class="form-control" value="Diproses" readonly>
+                        @error('file_laporan_akhir')
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="m-2">
+                            <button type="submit" class="btn bg-primary">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        @else
+            <div class="card m-2 mt-5">
+                <div class="card-header bgcolor">
+                    <h3 class="text-bold card-title text-light">Laporan Akhir</h3>
+                </div>
+                <form
+                    action="{{ route('TambahLaporanAkhir', ['id_siswa' => $siswa->id, 'id_tempat_training' => $tempat_training->id]) }}"
+                    method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="m-2">
                         <div class="m-2">
                             <input type="file" name="file_laporan_akhir" id="file_laporan_akhir" class="form-control">
                             @error('file_laporan_akhir')
@@ -120,23 +142,21 @@
                             @enderror
                         </div>
                         <input type="hidden" name="status" id="status" class="form-control" value="Diproses" readonly>
-
                         <div class="m-2">
-                            <button type="submit" class="btn bg-primary">Kirim</button>
+                            <button type="submit" class="btn bg-primary">Simpan</button>
                         </div>
-
                     </div>
-
                 </form>
-            @endforeach
-        </div>
+            </div>
+        @endif
+
 
 
         <div class="card m-2 mt-5">
-            <div class="card-header bgcolor">
-                <h3 class="text-bold card-title text-light">Hasil Laporan Akhir</h3>
-            </div>
             @foreach ($laporan_akhir_siswa as $laporan_akhir)
+                <div class="card-header bgcolor">
+                    <h3 class="text-bold card-title text-light">Hasil Laporan Akhir</h3>
+                </div>
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row m-2 ">
@@ -156,9 +176,65 @@
 
 
                     </div>
+                    @if ($laporan_akhir->status == 'Ditolak')
+                        <!-- Button trigger modal -->
+                        <div class="m-4">
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Update Data?
+                            </button>
+                        </div>
+                    @endif
+
 
                 </form>
             @endforeach
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Data Laporan Akhir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($kegiatan_training as $kegiatan)
+                        <form
+                            action="{{ route('UpdateLaporanAkhir', ['id_siswa' => $kegiatan->siswa->id, 'id_tempat_training' => $kegiatan->id_tempat_training]) }}"
+                            method="POST" enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                            <div class=" m-2">
+                                <div class="m-2">
+                                    <input type="file" name="file_laporan_akhir" id="file_laporan_akhir"
+                                        class="form-control">
+                                    @error('file_laporan_akhir')
+                                        <div>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                    @endforeach
+                </div>
+
+            </div>
         </div>
     </div>
 @endsection

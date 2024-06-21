@@ -2,13 +2,71 @@
 
 @section('konten')
     <div class="card m-2">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="card-header bgcolor">
             <h3 class="text-bold card-title text-light">Validasi Laporan Mingguan</h3>
         </div>
 
         @if ($hasilLaporan->isNotEmpty())
-            <form action="">
+            <div class="card-body">
 
+
+                <table class=" table table-bordered p-auto">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">No</th>
+                            <th>Gambar</th>
+                            <th>Nisn</th>
+                            <th>Nama Lengkap</th>
+                            <th>No Hp</th>
+                            <th>Tempat Training</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($hasilLaporan as $key => $hasil_laporan)
+                            <tr>
+                                <td>{{ $hasilLaporan->firstItem() + $key }}</td>
+                                <td class="mx-auto">
+                                    <div class="widget-user-image">
+                                        <img class="img-circle elevation-2"
+                                            src="{{ asset('dist/img/' . $hasil_laporan->siswa->user->gambar_profile) }}"
+                                            alt="User Avatar" width="50px">
+                                    </div>
+                                </td>
+                                <td>{{ $hasil_laporan->siswa->nisn }}</td>
+                                <td>{{ $hasil_laporan->siswa->user->name }}</td>
+                                <td>{{ $hasil_laporan->siswa->user->no_hp }}</td>
+                                <td>{{ $hasil_laporan->tempatTraining->nama_tempat_training }}</td>
+
+                                <td width="20%">
+                                    <div class="form-group">
+                                        <div class="mt-3">
+                                            <a href="{{ route('laporan_siswa', ['id_siswa' => $hasil_laporan->id_siswa]) }}"
+                                                class="btn btn-info btn-block"> Lihat Laporan</a>
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="card-footer clearfix ">
+                    <div class="float-right">
+                        {{ $hasilLaporan->links('pagination::bootstrap-4') }}
+                    </div>
+
+                </div>
+
+
+            </div>
+            {{-- <form action="">
                 @csrf
                 <div class="row mt-3">
                     @foreach ($hasilLaporan as $hasil_laporan)
@@ -36,7 +94,7 @@
                         </div>
                     @endforeach
                 </div>
-            </form>
+            </form> --}}
         @else
             <div class="m-2 mx-auto">
                 <p class="text-bold ">Tidak ada data laporan mingguan siswa</p>
@@ -49,12 +107,6 @@
         <div class="card-header bgcolor">
             <h3 class="text-bold card-title text-light">Validasi Laporan Akhir</h3>
         </div>
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
 
         @if ($hasilLaporanAkhir->isNotEmpty())
             @foreach ($hasilLaporanAkhir as $hasil_laporan_akhir)
@@ -107,5 +159,4 @@
         @endif
 
     </div>
-
 @endsection

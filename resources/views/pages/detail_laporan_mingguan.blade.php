@@ -45,9 +45,11 @@
                         <div class="mx-4 mb-2 ">
                             <textarea name="laporan_mingguan" id="laporan_mingguan" cols="20" rows="5" class="form-control">{{ $laporan_mingguan_siswas->laporan_mingguan }}</textarea>
                         </div>
-                        <div class="m-2">
-                            <button type="submit" class="btn bgcolor text-white float-right mx-3">Update Data</button>
-                        </div>
+                        @if ($laporan_mingguan_siswas->status == 'Ditolak')
+                            <div class="m-2">
+                                <button type="submit" class="btn bgcolor text-white float-right mx-3">Update Data</button>
+                            </div>
+                        @endif
                     </div>
 
 

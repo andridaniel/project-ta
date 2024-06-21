@@ -70,10 +70,11 @@
 
                         <div class="px-5 text-center">
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam maxime minima debitis at
-                                expedita,
-                                neque ducimus optio numquam dolorum id aliquid explicabo mollitia suscipit consequuntur
-                                blanditiis velit. Tempora, quisquam aperiam!
+                                SMK TJ Badung membantu siswa dan siswinya untuk mewujudkan impian mereka menjadi seorang
+                                pengusaha yang handal dan berhasil di dunia industri pariwisata. Dengan teknik pengajaran
+                                yang
+                                amat sangat profesional di bidang teori maupun praktek, membantu mereka menjadi insan yang
+                                kompeten dan mampu bersaing di industri. SMK TJ BADUNG LUAR BIASA
                             </p>
                         </div>
 
@@ -149,9 +150,10 @@
 
                     <div class="px-5 text-center">
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam maxime minima debitis at expedita,
-                            neque ducimus optio numquam dolorum id aliquid explicabo mollitia suscipit consequuntur
-                            blanditiis velit. Tempora, quisquam aperiam!
+                            SMK TJ Badung membantu siswa dan siswinya untuk mewujudkan impian mereka menjadi seorang
+                            pengusaha yang handal dan berhasil di dunia industri pariwisata. Dengan teknik pengajaran yang
+                            amat sangat profesional di bidang teori maupun praktek, membantu mereka menjadi insan yang
+                            kompeten dan mampu bersaing di industri. SMK TJ BADUNG LUAR BIASA
                         </p>
                     </div>
 

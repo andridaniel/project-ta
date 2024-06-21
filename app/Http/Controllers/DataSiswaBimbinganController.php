@@ -14,7 +14,7 @@ class DataSiswaBimbinganController extends Controller
         $guru_pembimbing_id = $request->user()->load("Guru_Pembimbing")->Guru_Pembimbing->id;
 
         // Memuat semua siswa yang terkait dengan guru pembimbing saat ini
-        $siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->get();
+        $siswa = Siswa::where('guru_pembimbing_id', $guru_pembimbing_id)->paginate(4);
 
         // Kemudian Anda bisa melewatkan data siswa ke view untuk ditampilkan
         return view ('pages.data_siswa_bimbingan', compact('siswa'));

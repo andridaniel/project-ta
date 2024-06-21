@@ -28,7 +28,7 @@
                                     <th>Nama Lengkap</th>
                                     <th>Kelas</th>
                                     <th>File</th>
-                                    <th>Aksi</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,7 +46,7 @@
                                                 </a>
                                             </td>
 
-                                            <td>
+                                            {{-- <td>
                                                 <form
                                                     action="{{ route('Surat.destroy', ['id' => $siswa->hasSuratKerapian->id]) }}"
                                                     method="POST">
@@ -58,7 +58,7 @@
                                                     </button>
                                                 </form>
 
-                                            </td>
+                                            </td> --}}
                                         @else
                                             <td colspan="2">Tidak ada file surat kerapian</td>
                                         @endif
@@ -103,9 +103,38 @@
                     @endif
                     <div class="card m-3">
                         <div class="form-group card-body">
-                            <div class="row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">No</th>
+                                        <th>Gambar</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Pilihan Tempat Training</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
                                 @forelse ($daftar_surat_pengantar_siswa as $siswa)
-                                    <div class="col-md-4 ">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $daftar_surat_pengantar_siswa->firstItem() + $key }}</td>
+                                            <td><img class="img-circle elevation-2"
+                                                    src="{{ asset('dist/img/' . $siswa->user->gambar_profile) }}"
+                                                    alt="User Avatar" width="40px"></td>
+                                            <td>{{ $siswa->user->name }}</td>
+                                            <td>
+                                                @foreach ($siswa->hasPilihanTempatTraining as $tempatMagang)
+                                                    <p>
+                                                        {{ $loop->iteration }}.
+                                                        <span>{{ $tempatMagang->nama_tempat_training }}</span>
+                                                    </p>
+                                                @endforeach
+                                            </td>
+                                            <td> <a href="{{ route('SuratPengantarSiswa', ['id' => $siswa->id]) }}"
+                                                    class="btn bg-info text-white btn-block">Upload Surat
+                                                    Pengantar</a></td>
+                                        </tr>
+                                    </tbody>
+                                    {{-- <div class="col-md-4 ">
                                         <!-- Widget: user widget style 1 -->
                                         <div class="card card-widget widget-user shadow ">
                                             <!-- Add the bg color to the header using any of the bg-* classes -->
@@ -135,13 +164,19 @@
                                             </div>
                                         </div>
                                         <!-- /.widget-user -->
-                                    </div>
+                                    </div> --}}
                                 @empty
                                     <div>
                                         <i class="mx-auto">Tidak ada data Surat Pengantar</i>
                                     </div>
                                 @endforelse
+                            </table>
+                        </div>
+                        <div class="card-footer clearfix ">
+                            <div class="float-right">
+                                {{ $daftar_surat_pengantar_siswa->links('pagination::bootstrap-4') }}
                             </div>
+
                         </div>
 
                 </form>
@@ -169,7 +204,7 @@
                                 </div>
                             @endif
                             <div class="card-header text-light bgcolor">
-                                <h5 class=" text-bold ">Surat Kerapian</h5>
+                                <h5 class=" card-title text-bold ">Surat Kerapian</h5>
                                 {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
                             </div>
                             <div class="form-row px-3 mt-4 ">
@@ -222,7 +257,7 @@
             </div>
         @endif
 
-        <div class="card m-3">
+        <div class="card m-3 mt-5">
             <form action="" method="post">
 
                 <div class="form-group">

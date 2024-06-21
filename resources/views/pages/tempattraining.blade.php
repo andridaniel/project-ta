@@ -64,8 +64,7 @@
             @endif
 
             <!-- Small boxes (Stat box) -->
-            <div class="row">
-
+            <div class="row mt-2">
                 <div class="card col-md-12">
                     <div class="card-body">
                         <div class="content-header card-header ">

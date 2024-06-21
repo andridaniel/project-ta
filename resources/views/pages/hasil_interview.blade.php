@@ -26,9 +26,7 @@
                                 <li>Nama Siswa : {{ $hasil_interview->siswa->user->name }}</li>
                                 <li>NISN : {{ $hasil_interview->siswa->nisn }}</li>
                                 <li>Tempat Training : {{ $hasil_interview->tempatTraining->nama_tempat_training }}</li>
-
                             </ul>
-
                         </div>
                         <div class="card m-2">
                             <div class="form-group px-3 mt-2">
@@ -39,7 +37,6 @@
                                         target="_blank" class="text-primary form-control">
                                         {{ $hasil_interview->file_hasil_interview }}
                                     </a>
-
                                 </div>
                             </div>
                             <div class="form-group col-md-12 px-3">
@@ -53,13 +50,17 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-primary mx-3">Simpan</button>
-                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary mx-3">Simpan</button>
                         </div>
                     </div>
                 </form>
             @endforeach
+
+
+
+
 
 
         </div>

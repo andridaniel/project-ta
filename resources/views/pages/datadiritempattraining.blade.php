@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <h3 class="text-bold px-3">Form Tempat Magang</h3>
+                <h3 class="text-bold px-3">Form Tempat Training</h3>
             </div>
             <!-- form start -->
             <form method="POST" action="{{ route('tempattraining') }}">

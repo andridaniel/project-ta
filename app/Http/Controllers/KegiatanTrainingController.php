@@ -30,8 +30,12 @@ class KegiatanTrainingController extends Controller
             ->with('siswa.user','tempatTraining')
             ->get();
 
+        $kegiatan_laporan_akhir = Laporan_Mingguan::where('id_siswa', $id_siswa)
+            ->where('status', 'Diterima')
+            ->with('siswa.user','tempatTraining')
+            ->first();
 
-        return view('pages.kegiatan_training', compact( 'kegiatan_training','laporan_akhir_siswa'));
+        return view('pages.kegiatan_training', compact( 'kegiatan_training','laporan_akhir_siswa', 'kegiatan_laporan_akhir'));
 
     }
 
@@ -116,6 +120,8 @@ class KegiatanTrainingController extends Controller
 
          // Update laporan
          $laporan->laporan_mingguan = $request->laporan_mingguan;
+         $laporan->status = "Diproses";
+
          $laporan->save();
 
          return redirect()->route('detail_laporan_mingguan')->with('success', 'Laporan mingguan berhasil diupdate.');
@@ -191,10 +197,8 @@ class KegiatanTrainingController extends Controller
         ]);
 
         // Temukan kegiatan training berdasarkan id_siswa dan id_tempat_training
-        $kegiatan_training = Hasil_Interview::where('id_siswa', $id_siswa)
-            ->where('keterangan', 'Diterima')
-            ->with('siswa.user', 'tempatTraining')
-            ->first();
+        $kegiatan_training = Laporan_Mingguan::where('id_siswa', $id_siswa)
+            ->where('status', 'Diterima')->with('siswa.user', 'tempatTraining')->get();
 
         if (!$kegiatan_training) {
             return redirect()->route('kegiatan_training')->with('error', 'Training place not found.');
@@ -227,6 +231,39 @@ class KegiatanTrainingController extends Controller
             return redirect()->route('kegiatan_training')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+    //untuk update laporan akhir siswa
+    public function UpdateLaporanAkhir(Request $request, $id_siswa, $id_tempat_training)
+     {
+       // Validasi input
+         $request->validate([
+             'file_laporan_akhir' => 'required|mimes:pdf|max:2048',
+         ]);
+
+         try {
+            $update_laporan_akhir = Laporan_Akhir::where('id_siswa', $id_siswa)->first();
+            if(!$update_laporan_akhir){
+                throw new \Exception('Laporan akhir not found.');
+            }
+            $fileName = null;
+            if ($request->hasFile('file_laporan_akhir')) {
+                $file_laporan_akhir = $request->file('file_laporan_akhir');
+                $fileName = date('Y.m.d') . '_' . $file_laporan_akhir->getClientOriginalName();
+                $file_laporan_akhir->move(public_path('dist/laporan_akhir'), $fileName);
+            }
+            $update_laporan_akhir->file_laporan_akhir = $fileName;
+            $update_laporan_akhir->status = "Diproses";
+            $update_laporan_akhir->save();
+            return to_route('kegiatan_training')->with('success', 'laporan akhir berhasil di update.');
+        } catch (\Exception $e) {
+            return to_route('kegiatan_training')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+
+
+     }
+
+
+
 
 
     //tampilkan data Laporan akhir  siswa (untuksiswa)

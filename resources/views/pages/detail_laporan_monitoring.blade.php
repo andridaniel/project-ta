@@ -36,9 +36,7 @@
                                 </div>
 
                                 <div class="m-2">
-                                    <textarea name="laporan_monitoring" id="laporan_monitoring" cols="30" rows="5" class="form-control">
-                                    {{ $data_monitoring->laporan_monitoring }}
-                                </textarea>
+                                    <textarea name="laporan_mingguan" id="laporan_mingguan" cols="20" rows="5" class="form-control">{{ $data_monitoring->laporan_monitoring }}</textarea>
                                 </div>
 
                             </div>
