@@ -105,7 +105,7 @@ class DataLaporanController extends Controller
 
         $request->validate([
             'bulan' => 'required',
-            'laporan_monitoring' => 'required',
+            'laporan_monitoring' => 'required|string|max:510',
         ]);
 
         $checkBulanIsExists = Laporan_Monitoring::where('id_siswa', $id_siswa)->where('bulan', $request->bulan)->exists();

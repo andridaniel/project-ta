@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_siswa');
             $table->foreignId('id_tempat_training');
             $table->string('minggu');
-            $table->string('laporan_mingguan');
+            $table->string('laporan_mingguan',1000);
             $table->enum('status', ['Diproses', 'Ditolak', 'Diterima'])->default('Diproses');
             $table->timestamps();
         });

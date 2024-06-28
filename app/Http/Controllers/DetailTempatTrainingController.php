@@ -40,13 +40,15 @@ class DetailTempatTrainingController extends Controller
 
             // Memeriksa apakah siswa sudah mendaftar pada tempat training
             if ($id_siswa) {
-                $is_siswa_registered = Pilihan_Tempat_Training::where('id_siswa', $id_siswa)
-                    ->where('id_tempat_training', $data_tempat_training->id)
-                    ->exists();
+                $getTempatTrainingSiswa = Pilihan_Tempat_Training::where('id_siswa', $id_siswa)
+                ->where('id_tempat_training', $data_tempat_training->id);
+
+                $is_siswa_registered = $getTempatTrainingSiswa->exists();
+                $is_max_registered_tempat_training = Pilihan_Tempat_Training::where('id_siswa', $id_siswa)->count() >= 3;
             }
         }
 
-        return view('pages.detailtempattraining', compact('data_tempat_training', 'is_siswa_registered'));
+        return view('pages.detailtempattraining', compact('data_tempat_training', 'is_siswa_registered', 'is_max_registered_tempat_training'));
     }
 
 

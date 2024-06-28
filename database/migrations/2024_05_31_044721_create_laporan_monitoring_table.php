@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_siswa');
             $table->foreignId('id_tempat_training');
             $table->string('bulan');
-            $table->string('laporan_monitoring')->nullable();
+            $table->string('laporan_monitoring',1000)->nullable();
             $table->timestamps();
         });
     }

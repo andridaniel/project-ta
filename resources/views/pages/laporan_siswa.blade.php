@@ -10,13 +10,19 @@
                 <a href="{{ route('validasi_laporan') }}" class="btn bg-primary text-white m-2 float-right">
                     Kembali</a>
             </div>
-            <div class="m-2">
-                <ul class="text-bold">
-                    <li> Nama Siswa : {{ $data_laporan_siswa[0]->siswa->user->name }}</li>
-                    <li> Nisn : {{ $data_laporan_siswa[0]->siswa->nisn }}</li>
-                    <li> Tempat Training : {{ $data_laporan_siswa[0]->tempatTraining->nama_tempat_training }}</li>
-                </ul>
-            </div>
+            @if ($data_laporan_siswa->isNotEmpty())
+                <div class="m-2">
+                    <ul class="text-bold">
+                        <li> Nama Siswa : {{ $data_laporan_siswa[0]->siswa->user->name }}</li>
+                        <li> Nisn : {{ $data_laporan_siswa[0]->siswa->nisn }}</li>
+                        <li> Tempat Training : {{ $data_laporan_siswa[0]->tempatTraining->nama_tempat_training }}</li>
+                    </ul>
+                </div>
+            @else
+                <div class="m-2 mt-5 mb-5 text-center">
+                    <p class="text-bold">Laporan Mingguan Siswa Belum Ada</p>
+                </div>
+            @endif
 
             @if (session('success'))
                 <div class="alert alert-success">
@@ -25,6 +31,7 @@
             @endif
 
         </div>
+
 
         @foreach ($data_laporan_siswa as $laporan_siswa)
             <form
@@ -59,6 +66,7 @@
 
             </form>
         @endforeach
+
 
     </div>
 @endsection

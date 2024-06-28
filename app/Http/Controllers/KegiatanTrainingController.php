@@ -30,8 +30,8 @@ class KegiatanTrainingController extends Controller
             ->with('siswa.user','tempatTraining')
             ->get();
 
-        $kegiatan_laporan_akhir = Laporan_Mingguan::where('id_siswa', $id_siswa)
-            ->where('status', 'Diterima')
+        $kegiatan_laporan_akhir = Hasil_Interview::where('id_siswa', $id_siswa)
+            ->where('keterangan', 'Diterima')
             ->with('siswa.user','tempatTraining')
             ->first();
 

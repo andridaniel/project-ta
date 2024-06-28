@@ -100,6 +100,7 @@
         </div>
 
 
+
         @if ($kegiatan_laporan_akhir)
             <div class="card m-2 mt-5">
                 <div class="card-header bgcolor">
@@ -149,6 +150,7 @@
                 </form>
             </div>
         @endif
+
 
 
 

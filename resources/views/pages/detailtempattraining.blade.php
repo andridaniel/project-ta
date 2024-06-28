@@ -39,11 +39,15 @@
 
                     @if (auth()->user()->role_id == '3')
                         <div class="form-group">
-                            @if (!$is_siswa_registered)
-                                <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
-                                    class="btn custom-border hover-element btn-block">Daftar</a>
+                            @if ($is_max_registered_tempat_training)
+                                <p class="bg-danger p-2">Anda sudah mendaftar sebanyak 3 kali</p>
                             @else
-                                <p class="bg-danger p-2">Anda telah terdaftar di tempat training ini.</p>
+                                @if (!$is_siswa_registered)
+                                    <a href="{{ route('datadiritempattraining', ['id' => $data_tempat_training->id]) }}"
+                                        class="btn custom-border hover-element btn-block">Daftar</a>
+                                @else
+                                    <p class="bg-danger p-2">Anda telah terdaftar di tempat training ini.</p>
+                                @endif
                             @endif
                         </div>
                     @endif
