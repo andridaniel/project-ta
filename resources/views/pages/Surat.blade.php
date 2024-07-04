@@ -113,7 +113,7 @@
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                @forelse ($daftar_surat_pengantar_siswa as $siswa)
+                                @forelse ($daftar_surat_pengantar_siswa as $key => $siswa)
                                     <tbody>
                                         <tr>
                                             <td>{{ $daftar_surat_pengantar_siswa->firstItem() + $key }}</td>

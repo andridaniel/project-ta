@@ -59,12 +59,12 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="guru_pembimbing_id">Nama Guru Pembimbing</label>
                                                 <input type="text" class="form-control" id="guru_pembimbing_id"
                                                     name="guru_pembimbing_id" readonly required
                                                     value="{{ $nama_guru_pembimbing }}">
-                                            </div>
+                                            </div> --}}
                                         @endif
 
 

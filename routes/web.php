@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/formtempattraining', [FormTempatTrainingController::class, 'store'])->name('formtempatraining.store');
     Route::get('/detailtempattraining/{id}', [DetailTempatTrainingController::class, 'show'])->name('show');
     Route::get('/detailPilihanTempatTraining/{id}', [DetailTempatTrainingController::class, 'showPilihanTempatTraining'])->name('showPilihanTempatTraining');
+    Route::get('/informasitrainingadminpembimbing/{id}', [DetailTempatTrainingController::class, 'informasiTempatTraining'])->name('informasiTempatTraining');
     Route::get('/datadiritempattraining/{id}', [DetailTempatTrainingController::class, 'dataShow'])->name('dataShow');
     Route::get('/detailtempattraining', [DetailTempatTrainingController::class, 'index'])->name('detailtempattraining');
     // Route::get('/datadiritempattraining', [DataDiriTempatTrainingController::class, 'index'])->name('datadiritempattraining');

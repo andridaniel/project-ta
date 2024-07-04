@@ -96,7 +96,7 @@
                 </div>
             </form> --}}
         @else
-            <div class="m-2 mx-auto">
+            <div class="m-5 mx-auto">
                 <p class="text-bold ">Tidak ada data laporan mingguan siswa</p>
             </div>
         @endif
@@ -152,7 +152,7 @@
                 </form>
             @endforeach
         @else
-            <div class="m-2 mx-auto">
+            <div class="m-5 mx-auto">
                 <p class="text-bold ">Tidak ada data laporan akhir siswa,
                 </p>
             </div>

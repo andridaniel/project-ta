@@ -98,7 +98,7 @@ class DataGuruPembimbingController extends Controller
         $delete_guru_pembimbing->delete();
 
         // Redirect kembali ke halaman tabel guru pembimbing setelah penghapusan.
-        return redirect()->route('data_guru_pembimbing')->with('success', 'Guru Pembimbing deleted successfully!');
+        return redirect()->route('data_guru_pembimbing')->with('success', 'Data Guru Pembimbing Berhasil Dihapus');
     }
 
 

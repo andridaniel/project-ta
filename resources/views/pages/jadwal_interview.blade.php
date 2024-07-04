@@ -19,48 +19,55 @@
                 </div>
             @endif
 
+            @if ($pilihan_tempat_training->isNotEmpty())
+                @foreach ($pilihan_tempat_training as $pilihan)
+                    <form
+                        action="{{ route('StoreInterview', ['id_siswa' => $pilihan->siswa->id, 'id_tempat_training' => $pilihan->id_tempat_Training]) }}"
+                        method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card m-2">
+                            <div class="form-group m-2">
+                                <ul>
+                                    <li class="text-bold">Nama Tempat Training :
+                                        {{ $pilihan->tempatTraining->nama_tempat_training }}</li>
+                                    <li class="text-bold">Alamat :
+                                        {{ $pilihan->tempatTraining->alamat_tempat_training }}</li>
+                                    <li class="text-bold">Jadwal Interview :
+                                        {{ $pilihan->tempatTraining->jadwal_interview }}
+                                        <span class="text-danger">jam :
+                                            {{ $pilihan->tempatTraining->waktu_interview }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="m-4">
+                                <div class="form-group">
+                                    <div>
+                                        <label for="file_hasil_interview">File Hasil Interview</label>
+                                        <input type="file" name="file_hasil_interview" id="file_hasil_interview"
+                                            class="form-control">
+                                        @error('file_hasil_interview')
+                                            <div>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
 
-            @foreach ($pilihan_tempat_training as $pilihan)
-                <form
-                    action="{{ route('StoreInterview', ['id_siswa' => $pilihan->siswa->id, 'id_tempat_training' => $pilihan->id_tempat_Training]) }}"
-                    method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="card m-2">
-                        <div class="form-group m-2">
-                            <ul>
-                                <li class="text-bold">Nama Tempat Training :
-                                    {{ $pilihan->tempatTraining->nama_tempat_training }}</li>
-                                <li class="text-bold">Alamat :
-                                    {{ $pilihan->tempatTraining->alamat_tempat_training }}</li>
-                                <li class="text-bold">Jadwal Interview : {{ $pilihan->tempatTraining->jadwal_interview }}
-                                    <span class="text-danger">jam : {{ $pilihan->tempatTraining->waktu_interview }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="m-4">
-                            <div class="form-group">
-                                <div>
-                                    <label for="file_hasil_interview">File Hasil Interview</label>
-                                    <input type="file" name="file_hasil_interview" id="file_hasil_interview"
-                                        class="form-control">
-                                    @error('file_hasil_interview')
-                                        <div>
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                        <input type="hidden" name="keterangan" id="keterangan" value="DiProses" readonly
+                                            class="form-control">
+                                    </div>
 
-                                    <input type="hidden" name="keterangan" id="keterangan" value="DiProses" readonly
-                                        class="form-control">
                                 </div>
-
-                            </div>
-                            <div class="mt-3">
-                                <button type="submit" class="btn bg-primary">Kirim</button>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn bg-primary">Kirim</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            @endforeach
+                    </form>
+                @endforeach
+            @else
+                <div class="m-5 mx-auto ">
+                    <p class="text-bold ">Silahkan Pilih Tempat Training Terlebih Dahulu</p>
+                </div>
+            @endif
         </div>
 
         {{-- hapus data hasil interview untuk siswa --}}
@@ -71,33 +78,39 @@
                     <h5 class=" text-bold card-title ">Hasil Interview</h5>
                     {{-- <i class="float-right">Tambahkan surat kerapian disini</i> --}}
                 </div>
+                @if ($hasilInterviews->isNotEmpty())
+                    @foreach ($hasilInterviews as $hasilInterview)
+                        <div class=" card m-3">
+                            <div class="m-3">
+                                <input type="text" name="keterangan" id="keterangan"
+                                    value="{{ $hasilInterview->keterangan }}"
+                                    class=" @if ($hasilInterview->keterangan == 'Ditolak') bg-danger @endif @if ($hasilInterview->keterangan == 'DiProses') bg-info @endif card bg-success btn btn-block text-white"
+                                    readonly>
+                            </div>
+                            <p class="px-3 mt-1 text-bold">Nama File:
+                                <a href="{{ asset('dist/interview/' . $hasilInterview->file_hasil_interview) }}"
+                                    target="_blank" class="text-primary">
+                                    {{ $hasilInterview->file_hasil_interview }}
+                                </a>
 
-                @foreach ($hasilInterviews as $hasilInterview)
-                    <div class=" card m-3">
-                        <div class="m-3">
-                            <input type="text" name="keterangan" id="keterangan"
-                                value="{{ $hasilInterview->keterangan }}"
-                                class=" @if ($hasilInterview->keterangan == 'Ditolak') bg-danger @endif @if ($hasilInterview->keterangan == 'DiProses') bg-info @endif card bg-success btn btn-block text-white"
-                                readonly>
+                            </p>
+
+                            <form id="deleteForm{{ $hasilInterview->id }}"
+                                action="{{ route('jadwal_interview.deleteHasilInterview', $hasilInterview->id) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn custom-border hover-element mx-3 mb-3 deleteSuratKerapian"
+                                    data-surat-id="{{ $hasilInterview->id }}">Hapus file ?</button>
+                            </form>
                         </div>
-                        <p class="px-3 mt-1 text-bold">Nama File:
-                            <a href="{{ asset('dist/interview/' . $hasilInterview->file_hasil_interview) }}" target="_blank"
-                                class="text-primary">
-                                {{ $hasilInterview->file_hasil_interview }}
-                            </a>
-
-                        </p>
-
-                        <form id="deleteForm{{ $hasilInterview->id }}"
-                            action="{{ route('jadwal_interview.deleteHasilInterview', $hasilInterview->id) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn custom-border hover-element mx-3 mb-3 deleteSuratKerapian"
-                                data-surat-id="{{ $hasilInterview->id }}">Hapus file ?</button>
-                        </form>
+                    @endforeach
+                @else
+                    <div class="m-5 text-center">
+                        <p class="text-bold ">Belum ada data hasil interview</p>
                     </div>
-                @endforeach
+                @endif
+
             </div>
         </div>
     @endif

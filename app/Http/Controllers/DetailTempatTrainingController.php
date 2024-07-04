@@ -66,6 +66,12 @@ class DetailTempatTrainingController extends Controller
 
     }
 
+    public function informasiTempatTraining(  $id){
+        $data_tempat_training = Tempat_Training::findOrFail($id);
+
+        return view('pages.detailPilihanTempatTraining', compact('data_tempat_training'));
+
+    }
 
 
     public function showPilihanTempatTraining(  $id){

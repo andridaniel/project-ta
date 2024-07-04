@@ -82,7 +82,7 @@
                         </form>
                     @endforeach
                 @else
-                    <div class="m-2">
+                    <div class="m-5 mx-auto">
                         <p class="text-bold">Tidak ada laporan monitoring</p>
                     </div>
             @endif

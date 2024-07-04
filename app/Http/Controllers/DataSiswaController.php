@@ -109,7 +109,7 @@ class DataSiswaController extends Controller
         $delete_siswa->delete();
 
         // Redirect kembali ke halaman tabel admin setelah penghapusan.
-        return redirect()->route('data_siswa')->with('success', 'data berhasil dihapus!');
+        return redirect()->route('data_siswa')->with('success', 'Data Siswa Berhasil Dihapus!');
     }
 
 

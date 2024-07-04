@@ -116,12 +116,19 @@
                                                         </form>
                                                     </div>
                                                 </div>
+
+                                                <div class="mt-3">
+                                                    <a href="{{ route('informasiTempatTraining', ['id' => $tempatTraining->id]) }}"
+                                                        class="btn bgcolor text-white btn-block">More Information</a>
+                                                </div>
                                             @endif
 
-                                            <div class="mt-3">
-                                                <a href="{{ route('show', ['id' => $tempatTraining->id]) }}"
-                                                    class="btn bgcolor text-white btn-block">More Information</a>
-                                            </div>
+                                            @if (auth()->user()->role_id == '3')
+                                                <div class="mt-3">
+                                                    <a href="{{ route('show', ['id' => $tempatTraining->id]) }}"
+                                                        class="btn bgcolor text-white btn-block">More Information</a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

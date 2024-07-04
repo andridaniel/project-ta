@@ -129,25 +129,34 @@
                 <div class="card-header bgcolor">
                     <h3 class="text-bold card-title text-light">Laporan Akhir</h3>
                 </div>
-                <form
-                    action="{{ route('TambahLaporanAkhir', ['id_siswa' => $siswa->id, 'id_tempat_training' => $tempat_training->id]) }}"
-                    method="POST" enctype="multipart/form-data">
-                    @csrf
+                @if ($kegiatan_training->isNotEmpty())
+                @else
+                    {{-- <form
+                        action="{{ route('TambahLaporanAkhir', ['id_siswa' => $siswa->id, 'id_tempat_training' => $tempat_training->id]) }}"
+                        method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="m-2">
+                            <div class="m-2">
+                                <input type="file" name="file_laporan_akhir" id="file_laporan_akhir"
+                                    class="form-control">
+                                @error('file_laporan_akhir')
+                                    <div>
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <input type="hidden" name="status" id="status" class="form-control" value="Diproses"
+                                readonly>
+                            <div class="m-2">
+                                <button type="submit" class="btn bg-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </form> --}}
                     <div class="m-2">
-                        <div class="m-2">
-                            <input type="file" name="file_laporan_akhir" id="file_laporan_akhir" class="form-control">
-                            @error('file_laporan_akhir')
-                                <div>
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <input type="hidden" name="status" id="status" class="form-control" value="Diproses" readonly>
-                        <div class="m-2">
-                            <button type="submit" class="btn bg-primary">Simpan</button>
-                        </div>
+                        <p class="text-bold">Laporan Mingguan Belum di terima</p>
                     </div>
-                </form>
+                @endif
+
             </div>
         @endif
 
