@@ -24,6 +24,7 @@ return new class extends Migration
             $table->time('waktu_interview');
             $table->string('gambar')->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

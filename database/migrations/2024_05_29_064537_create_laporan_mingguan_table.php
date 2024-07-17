@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('laporan_mingguan',1000);
             $table->enum('status', ['Diproses', 'Ditolak', 'Diterima'])->default('Diproses');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

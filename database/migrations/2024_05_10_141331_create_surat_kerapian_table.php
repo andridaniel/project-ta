@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_siswa');
             $table->string('file_surat_kerapian')->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

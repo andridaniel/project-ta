@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('file_hasil_interview')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

@@ -5,19 +5,62 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Guru_Pembimbing;
-use App\Models\Surat_kerapian;
+use App\Models\Surat_Kerapian;
+use App\Models\Laporan_Akhir;
+use App\Models\Laporan_Mingguan;
+use App\Models\Hasil_Interview;
+use App\Models\Surat;
+use App\Models\Tempat_Training;
+use App\Models\Pilihan_Tempat_Training;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DataSiswaController extends Controller
 {
     public function index()
     {
 
+        // Dapatkan ID siswa yang memiliki data di tabel `data_pilihan_tempat_training`
+        $idSiswaWithTrainingData = Pilihan_Tempat_Training::select('id_siswa')->pluck('id_siswa')->toArray();
+
+        // Filter siswa yang tidak memiliki data di tabel `data_pilihan_tempat_training`
+        $siswaWithoutTrainingData = Siswa::whereNotIn('id', $idSiswaWithTrainingData)->get();
+
         $data_siswa = Siswa::with(['User', 'User.Role'])->paginate(5);
-        return view('pages.pagesadmin.data_siswa', compact('data_siswa'));
+
+        $idSiswaLaporanAkhir = Laporan_Akhir::select('id_siswa')->pluck('id_siswa')->map(function($item) {
+            return ['id' => $item, 'table' => 'Laporan Akhir'];
+        });
+
+        $idSiswaLaporanMingguan = Laporan_Mingguan::select('id_siswa')->pluck('id_siswa')->map(function($item) {
+            return ['id' => $item, 'table' => 'Laporan Mingguan'];
+        });
+
+        $idSiswaHasilInterview = Hasil_Interview::select('id_siswa')->pluck('id_siswa')->map(function($item) {
+            return ['id' => $item, 'table' => 'Hasil Interview'];
+        });
+
+        $idSiswaSuratKerapian = Surat_Kerapian::select('id_siswa')->pluck('id_siswa')->map(function($item) {
+            return ['id' => $item, 'table' => 'Surat Kerapian'];
+        });
+
+        $idSiswaSuratPengantar = Surat::select('id_siswa')->pluck('id_siswa')->map(function($item) {
+            return ['id' => $item, 'table' => 'Surat Pengantar'];
+        });
+
+              // Menggabungkan semua id_siswa dan menghilangkan duplikat
+              $allIdSiswa = $idSiswaLaporanAkhir
+                  ->merge($idSiswaLaporanMingguan)
+                  ->merge($idSiswaHasilInterview)
+                  ->merge($idSiswaSuratKerapian)
+                  ->merge($idSiswaSuratPengantar)
+                  ->unique('id');
+        return view('pages.pagesadmin.data_siswa', compact('data_siswa','allIdSiswa', 'idSiswaWithTrainingData'));
+
+
 
     }
 
@@ -54,20 +97,35 @@ class DataSiswaController extends Controller
         }
 
 
-        //upload gambar
-        // $gambar = $request->file('gambar_profile');
-        // $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
-        // $path = 'dist/img/' . $fileName;
+        // validate_tgl_lahir
+        $tgl_lahir = $request->input('tgl_lahir');
+        $now = Carbon::now();
+        $birthDate = Carbon::parse($tgl_lahir);
 
-        // file_put_contents($path, file_get_contents($gambar));
+        // Validasi tanggal lahir tidak boleh di masa depan
+        if ($birthDate > $now) {
+            return redirect()->back()->withErrors(['tgl_lahir' => 'Tanggal lahir tidak boleh melebihi tanggal sekarang']);
+        }
+
+        // Validasi umur minimal 15 tahun dan maksimal 19
+        $minAge = 15;
+        $maxAge = 19;
+        $minDate = $now->copy()->subYears($maxAge);
+        $maxDate = $now->copy()->subYears($minAge);
+
+        if ($birthDate > $maxDate) {
+            return redirect()->back()->withErrors(['tgl_lahir' => 'Umur siswa harus minimal 15 tahun.']);
+        }
+
+        if ($birthDate < $minDate) {
+            return redirect()->back()->withErrors(['tgl_lahir' => 'Umur siswa harus maksimal 19 tahun.']);
+        }
+
 
         $validated_input = $validator->validated();
 
         // Menyimpan user_id
         $validated_input['user_id'] = auth()->user()->id;
-
-        // Menyimpan gambar
-        // $validated_input['gambar_profile'] = $fileName;
 
          // Menyimpan guru_pembimbing_id
         $validated_input['guru_pembimbing_id'] = $request->guru_pembimbing_id; // Menggunakan nilai dari form
@@ -100,6 +158,8 @@ class DataSiswaController extends Controller
         if (!$delete_siswa) {
             return redirect()->back()->with('error', 'Record not found');
         }
+
+
 
         // Hapus pengguna terkait
         $user_id = $delete_siswa->user->id; // Dapatkan ID pengguna
@@ -171,6 +231,30 @@ class DataSiswaController extends Controller
             // Handle the case where the record is not found
             return redirect()->back()->with('error', 'Record not found');
         }
+
+          // validate_tgl_lahir
+          $tgl_lahir = $request->input('tgl_lahir');
+          $now = Carbon::now();
+          $birthDate = Carbon::parse($tgl_lahir);
+
+          // Validasi tanggal lahir tidak boleh di masa depan
+          if ($birthDate > $now) {
+              return redirect()->back()->withErrors(['tgl_lahir' => 'Tanggal lahir tidak boleh melebihi tanggal sekarang']);
+          }
+
+          // Validasi umur minimal 15 tahun dan maksimal 19
+          $minAge = 15;
+          $maxAge = 19;
+          $minDate = $now->copy()->subYears($maxAge);
+          $maxDate = $now->copy()->subYears($minAge);
+
+          if ($birthDate > $maxDate) {
+              return redirect()->back()->withErrors(['tgl_lahir' => 'Umur siswa harus minimal 15 tahun.']);
+          }
+
+          if ($birthDate < $minDate) {
+              return redirect()->back()->withErrors(['tgl_lahir' => 'Umur siswa harus maksimal 19 tahun.']);
+          }
 
         // Update the admin's data
         $update_siswa->guru_pembimbing_id = $request->guru_pembimbing_id;

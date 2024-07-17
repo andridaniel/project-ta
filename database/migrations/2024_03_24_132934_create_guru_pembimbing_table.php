@@ -20,8 +20,8 @@ return new class extends Migration
             $table->enum('agama',['hindu','islam','katolik','kristen','buddha','konghucu']);
             $table->string('alamat');
             $table->string('wali_kelas');
-
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hasil_Interview extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'hasil_interview';
 
@@ -22,6 +23,8 @@ class Hasil_Interview extends Model
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
+
+
 
     public function tempatTraining()
     {

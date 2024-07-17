@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('file_laporan_akhir')->nullable();
             $table->enum('status', ['Diproses', 'Ditolak', 'Diterima'])->default('Diproses');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('nama_orangtua');
             $table->string('no_hp_orangtua');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

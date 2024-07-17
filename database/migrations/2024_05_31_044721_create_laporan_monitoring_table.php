@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bulan');
             $table->string('laporan_monitoring',1000)->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

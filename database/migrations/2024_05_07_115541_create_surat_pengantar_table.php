@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_pilihan_tempat_training');
             $table->string('file_surat_pengantar')->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

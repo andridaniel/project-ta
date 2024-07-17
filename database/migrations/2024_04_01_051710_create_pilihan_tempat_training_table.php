@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_tempat_Training');
             $table->foreignId('id_siswa');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

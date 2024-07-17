@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class DataGuruPembimbingController extends Controller
@@ -49,12 +50,30 @@ class DataGuruPembimbingController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        // //upload gambar
-        // $gambar = $request->file('gambar_profile');
-        // $fileName = date('Y.m.d') . $gambar->getClientOriginalName();
-        // $path = 'dist/img/' . $fileName;
+       // validate_tgl_lahir
+       $tgl_lahir = $request->input('tgl_lahir');
+       $now = Carbon::now();
+       $birthDate = Carbon::parse($tgl_lahir);
 
-        // file_put_contents($path, file_get_contents($gambar));
+       // Validasi tanggal lahir tidak boleh di masa depan
+       if ($birthDate > $now) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Tanggal lahir tidak boleh melebihi tanggal sekarang']);
+       }
+
+       // Validasi umur minimal 23 tahun dan maksimal 50
+       $minAge = 23;
+       $maxAge = 50;
+       $minDate = $now->copy()->subYears($maxAge);
+       $maxDate = $now->copy()->subYears($minAge);
+
+       if ($birthDate > $maxDate) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Umur Pembimbing minimal 23 tahun.']);
+       }
+
+       if ($birthDate < $minDate) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Umur Pembimbing maksimal 50 tahun.']);
+       }
+
 
         $validated_input = $validator->validated();
 
@@ -139,6 +158,30 @@ class DataGuruPembimbingController extends Controller
             return redirect()->back()->with('error', 'Record not found');
         }
 
+         // validate_tgl_lahir
+       $tgl_lahir = $request->input('tgl_lahir');
+       $now = Carbon::now();
+       $birthDate = Carbon::parse($tgl_lahir);
+
+       // Validasi tanggal lahir tidak boleh di masa depan
+       if ($birthDate > $now) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Tanggal lahir tidak boleh melebihi tanggal sekarang']);
+       }
+
+       // Validasi umur minimal 23 tahun dan maksimal 50
+       $minAge = 23;
+       $maxAge = 50;
+       $minDate = $now->copy()->subYears($maxAge);
+       $maxDate = $now->copy()->subYears($minAge);
+
+       if ($birthDate > $maxDate) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Umur Pembimbing minimal 23 tahun.']);
+       }
+
+       if ($birthDate < $minDate) {
+           return redirect()->back()->withErrors(['tgl_lahir' => 'Umur Pembimbing maksimal 50 tahun.']);
+       }
+
         // Update the admin's data
         $update_guru_pembimbing->tempat_lahir = $request->tempat_lahir;
         $update_guru_pembimbing->tgl_lahir = $request->tgl_lahir;
@@ -190,7 +233,7 @@ class DataGuruPembimbingController extends Controller
 
             $siswas = Siswa::with(['user', 'hasSuratKerapian'])
             ->where('guru_pembimbing_id', $guru_pembimbing_id)
-            ->paginate(2);
+            ->paginate(5);
 
             $daftar_surat_pengantar_siswa = Siswa::has('hasPilihanTempatTraining')->with([
                 'hasPilihanTempatTraining'
